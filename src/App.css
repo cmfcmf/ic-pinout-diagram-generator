@@ -17,7 +17,7 @@
 }
 
 .divider {
-  height: 4em;
+  height: 8em;
 }
 
 .pin-name {
@@ -27,6 +27,18 @@
 
 td {
   text-align: center;
+  position: relative;
+}
+
+td.empty:before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  border-top: 1px solid black;
+  background: black;
+  width: 100%;
+  transform: translateY(-50%);
 }
 
 table {

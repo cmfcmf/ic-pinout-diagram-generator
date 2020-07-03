@@ -4,6 +4,7 @@ import onecolor from 'onecolor/one-color-all'
 
 const tags = {
   "Pull-up / Pull-down Availability and Maximum Currents": {
+    color: "#FFC869",
     pins: {
       "pull-up":         ["PA7", "PA6", "PA5", "PA4", "PA3", "PA0", "PB7", "PB6", "PB5", "PB4", "PB3", "PB2", "PB1", "PB0", "PC3", "PC2", "PC1", "PC0"],
       "pull-down":       [                                                                      "PB3", "PB2",                             "PC1", "PC0"],
@@ -18,6 +19,7 @@ const tags = {
     }
   },
   "Pins that can be set to VDD/2 (\"VDD/2 LCD Bias Voltage Generator\")": {
+    color: "#E5CDA2",
     pins: {
       "COM3": "PB5",
       "COM4": "PB6",
@@ -101,7 +103,8 @@ const tags = {
 
 const definitions = [
   {
-    "name": "PFS173 6 Pin",
+    "name": "PFS173",
+    "subName": "6 Pin",
     "pinCount": 6,
     "names": [
       "PA4",
@@ -114,7 +117,8 @@ const definitions = [
     tags
   },
   {
-    "name": "PFS173 8 Pin",
+    "name": "PFS173",
+    "subName": "8 Pin",
     "pinCount": 8,
     "names": [
       "VDD",
@@ -129,7 +133,8 @@ const definitions = [
     tags
   },
   {
-    "name": "PFS173 10 Pin",
+    "name": "PFS173",
+    "subName": "10 Pin",
     "pinCount": 10,
     "names": [
       "PB7",
@@ -146,7 +151,8 @@ const definitions = [
     tags
   },
   {
-    "name": "PFS173 14 Pin",
+    "name": "PFS173",
+    "subName": "14 Pin",
     "pinCount": 14,
     "names": [
       "PB5",
@@ -167,7 +173,8 @@ const definitions = [
     tags
   },
   {
-    "name": "PFS173 16 Pin",
+    "name": "PFS173",
+    "subName": "16 Pin",
     "pinCount": 16,
     "names": [
       "PB4",
@@ -190,7 +197,8 @@ const definitions = [
     tags
   },
   {
-    "name": "PFS173 20 Pin",
+    "name": "PFS173",
+    "subName": "20 Pin",
     "pinCount": 20,
     "names": [
       "PB4",
@@ -237,6 +245,15 @@ function nTimes(n) {
 function *reversed(arr) {
   for (let i = arr.length - 1; i >= 0; i--) {
     yield arr[i];
+  }
+}
+
+function findLastIndex(arr, cmp) {
+  let lastIndex = [...reversed(arr)].findIndex(cmp);
+  if (lastIndex === -1) {
+    return lastIndex;
+  } else {
+    return arr.length - lastIndex - 1;
   }
 }
 
@@ -307,21 +324,37 @@ function App() {
             return <React.Fragment key={i}>
                 {nTimes(definition.pinCount / 2).map(i => {
                   const pinLeft = handlePin(definition, i);
+                  let leftFirstTagIndex = pinLeft.tags.findIndex(each => each !== null);
+                  if (leftFirstTagIndex === -1) {
+                    leftFirstTagIndex = Infinity;
+                  }
+
                   const pinRight = handlePin(definition, definition.pinCount - i - 1, false);
+                  let rightLastTagIndex = findLastIndex(pinRight.tags, each => each !== null);
+                  if (rightLastTagIndex === -1) {
+                    rightLastTagIndex = 0;
+                  }
+
                   return <tr key={i}>
-                    {pinLeft.tags.map((tag, i) => tag === null ? <td key={i} /> : <td
-                      key={i}
-                      className="badge"
-                      style={tag.style}>{tag.value}</td>)}
+                    {pinLeft.tags.map((tag, i) => tag === null
+                      ? <td key={i} className={i >= leftFirstTagIndex ? "empty" : ""} />
+                      : <td
+                        key={i}
+                        className="badge"
+                        style={tag.style}>{tag.value}</td>)}
                     <td className="badge pin-name" style={pinLeft.name.style}>{pinLeft.name.value}</td>
                     <td className="pin-number">{pinLeft.number}</td>
 
-                    {i === 0 && <td className="ic" rowSpan={definition.pinCount / 2}>{definition.name}</td>}
+                    {i === 0 && <td className="ic" rowSpan={definition.pinCount / 2}>
+                      {definition.name}
+                      <br />
+                      {definition.subName}
+                    </td>}
 
                     <td className="pin-number">{pinRight.number}</td>
                     <td className="badge pin-name" style={pinRight.name.style}>{pinRight.name.value}</td>
                     {pinRight.tags.map((tag, i) => tag === null
-                      ? <td key={i} />
+                      ? <td key={i} className={i < rightLastTagIndex ? "empty" : ""} />
                       : <td
                         key={i}
                         className="badge"

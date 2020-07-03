@@ -3,15 +3,27 @@ import './App.css';
 import onecolor from 'onecolor/one-color-all'
 
 const tags = {
-  "Pull-up / Pull-down Availability": {
+  "Pull-up / Pull-down Availability and Maximum Currents": {
     pins: {
-      "pull-up": ["PA7", "PA6", "PA5", "PA4", "PA3", "PA0", "PB7", "PB6", "PB5", "PB4", "PB3", "PB2", "PB1", "PB0", "PC3", "PC2", "PC1", "PC0"],
-      "pull-down": [                                                                    "PB3", "PB2",                             "PC1", "PC0"],
+      "pull-up":         ["PA7", "PA6", "PA5", "PA4", "PA3", "PA0", "PB7", "PB6", "PB5", "PB4", "PB3", "PB2", "PB1", "PB0", "PC3", "PC2", "PC1", "PC0"],
+      "pull-down":       [                                                                      "PB3", "PB2",                             "PC1", "PC0"],
+
+      "sink: 10mA":      ["PA7", "PA6", "PA5", "PA4", "PA3", "PA0", "PB7", "PB6",               "PB3", "PB2", "PB1", "PB0",               "PC1",      ],
+      "sink: 30mA":      [                                                                                                  "PC3", "PC2",        "PC0"],
+      "sink: 10mA/40mA": [                                                        "PB5", "PB4",                                                       ],
+
+      "drive: 0mA":      [              "PA5",                                                                                                        ],
+      "drive: 5mA":      ["PA7", "PA6",        "PA4", "PA3", "PA0", "PB7", "PB6",               "PB3", "PB2", "PB1", "PB0", "PC3", "PC2", "PC1", "PC0"],
+      "drive: 5mA/20mA": [                                                        "PB5", "PB4",                                                       ],
     }
   },
-  "Pins that can be set to VDD/2": {
+  "Pins that can be set to VDD/2 (\"VDD/2 LCD Bias Voltage Generator\")": {
     pins: {
-      "VDD/2": ["PB6", "PB5", "PB2", "PB1", "PB0"]
+      "COM3": "PB5",
+      "COM4": "PB6",
+      "COM2": "PB2",
+      "COM1": "PB1",
+      "COM0": "PB0",
     }
   },
   "11 bit PWM Output Pin": {
@@ -51,8 +63,8 @@ const tags = {
   "Comparator Inputs and Output": {
     color: "#BFD366",
     pins: {
-      "COMP +/−": "PA4",
-      "COMP −": ["PA3", "PB7", "PB6"],
+      "COMP +": "PA4",
+      "COMP −": ["PA4", "PA3", "PB7", "PB6"],
       "COMP = ": "PA0"
     }
   },

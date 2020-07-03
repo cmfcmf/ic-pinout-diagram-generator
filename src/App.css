@@ -1,38 +1,40 @@
-.App {
+.ic {
+  background-color: black;
+  color: white;
+  text-align: center;
+  padding: 0.5em;
+}
+
+.pin-number {
+  background-color: #cccccc;
+  width: 1.5em;
+}
+
+.badge {
+  border: 1px solid black;
+  border-radius: 0.25em;
+  padding: 0.125em 0.25em;
+}
+
+.divider {
+  height: 4em;
+}
+
+.pin-name {
+  background: moccasin;
+  color: black;
+}
+
+td {
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+table {
+  border-spacing: 0.25em;
+  border-collapse: separate;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+body {
+  margin: 2em;
+  font-size: 16px;
 }

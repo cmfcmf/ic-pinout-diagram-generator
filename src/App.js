@@ -242,8 +242,8 @@ function handlePin(definition, idx, isLeft = true) {
 
   const tags = [];
 
-  const tagDefs = !isLeft ? Object.entries(definition.tags) : reversed(Object.entries(definition.tags));
-  for (const [name, tag] of tagDefs) {
+  const tagDefs = !isLeft ? Object.values(definition.tags) : reversed(Object.values(definition.tags));
+  for (const tag of tagDefs) {
     const pins = !isLeft ? Object.entries(tag.pins) : reversed(Object.entries(tag.pins));
     const backgroundColor = tag.color ?? "white";
     const fontColor = getContrastColor(backgroundColor);

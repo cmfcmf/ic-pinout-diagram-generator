@@ -1,8 +1,13 @@
+* {
+  box-sizing: border-box;
+}
+
 .ic {
   background-color: black;
   color: white;
   text-align: center;
   padding: 0.5em;
+  border: 4px solid #555;
 }
 
 .pin-number {

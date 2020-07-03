@@ -3,12 +3,16 @@ import './App.css';
 import onecolor from 'onecolor/one-color-all'
 
 const tags = {
-  "Pull-up / Pull-down Availability and Maximum Currents": {
+  "Pull-up / Pull-down Availability": {
     color: "#FFC869",
     pins: {
       "pull-up":         ["PA7", "PA6", "PA5", "PA4", "PA3", "PA0", "PB7", "PB6", "PB5", "PB4", "PB3", "PB2", "PB1", "PB0", "PC3", "PC2", "PC1", "PC0"],
       "pull-down":       [                                                                      "PB3", "PB2",                             "PC1", "PC0"],
-
+    }
+  },
+  "Maximum current": {
+    color: "#FFC869",
+    pins: {
       "sink: 10mA":      ["PA7", "PA6", "PA5", "PA4", "PA3", "PA0", "PB7", "PB6",               "PB3", "PB2", "PB1", "PB0",               "PC1",      ],
       "sink: 30mA":      [                                                                                                  "PC3", "PC2",        "PC0"],
       "sink: 10mA/40mA": [                                                        "PB5", "PB4",                                                       ],
@@ -273,7 +277,7 @@ function handlePin(definition, idx, isLeft = true) {
 
   const tagDefs = !isLeft ? Object.values(definition.tags) : reversed(Object.values(definition.tags));
   for (const tag of tagDefs) {
-    const pins = !isLeft ? Object.entries(tag.pins) : reversed(Object.entries(tag.pins));
+    const pins = Object.entries(tag.pins);
     const backgroundColor = tag.color ?? "white";
     const fontColor = getContrastColor(backgroundColor);
 

@@ -3,13 +3,13 @@ import './App.css';
 import onecolor from 'onecolor/one-color-all'
 
 const tags = {
-  "Pull-ups and Pull-downs": {
+  "Pull-up / Pull-down Availability": {
     pins: {
       "pull-up": ["PA7", "PA6", "PA5", "PA4", "PA3", "PA0", "PB7", "PB6", "PB5", "PB4", "PB3", "PB2", "PB1", "PB0", "PC3", "PC2", "PC1", "PC0"],
       "pull-down": [                                                                    "PB3", "PB2",                             "PC1", "PC0"],
     }
   },
-  "Pin can be set to VDD/2": {
+  "Pins that can be set to VDD/2": {
     pins: {
       "VDD/2": ["PB6", "PB5", "PB2", "PB1", "PB0"]
     }
@@ -17,9 +17,9 @@ const tags = {
   "11 bit PWM Output Pin": {
     color: "#26B9E4",
     pins: {
-      "PWM2": ["PA5",        "PA3",                      "PB5",        "PB3", "PB2",               "PC0"],
-      "PWM1": [       "PA4",               "PB7", "PB6",                             "PC3"],
-      "PWM0": [                     "PA0",        "PB6", "PB5", "PB4",                      "PC2"],
+      PWM2: ["PA5",        "PA3",                      "PB5",        "PB3", "PB2",               "PC0"],
+      PWM1: [       "PA4",               "PB7", "PB6",                             "PC3"],
+      PWM0: [                     "PA0",        "PB6", "PB5", "PB4",                      "PC2"],
     }
   },
   "Timer PWM Output Pin": {
@@ -56,33 +56,33 @@ const tags = {
       "COMP = ": "PA0"
     }
   },
-  "External Interrupts": {
+  "External Interrupt": {
     color: "#FF9D07",
     pins: {
-      "INT1": ["PA4", "PB0"],
-      "INT0": ["PA0", "PB5"]
+      INT1: ["PA4", "PB0"],
+      INT0: ["PA0", "PB5"]
     }
   },
-  "Timer Clock Sources": {
+  "Timer Clock Source": {
     color: "#F4D620",
     pins: {
-      "CLK1": ["PA0",        "PA4"],
-      "CLK2": ["PA0", "PB0", "PA4"],
-      "CLK3": ["PA0", "PB0", "PA4"],
+      "T1 CLK": ["PA0",        "PA4"],
+      "T2 CLK": ["PA0", "PB0", "PA4"],
+      "T3 CLK": ["PA0", "PB0", "PA4"],
     }
   },
-  "External Crystal Pins": {
-    "color": "#F4D620",
-    "pins": {
+  "External Crystal Pin": {
+    color: "#F4D620",
+    pins: {
       XTAL1: "PA7",
       XTAL2: "PA6"
     }
   },
-  "Programming Pins": {
-    "pins": {
-      "ICPCK": "PA3",
-      "ICPDA": "PA6",
-      "RESET": "PA5"
+  "Programming Pin": {
+    pins: {
+      ICPCK: "PA3",
+      ICPDA: "PA6",
+      RESET: "PA5"
     }
   }
 };

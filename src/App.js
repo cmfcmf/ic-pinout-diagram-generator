@@ -81,17 +81,12 @@ const tags = {
       INT0: ["PA0", "PB5"]
     }
   },
-  "Timer Clock Source": {
+  "External Crystal Pins and Timer Clock Source": {
     color: "#F4D620",
     pins: {
       "T1 CLK": ["PA0",        "PA4"],
       "T2 CLK": ["PA0", "PB0", "PA4"],
       "T3 CLK": ["PA0", "PB0", "PA4"],
-    }
-  },
-  "External Crystal Pin": {
-    color: "#F4D620",
-    pins: {
       XTAL1: "PA7",
       XTAL2: "PA6"
     }

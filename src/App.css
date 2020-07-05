@@ -54,7 +54,7 @@ td.empty:before {
 table {
   border-spacing: 0.25em;
   border-collapse: separate;
-  margin: 0 auto;
+  /* margin: 0 auto; This breaks the download buttons */
 }
 
 body {

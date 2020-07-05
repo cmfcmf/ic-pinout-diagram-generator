@@ -1,13 +1,18 @@
 import React from "react";
 import { getContrastColor, reversed, nTimes, findLastIndex } from "./util";
 import { SettingsContext } from "./Settings";
+import domtoimage from 'dom-to-image';
+import { saveAs } from 'file-saver';
 
-function handlePin(chip, variant, idx, isLeft, alignData) {
+function handlePin(chip, variant, idx, isLeft, alignData, visibleData) {
   const pinName = variant.pins[idx];
 
   let functions = [];
-  const data = !isLeft ? Object.values(chip.data) : reversed(Object.values(chip.data));
-  for (const entry of data) {
+  const data = !isLeft ? Object.entries(chip.data) : reversed(Object.entries(chip.data));
+  for (const [dataName, entry] of data) {
+    if (!visibleData.includes(dataName)) {
+      continue;
+    }
     const pins = Object.entries(entry.pins);
     const backgroundColor = entry.color ?? "white";
     const fontColor = getContrastColor(backgroundColor);
@@ -39,15 +44,6 @@ function handlePin(chip, variant, idx, isLeft, alignData) {
     }
   }
 
-  /*if (!alignData) {
-    const gaps = functions.filter(f => f === null);
-    if (isLeft) {
-      functions = [...gaps, ...functions.filter(f => f !== null)];
-    } else {
-      functions = [...functions.filter(f => f !== null), ...gaps];
-    }
-  }*/
-
   const nameStyle = {};
   if (["VCC", "VDD"].includes(pinName)) {
     nameStyle.background = "red";
@@ -68,86 +64,123 @@ function handlePin(chip, variant, idx, isLeft, alignData) {
 }
 
 export function Chip({ chip }) {
-  const { settings: { alignData }} = React.useContext(SettingsContext);
+  const [visibleData, setVisibleData] = React.useState(Object.keys(chip.data));
+  const { settings: { fontSize } } = React.useContext(SettingsContext);
 
   return <>
-    <h1>{chip.name} <small>({chip.variants.length} variants)</small></h1>
-    <table>
-      <tbody>
-        {chip.variants.map((variant, i) => {
-          console.assert(variant.pins.length % 2 === 0);
+    <h2>{chip.name} <small>({chip.variants.length} variants)</small></h2>
+    <Legend chip={chip} visibleData={visibleData} setVisibleData={setVisibleData} />
+    <div style={{ fontSize: fontSize }}>
+      {chip.variants.map((variant, i) => <Variant key={i} chip={chip} variant={variant} visibleData={visibleData} />)}
+    </div>
+  </>;
+}
 
-          return <React.Fragment key={i}>
-            {nTimes(variant.pins.length / 2).map(i => {
-              const pinLeft = handlePin(chip, variant, i, true, alignData);
-              let leftFirstTagIndex = pinLeft.tags.findIndex(each => each !== null);
-              if (leftFirstTagIndex === -1) {
-                leftFirstTagIndex = Infinity;
-              }
-
-              const pinRight = handlePin(chip, variant, variant.pins.length - i - 1, false, alignData);
-              let rightLastTagIndex = findLastIndex(pinRight.tags, each => each !== null);
-              if (rightLastTagIndex === -1) {
-                rightLastTagIndex = 0;
-              }
-
-              return <tr key={i}>
-                {alignData
-                  ? <>
-                      {pinLeft.tags.map((tag, i) => tag === null
-                      ? <td key={i} className={i >= leftFirstTagIndex ? "empty" : ""} />
-                      : <td
-                        key={i}
-                        className="badge"
-                        style={tag.style}>{tag.value}</td>)}
-                      <td className="badge pin-name" style={pinLeft.name.style}>{pinLeft.name.value}</td>
-                    </>
-                  : <td style={{textAlign: 'right'}}>
-                    {pinLeft.tags.filter(tag => tag !== null).map((tag, i) =>
-                      <div
-                        key={i}
-                        className="badge"
-                        style={tag.style}>{tag.value}</div>)}
-                    </td>}
-
-                <td className="pin-number">{pinLeft.number}</td>
-                {i === 0 && <td className="ic" rowSpan={variant.pins.length / 2}>
-                  {chip.name}
-                  <br />
-                  {variant.name}
-                </td>}
-                <td className="pin-number">{pinRight.number}</td>
-
-                {alignData
-                  ? <>
-                      <td className="badge pin-name" style={pinRight.name.style}>{pinRight.name.value}</td>
-                      {pinRight.tags.map((tag, i) => tag === null
-                        ? <td key={i} className={i < rightLastTagIndex ? "empty" : ""} />
-                        : <td
-                          key={i}
-                          className="badge"
-                          style={tag.style}>{tag.value}</td>)}
-                    </>
-                  : <td style={{textAlign: 'left'}}>
-                    {pinRight.tags.filter(tag => tag !== null).map((tag, i) =>
-                      <div
-                        key={i}
-                        className="badge"
-                        style={tag.style}>{tag.value}</div>)}
-                    </td>
-                }
-              </tr>;
-            })}
-            <tr className="divider"></tr>
-          </React.Fragment>;
-        })}
-      </tbody>
-    </table>
-    {Object.entries(chip.data).map(([name, { color }]) => <p key={name} className="badge" style={{
+function Legend({ chip, visibleData, setVisibleData }) {
+  return <>
+    {Object.entries(chip.data).map(([name, { color }]) => <label key={name} className="badge" style={{
       color: getContrastColor(color),
       background: color,
     }}>
+      <input type="checkbox" value="1" checked={visibleData.includes(name)} onChange={evt => {
+        if (evt.target.checked) {
+          setVisibleData(visibleData => [...visibleData, name]);
+        } else {
+          setVisibleData(visibleData => visibleData.filter(each => each !== name));
+        }
+      }} />
       {name}
-    </p>)}
+    </label>)}
+    <br />
+    <br />
+  </>;
+}
+
+function Variant({ chip, variant, visibleData }) {
+  console.assert(variant.pins.length % 2 === 0);
+
+  const { settings: { alignData } } = React.useContext(SettingsContext);
+  const ref = React.useRef(null);
+  return <>
+    <table ref={ref}>
+      <tbody>
+        {nTimes(variant.pins.length / 2).map(i => {
+          const pinLeft = handlePin(chip, variant, i, true, alignData, visibleData);
+          let leftFirstTagIndex = pinLeft.tags.findIndex(each => each !== null);
+          if (leftFirstTagIndex === -1) {
+            leftFirstTagIndex = Infinity;
+          }
+
+          const pinRight = handlePin(chip, variant, variant.pins.length - i - 1, false, alignData, visibleData);
+          let rightLastTagIndex = findLastIndex(pinRight.tags, each => each !== null);
+          if (rightLastTagIndex === -1) {
+            rightLastTagIndex = 0;
+          }
+
+          return <tr key={i}>
+            {alignData
+              ? <>
+                {pinLeft.tags.map((tag, i) => tag === null
+                  ? <td key={i} className={i >= leftFirstTagIndex ? "empty" : ""} />
+                  : <td
+                    key={i}
+                    className="badge"
+                    style={tag.style}>{tag.value}</td>)}
+              </>
+              : <td style={{ textAlign: 'right' }}>
+                <div className="dense">
+                  {pinLeft.tags.filter(tag => tag !== null).map((tag, i) =>
+                    <div
+                      key={i}
+                      className="badge"
+                      style={tag.style}>{tag.value}</div>)}
+                </div>
+              </td>}
+
+            <td className="badge pin-name" style={pinLeft.name.style}>{pinLeft.name.value}</td>
+            <td className="pin-number">{pinLeft.number}</td>
+            {i === 0 && <td className="ic" rowSpan={variant.pins.length / 2}>
+              {chip.name}
+              <br />
+              {variant.name}
+            </td>}
+            <td className="pin-number">{pinRight.number}</td>
+            <td className="badge pin-name" style={pinRight.name.style}>{pinRight.name.value}</td>
+
+            {alignData
+              ? <>
+                {pinRight.tags.map((tag, i) => tag === null
+                  ? <td key={i} className={i < rightLastTagIndex ? "empty" : ""} />
+                  : <td
+                    key={i}
+                    className="badge"
+                    style={tag.style}>{tag.value}</td>)}
+              </>
+              : <td style={{ textAlign: 'left' }}>
+                <div className="dense">
+                  {pinRight.tags.filter(tag => tag !== null).map((tag, i) =>
+                    <div
+                      key={i}
+                      className="badge"
+                      style={tag.style}>{tag.value}</div>)}
+                </div>
+              </td>
+            }
+          </tr>;
+        })}
+      </tbody>
+    </table>
+    <div style={{ textAlign: 'center', marginTop: '1em', marginBottom: '5em' }}>
+      <button onClick={e => {
+        domtoimage.toPng(ref.current)
+          .then(function (blob) {
+            saveAs(blob, `${chip.name} ${variant.name}.png`);
+          })
+          .catch(function (error) {
+            console.error(error);
+            alert('Something went wrong :(')
+          });
+      }}>download as image</button>
+    </div>
   </>;
 }

@@ -7,7 +7,9 @@ import { Settings, SettingsContext } from "./Settings";
 
 function App() {
   const [settings, setSettings] = React.useState({
-    alignData: true
+    alignData: true,
+    fontSize: 12,
+    chips: chips
   });
 
   const ctx = {
@@ -17,8 +19,9 @@ function App() {
 
   return (
     <SettingsContext.Provider value={ctx}>
+      <h1>IC Pinout Diagram Generator</h1>
       <Settings />
-      {chips.map((chip, i) => <Chip key={i} chip={chip} />)}
+      {settings.chips.map((chip, i) => <Chip key={i} chip={chip} />)}
     </SettingsContext.Provider>
   );
 }

@@ -124,7 +124,7 @@ const chips = [
           INT0: ["PA0", "PB5"]
         }
       },
-      "External Crystal Pins and Timer Clock Source": {
+      "External Crystal Pins and Timer Clock Sources": {
         color: "#F4D620",
         pins: {
           "T1 CLK": ["PA0",        "PA4"],
@@ -134,7 +134,7 @@ const chips = [
           XTAL2: "PA6"
         }
       },
-      "Programming Pin": {
+      "Programming Pins": {
         pins: {
           ICPCK: "PA3",
           ICPDA: "PA6",

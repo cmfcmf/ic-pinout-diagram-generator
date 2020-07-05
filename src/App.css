@@ -16,18 +16,18 @@
 }
 
 .badge {
-  border: 1px solid black;
+  border: 1px solid rgba(0.33, 0.33, 0.33, 0.2);
   border-radius: 0.25em;
   padding: 0.125em 0.25em;
 }
 
-div.badge {
-  display: inline-block;
-  margin: 0 0.125em;
+div.dense {
+    margin: -0.125em;
 }
 
-.divider {
-  height: 8em;
+div.badge, label.badge {
+  display: inline-block;
+  margin: 0.125em 0.125em;
 }
 
 .pin-name {
@@ -54,9 +54,9 @@ td.empty:before {
 table {
   border-spacing: 0.25em;
   border-collapse: separate;
+  margin: 0 auto;
 }
 
 body {
   margin: 2em;
-  font-size: 16px;
 }

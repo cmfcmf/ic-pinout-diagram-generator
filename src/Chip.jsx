@@ -65,13 +65,19 @@ function handlePin(chip, variant, idx, isLeft, alignData, visibleData) {
 
 export function Chip({ chip }) {
   const [visibleData, setVisibleData] = React.useState(Object.keys(chip.data));
-  const { settings: { fontSize } } = React.useContext(SettingsContext);
+  const { settings: { fontSize, selectedChip, embed } } = React.useContext(SettingsContext);
+
+  let variants = chip.variants;
+  if (selectedChip?.variant) {
+    variants = variants.filter(variant => variant.name === selectedChip?.variant);
+  }
 
   return <>
-    <h2>{chip.name} <small>({chip.variants.length} variants)</small></h2>
+    {!embed && <h2>{chip.name} <small>({variants.length} variants)</small></h2>}
     <Legend chip={chip} visibleData={visibleData} setVisibleData={setVisibleData} />
     <div style={{ fontSize: fontSize }}>
-      {chip.variants.map((variant, i) => <Variant key={i} chip={chip} variant={variant} visibleData={visibleData} />)}
+      {variants.map((variant, i) =>
+        <Variant key={i} chip={chip} variant={variant} visibleData={visibleData} marginBottom={i < variants.length - 1} />)}
     </div>
   </>;
 }
@@ -96,7 +102,7 @@ function Legend({ chip, visibleData, setVisibleData }) {
   </>;
 }
 
-function Variant({ chip, variant, visibleData }) {
+function Variant({ chip, variant, visibleData, marginBottom }) {
   console.assert(variant.pins.length % 2 === 0);
 
   const { settings: { alignData } } = React.useContext(SettingsContext);
@@ -170,7 +176,7 @@ function Variant({ chip, variant, visibleData }) {
         })}
       </tbody>
     </table>
-    <div style={{ textAlign: 'center', marginTop: '1em', marginBottom: '5em' }}>
+    <div style={{ textAlign: 'center', marginTop: '1em'}}>
       <button onClick={e => {
         domtoimage.toPng(ref.current)
           .then(function (blob) {
@@ -182,5 +188,6 @@ function Variant({ chip, variant, visibleData }) {
           });
       }}>download as image</button>
     </div>
+    {marginBottom && <div style={{ marginBottom: '5em' }} />}
   </>;
 }

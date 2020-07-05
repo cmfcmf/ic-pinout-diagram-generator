@@ -23,15 +23,6 @@ export function Settings() {
           return setSettings(settings => ({ ...settings, fontSize }));
         }} />
     </label>
-    <br />
-    <label>
-        Edit data{" "}
-        <textarea rows={40} value={JSON.stringify(settings.chips, null, "  ")}
-          onChange={(evt) => {
-            const chips = JSON.parse(evt.target.value);
-            return setSettings(settings => ({ ...settings, chips }));
-          }} />
-    </label>
     <p>
       You can add support for your own chips by editing{" "}
       <a href="https://github.com/cmfcmf/ic-pinout-diagram-generator/blob/master/src/chips.js">src/chips.js</a>.

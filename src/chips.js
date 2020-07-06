@@ -40,13 +40,13 @@ const chips = [
       },
     ],
     data: {
-      "Pins with Pull-up / Pull-Down": {
+      "Pins with Internal Pull-up/Pull-Down": {
         color: "#FFC869",
         pins: {
           "pull-up": ["PA7", "PA6", "PA5", "PA4", "PA3", "PA0", "PB7", "PB6", "PB5", "PB4", "PB3", "PB2", "PB1", "PB0"],
         }
       },
-      "Maximum Sink/Drive Current": {
+      "Maximum Pin Sink/Drive Current": {
         color: "#FFC869",
         pins: {
           "sink: ?": ["PA7", "PA6", "PA5", "PA4", "PA3", "PA0", "PB7", "PB6", "PB5", "PB4", "PB3", "PB2", "PB1", "PB0"],
@@ -78,7 +78,7 @@ const chips = [
           "T3 PWM": ["PB7", "PB6", "PB5"],
         }
       },
-      "Comparator Inputs and Output": {
+      "Comparator Input/Output Pins": {
         color: "#BFD366",
         pins: {
           "COMP +": "PA4",
@@ -93,7 +93,7 @@ const chips = [
           INT0: ["PA0"]
         }
       },
-      "External Crystal Pins and Timer Clock Sources": {
+      "External Crystal / Timer Clock Source Pins": {
         color: "#F4D620",
         pins: {
           "T1 CLK": ["PA0",        "PA4"],
@@ -152,14 +152,14 @@ const chips = [
       },
     ],
     data: {
-      "Pins with Pull-up / Pull-Down": {
+      "Pins with Internal Pull-up/Pull-Down": {
         color: "#FFC869",
         pins: {
           "pull-up":   ["PA7", "PA6", "PA5", "PA4", "PA3", "PA0", "PB7", "PB6", "PB5", "PB4", "PB3", "PB2", "PB1", "PB0"],
           "pull-down": ["PA7", "PA6", "PA5", "PA4", "PA3", "PA0", "PB7", "PB6", "PB5", "PB4", "PB3", "PB2", "PB1", "PB0"],
         }
       },
-      "Maximum Sink/Drive Current": {
+      "Maximum Pin Sink/Drive Current": {
         color: "#FFC869",
         pins: {
           "sink: 22mA":       ["PA7", "PA6", "PA5", "PA4", "PA3", "PA0",        "PB6", "PB5",        "PB3", "PB2", "PB1", "PB0"],
@@ -193,7 +193,7 @@ const chips = [
           ADC10: "PA0",
         }
       },
-      "Comparator Inputs and Output": {
+      "Comparator Input/Output Pins": {
         color: "#BFD366",
         pins: {
           "COMP +": "PA4",
@@ -208,7 +208,7 @@ const chips = [
           INT0: ["PA0", "PB5"]
         }
       },
-      "External Crystal Pins and Timer Clock Sources": {
+      "External Crystal / Timer Clock Source Pins": {
         color: "#F4D620",
         pins: {
           "T1 CLK": ["PA0",        "PA4"],
@@ -274,14 +274,14 @@ const chips = [
       }
     ],
     data: {
-      "Pins with Pull-up / Pull-Down": {
+      "Pins with Internal Pull-up/Pull-Down": {
         color: "#FFC869",
         pins: {
           "pull-up":         ["PA7", "PA6", "PA5", "PA4", "PA3", "PA0", "PB7", "PB6", "PB5", "PB4", "PB3", "PB2", "PB1", "PB0", "PC3", "PC2", "PC1", "PC0"],
           "pull-down":       [                                                                      "PB3", "PB2",                             "PC1", "PC0"],
         }
       },
-      "Maximum Sink/Drive Current": {
+      "Maximum Pin Sink/Drive Current": {
         color: "#FFC869",
         pins: {
           "sink: 10mA":      ["PA7", "PA6", "PA5", "PA4", "PA3", "PA0", "PB7", "PB6",               "PB3", "PB2", "PB1", "PB0",               "PC1",      ],
@@ -337,7 +337,7 @@ const chips = [
           AREF: "PB1"
         }
       },
-      "Comparator Inputs and Output": {
+      "Comparator Input/Output Pins": {
         color: "#BFD366",
         pins: {
           "COMP +": "PA4",
@@ -352,7 +352,7 @@ const chips = [
           INT0: ["PA0", "PB5"]
         }
       },
-      "External Crystal Pins and Timer Clock Sources": {
+      "External Crystal / Timer Clock Source Pins": {
         color: "#F4D620",
         pins: {
           "T1 CLK": ["PA0",        "PA4"],

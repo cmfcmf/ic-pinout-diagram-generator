@@ -45,7 +45,7 @@ function App() {
     <SettingsContext.Provider value={ctx}>
       {!settings.embed && <h1>IC Pinout Diagram Generator</h1>}
       <Settings />
-      {chips.map((chip, i) => <Chip key={i} chip={chip} />)}
+      {chips.map((chip) => <Chip key={chip.name} chip={chip} />)}
     </SettingsContext.Provider>
   );
 }

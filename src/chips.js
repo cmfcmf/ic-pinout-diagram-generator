@@ -482,7 +482,7 @@ const chips = [
     }
   },
   {
-    name: "PMS15A",
+    name: "PMS150C",
     variants: [
       {
         name: "6 Pin",
@@ -556,9 +556,9 @@ const chips = [
 ];
 
 chips.push({
-  // PMS150C and PMS15A are identical.
-  ...chips.find(chip => chip.name === "PMS15A"),
-  name: "PMS150C",
+  // PMS150C and PMS15A are identical except for their ROM size.
+  ...chips.find(chip => chip.name === "PMS150C"),
+  name: "PMS15A",
 })
 
 export default chips;

@@ -107,7 +107,8 @@ const chips = [
         pins: {
           ICPCK: "PA3",
           ICPDA: "PA6",
-          RESET: "PA5"
+          ICVPP: "PA5",
+          ICVDD: "VDD"
         }
       }
     }
@@ -222,7 +223,8 @@ const chips = [
         pins: {
           ICPCK: "PA3",
           ICPDA: "PA6",
-          RESET: "PA5"
+          ICVPP: "PA5",
+          ICVDD: "VDD"
         }
       }
     }
@@ -366,7 +368,8 @@ const chips = [
         pins: {
           ICPCK: "PA3",
           ICPDA: "PA6",
-          RESET: "PA5"
+          ICVPP: "PA5",
+          ICVDD: "VDD"
         }
       }
     }

@@ -551,80 +551,14 @@ const chips = [
           ICVDD: "VDD",
         }
       }
-    }    
+    }
   },
-  {
-    name: "PMS150C",
-    variants: [
-      {
-        name: "6 Pin",
-        pins: [
-          "PA4", "GND", "PA6",
-          "PA5", "VDD", "PA3"
-        ]
-      },
-      {
-        name: "8 Pin",
-        pins: [
-          "VDD", "PA7", "PA6", "PA5",
-          "PA3", "PA4", "PA0", "GND",
-        ]
-      },
-    ],
-    data: {
-      "Pins with Internal Pull-up/Pull-down": {
-        color: "#FFC869",
-        pins: {
-          "pull-up": ["PA7", "PA6", "PA5", "PA4", "PA3", "PA0"],
-        }
-      },
-      "Maximum Sink/Drive Current": {
-        color: "#FFC869",
-        pins: {
-          "sink: 6mA/26.5mA":  [              "PA5",                    ],
-          "sink: 5mA/14.5mA":  ["PA7", "PA6",        "PA4", "PA3", "PA0"],
-
-          "drive: 0mA":        [              "PA5",                    ],
-          "drive: 3.5mA/12mA": ["PA7", "PA6",        "PA4", "PA3", "PA0"],
-        }
-      },
-      "Timer PWM Output Pins": {
-        color: "#67CEEC",
-        pins: {
-          "T2 PWM": ["PA4", "PA3"],
-        }
-      },
-      "Comparator Input/Output Pins": {
-        color: "#BFD366",
-        pins: {
-          "COMP +": "PA4",
-          "COMP −": ["PA4", "PA3", "PA7", "PA6"],
-          "COMP = ": "PA0"
-        }
-      },
-      "External Interrupt Pins": {
-        color: "#FF9D07",
-        pins: {
-          INT0: ["PA0"],
-        }
-      },
-      "Timer Clock Source Pins": {
-        color: "#F4D620",
-        pins: {
-          "T16 CLK": ["PA4", "PA0"],
-          "T2 CLK":  ["PA4", "PA0"],
-        }
-      },
-      "Programming Pins": {
-        pins: {
-          ICPCK: "PA3",
-          ICPDA: "PA6",
-          ICVPP: "PA5",
-          ICVDD: "VDD",
-        }
-      }
-    }    
-  }
 ];
+
+chips.push({
+  // PMS150C and PMS15A are identical.
+  ...chips.find(chip => chip.name === "PMS15A"),
+  name: "PMS150C",
+})
 
 export default chips;

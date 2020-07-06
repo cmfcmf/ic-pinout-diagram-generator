@@ -1,5 +1,117 @@
 const chips = [
   {
+    name: "PFS154",
+    variants: [
+      {
+        name: "6 Pin",
+        pins: [
+          "PA4", "GND", "PA5",
+          "PA6", "VDD", "PA3"
+        ]
+      },
+      {
+        name: "8 Pin",
+        pins: [
+          "VDD", "PA7", "PA6", "PA5",
+          "PA3", "PA4", "PA0", "GND",
+        ]
+      },
+      {
+        name: "10 Pin",
+        pins: [
+          "PB7", "VDD", "PA7", "PA6", "PA5",
+          "PA3", "PA4", "PA0", "GND", "PB0",
+        ]
+      },
+      {
+        name: "14 Pin",
+        pins: [
+          "PB5", "PB6", "PB7", "VDD", "PA7", "PA6", "PA5",
+          "PA3", "PA4", "PA0", "GND", "PB0", "PB1", "PB2",
+        ]
+      },
+      {
+        name: "16 Pin",
+        pins: [
+          "PB4", "PB5", "PB6", "PB7", "VDD", "PA7", "PA6", "PA5",
+          "PA3", "PA4", "PA0", "GND", "PB0", "PB1", "PB2", "PB3"
+        ]
+      },
+    ],
+    data: {
+      "Pull-up / Pull-down Availability": {
+        color: "#FFC869",
+        pins: {
+          "pull-up": ["PA7", "PA6", "PA5", "PA4", "PA3", "PA0", "PB7", "PB6", "PB5", "PB4", "PB3", "PB2", "PB1", "PB0"],
+        }
+      },
+      "Maximum current": {
+        color: "#FFC869",
+        pins: {
+          "sink: ?": ["PA7", "PA6", "PA5", "PA4", "PA3", "PA0", "PB7", "PB6", "PB5", "PB4", "PB3", "PB2", "PB1", "PB0"],
+          "drive: ?": ["PA7", "PA6", "PA5", "PA4", "PA3", "PA0", "PB7", "PB6", "PB5", "PB4", "PB3", "PB2", "PB1", "PB0"]
+          // TODO: I don't understand the datasheet.
+        }
+      },
+      "Pins that can be set to VDD/2 (\"VDD/2 LCD Bias Voltage Generator\")": {
+        color: "#E5CDA2",
+        pins: {
+          "COM3": "PA4",
+          "COM4": "PA3",
+          "COM2": "PA0",
+          "COM1": "PB0",
+        }
+      },
+      "11 bit PWM Output Pin": {
+        color: "#26B9E4",
+        pins: {
+          PWM2: ["PA5", "PA4", "PA3", "PB3", "PB2"],
+          PWM1: ["PB7", "PB6"],
+          PWM0: ["PA0", "PB5", "PB4"],
+        }
+      },
+      "Timer PWM Output Pin": {
+        color: "#67CEEC",
+        pins: {
+          "T2 PWM": ["PA3", "PB4", "PB2"],
+          "T3 PWM": ["PB7", "PB6", "PB5"],
+        }
+      },
+      "Comparator Inputs and Output": {
+        color: "#BFD366",
+        pins: {
+          "COMP +": "PA4",
+          "COMP −": ["PA4", "PA3", "PB7", "PB6"],
+          "COMP = ": "PA0"
+        }
+      },
+      "External Interrupt": {
+        color: "#FF9D07",
+        pins: {
+          INT1: ["PB0"],
+          INT0: ["PA0"]
+        }
+      },
+      "External Crystal Pins and Timer Clock Sources": {
+        color: "#F4D620",
+        pins: {
+          "T1 CLK": ["PA0",        "PA4"],
+          "T2 CLK": ["PA0", "PB0", "PA4"],
+          "T3 CLK": ["PA0", "PB0", "PA4"],
+          XTAL1: "PA7",
+          XTAL2: "PA6"
+        }
+      },
+      "Programming Pins": {
+        pins: {
+          ICPCK: "PA3",
+          ICPDA: "PA6",
+          RESET: "PA5"
+        }
+      }
+    }
+  },
+  {
     name: "PFS172",
     variants: [
       {
@@ -155,8 +267,8 @@ const chips = [
       {
         name: "20 Pin",
         pins: [
-          "PB4", "PB5", "PB6", "PB7", "PC2", "VDD", "PC3", "PA7", "PA6",
-          "PA5", "PA3", "PA4", "PA0", "PC0", "GND", "PC1", "PB0", "PB1", "PB2", "PB3",
+          "PB4", "PB5", "PB6", "PB7", "PC2", "VDD", "PC3", "PA7", "PA6", "PA5",
+          "PA3", "PA4", "PA0", "PC0", "GND", "PC1", "PB0", "PB1", "PB2", "PB3",
         ],
       }
     ],

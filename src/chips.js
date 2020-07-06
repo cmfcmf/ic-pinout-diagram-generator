@@ -1,7 +1,6 @@
 const chips = [
   {
     name: "PFS154",
-    notes: "Maximum sink and drive currents are missing, because I don't really understand the datasheet.",
     variants: [
       {
         name: "6 Pin",
@@ -49,9 +48,12 @@ const chips = [
       "Maximum current": {
         color: "#FFC869",
         pins: {
-          "sink: ?": ["PA7", "PA6", "PA5", "PA4", "PA3", "PA0", "PB7", "PB6", "PB5", "PB4", "PB3", "PB2", "PB1", "PB0"],
-          "drive: ?": ["PA7", "PA6", "PA5", "PA4", "PA3", "PA0", "PB7", "PB6", "PB5", "PB4", "PB3", "PB2", "PB1", "PB0"]
-          // TODO: I don't understand the datasheet.
+          "sink: 5mA":        [              "PA5"                                                                             ],
+          "sink: 2mA/6mA":    ["PA7", "PA6",                             "PB7",               "PB4", "PB3",        "PB1"       ],
+          "sink: 2mA/10mA":   [                     "PA4", "PA3", "PA0",        "PB6", "PB5",               "PB2",        "PB0"],
+
+          "drive: 0mA":      [              "PA5",                                                                             ],
+          "drive: 1.6mA/5mA": ["PA7", "PA6",        "PA4", "PA3", "PA0", "PB7", "PB6", "PB5", "PB4", "PB3", "PB2", "PB1", "PB0"],
         }
       },
       "Pins that can be set to VDD/2 (\"VDD/2 LCD Bias Voltage Generator\")": {

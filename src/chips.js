@@ -458,10 +458,8 @@ const chips = [
       "External Interrupt Pins": {
         color: "#FF9D07",
         pins: {
-          INT1: ["PB0"],
-          INT0: ["PA0"],
-          Alt INT1: ["PA4"],
-          Alt INT0: ["PB5"],
+          INT1: ["PB0", "PA4"],
+          INT0: ["PA0", "PB5"],
         }
       },
       "External Crystal / Timer Clock Source Pins": {
@@ -481,7 +479,7 @@ const chips = [
           ICVDD: "VDD",
         }
       }
-    }    
+    }
   }
 ];
 

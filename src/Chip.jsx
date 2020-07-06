@@ -4,7 +4,7 @@ import { SettingsContext } from "./Settings";
 import domtoimage from 'dom-to-image';
 import { saveAs } from 'file-saver';
 
-function handlePin(chip, variant, idx, isLeft, alignData, visibleData) {
+function handlePin(chip, variant, idx, isLeft, visibleData) {
   const pinName = variant.pins[idx];
 
   let functions = [];
@@ -73,7 +73,8 @@ export function Chip({ chip }) {
   }
 
   return <>
-    {!embed && <h2>{chip.name} <small>({variants.length} variants)</small></h2>}
+    {!embed && <h2 id={`IC-${chip.name}`}>{chip.name} <small>({variants.length} variants)</small></h2>}
+    {chip.notes && <p>{chip.notes}</p>}
     <Legend chip={chip} visibleData={visibleData} setVisibleData={setVisibleData} />
     <div style={{ fontSize: fontSize }}>
       {variants.map((variant, i) =>
@@ -111,13 +112,13 @@ function Variant({ chip, variant, visibleData, marginBottom }) {
     <table ref={ref}>
       <tbody>
         {nTimes(variant.pins.length / 2).map(i => {
-          const pinLeft = handlePin(chip, variant, i, true, alignData, visibleData);
+          const pinLeft = handlePin(chip, variant, i, true, visibleData);
           let leftFirstTagIndex = pinLeft.tags.findIndex(each => each !== null);
           if (leftFirstTagIndex === -1) {
             leftFirstTagIndex = Infinity;
           }
 
-          const pinRight = handlePin(chip, variant, variant.pins.length - i - 1, false, alignData, visibleData);
+          const pinRight = handlePin(chip, variant, variant.pins.length - i - 1, false, visibleData);
           let rightLastTagIndex = findLastIndex(pinRight.tags, each => each !== null);
           if (rightLastTagIndex === -1) {
             rightLastTagIndex = 0;

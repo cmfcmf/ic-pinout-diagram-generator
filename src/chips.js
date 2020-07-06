@@ -1,6 +1,7 @@
 const chips = [
   {
     name: "PFS154",
+    notes: "Maximum sink and drive currents are missing, because I don't really understand the datasheet.",
     variants: [
       {
         name: "6 Pin",

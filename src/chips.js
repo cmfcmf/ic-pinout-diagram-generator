@@ -4,6 +4,7 @@ const NAME_MAXIMUM_CURRENT = "Maximum Sink/Drive Current";
 const PULL_UP_DOWN = {
   name: NAME_PULL_UP_PULL_DOWN,
   color: "#FFC869",
+  defaultHidden: true,
 };
 
 const MAXIMUM_CURRENT = {

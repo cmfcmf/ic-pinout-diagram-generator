@@ -545,6 +545,114 @@ const chips = [
     ]
   },
   {
+    name: "PMS154C",
+    variants: [
+      {
+        name: "6 Pin",
+        pins: [
+          "PA4", "GND", "PA6",
+          "PA5", "VDD", "PA3"
+        ]
+      },
+      {
+        name: "8 Pin",
+        pins: [
+          "VDD", "PA7", "PA6", "PA5",
+          "PA3", "PA4", "PA0", "GND",
+        ]
+      },
+      {
+        name: "10 Pin",
+        pins: [
+          "PB7", "VDD", "PA7", "PA6", "PA5",
+          "PA3", "PA4", "PA0", "GND", "PB0",
+        ]
+      },
+      {
+        name: "14 Pin",
+        pins: [
+          "PB5", "PB6", "PB7", "VDD", "PA7", "PA6", "PA5",
+          "PA3", "PA4", "PA0", "GND", "PB0", "PB1", "PB2",
+        ]
+      },
+      {
+        name: "16 Pin",
+        pins: [
+          "PB4", "PB5", "PB6", "PB7", "VDD", "PA7", "PA6", "PA5",
+          "PA3", "PA4", "PA0", "GND", "PB0", "PB1", "PB2", "PB3"
+        ]
+      },
+    ],
+    data: [
+      {
+        ...PULL_UP_DOWN,
+        pins: {
+          "pull-up": ["PA7", "PA6", "PA5", "PA4", "PA3", "PA0", "PB7", "PB6", "PB5", "PB4", "PB3", "PB2", "PB1", "PB0"],
+        }
+      },
+      {
+        ...MAXIMUM_CURRENT,
+        pins: {
+          "sink: 5mA":        [              "PA5",                                                                            ],
+          "sink: 2mA/6mA":    ["PA7", "PA6",                             "PB7",               "PB4", "PB3",        "PB1", "PB0"],
+          "sink: 2mA/10mA":   [                     "PA4", "PA3", "PA0",        "PB6", "PB5",               "PB2"              ],
+
+          "drive: 0mA":       [              "PA5",                                                                            ],
+          "drive: 1.6mA/5mA": ["PA7", "PA6",        "PA4", "PA3", "PA0", "PB7", "PB6", "PB5", "PB4", "PB3", "PB2", "PB1", "PB0"],
+        }
+      },
+      {
+        ...PWM11,
+        pins: {
+          PWM2: ["PA5", "PA3", "PB3", "PB2"],
+          PWM1: ["PA4", "PB7", "PB6"],
+          PWM0: ["PA0", "PB5", "PB4"],
+        }
+      },
+      {
+        ...PWM_TIMER,
+        pins: {
+          "T2 PWM": ["PA3", "PB4", "PB2"],
+          "T3 PWM": ["PB7", "PB6", "PB5"],
+        }
+      },
+      {
+        ...COMPARATOR,
+        pins: {
+          "COMP +": "PA4",
+          "COMP −": ["PA4", "PA3", "PB7", "PB6"],
+          "COMP = ": "PA0"
+        }
+      },
+      {
+        ...EXTERNAL_INTERRUPT,
+        pins: {
+          INT1: ["PB0"],
+          INT0: ["PA0"],
+        }
+      },
+      {
+        ...CRYSTAL_AND_TIMER_CLOCK_SOURCES,
+        pins: {
+          "T16 CLK": ["PA0",        "PA4"],
+          "T2 CLK":  ["PA0", "PB0", "PA4"],
+          "T3 CLK":  ["PA0", "PB0", "PA4"],
+          XTAL1: "PA7",
+          XTAL2: "PA6"
+        }
+      },
+      {
+        ...PROGRAMMING_PINS,
+        pins: {
+          ICPCK: "PA3",
+          ICPDA: "PA6",
+          ICVPP: "PA5",
+          ICVDD: "VDD",
+        }
+      }
+    ]
+  },
+  {
     name: "PMS150C",
     variants: [
       {

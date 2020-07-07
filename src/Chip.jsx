@@ -8,9 +8,9 @@ function handlePin(chip, variant, idx, isLeft, visibleData) {
   const pinName = variant.pins[idx];
 
   let functions = [];
-  const data = !isLeft ? Object.entries(chip.data) : reversed(Object.entries(chip.data));
-  for (const [dataName, entry] of data) {
-    if (!visibleData.includes(dataName)) {
+  const data = !isLeft ? chip.data : reversed(chip.data);
+  for (const entry of data) {
+    if (!visibleData.includes(entry.name)) {
       continue;
     }
     const pins = Object.entries(entry.pins);
@@ -65,9 +65,9 @@ function handlePin(chip, variant, idx, isLeft, visibleData) {
 
 export function Chip({ chip }) {
   const [visibleData, setVisibleData] = React.useState(
-    Object.entries(chip.data)
-      .filter(([key, datum]) => datum.defaultHidden !== true)
-      .map(([key]) => key));
+    chip.data
+      .filter(({ defaultHidden }) => defaultHidden !== true)
+      .map(({ name }) => name));
   const { settings: { fontSize, selectedChip, embed } } = React.useContext(SettingsContext);
 
   let variants = chip.variants;
@@ -88,7 +88,7 @@ export function Chip({ chip }) {
 
 function Legend({ chip, visibleData, setVisibleData }) {
   return <>
-    {Object.entries(chip.data).map(([name, { color }]) => <label key={name} className="badge" style={{
+    {chip.data.map(({ color, name }) => <label key={name} className="badge" style={{
       color: getContrastColor(color),
       background: color,
     }}>

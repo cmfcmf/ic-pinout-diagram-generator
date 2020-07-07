@@ -1,3 +1,61 @@
+const NAME_PULL_UP_PULL_DOWN = "Pins with Internal Pull-up/Pull-Down";
+const NAME_MAXIMUM_CURRENT = "Maximum Sink/Drive Current";
+
+const PULL_UP_DOWN = {
+  name: NAME_PULL_UP_PULL_DOWN,
+  color: "#FFC869",
+};
+
+const MAXIMUM_CURRENT = {
+  name: NAME_MAXIMUM_CURRENT,
+  color: "#FFC869",
+  defaultHidden: true,
+};
+
+const LCD = {
+  name: "LCD Pins (VDD/2 LCD Bias Voltage Generator)",
+  color: "#E5CDA2",
+};
+
+const PWM11 = {
+  name: "11-bit PWM Output Pins",
+  color: "#26B9E4",
+};
+
+const PWM_TIMER = {
+  name: "Timer PWM Output Pins",
+  color: "#67CEEC",
+};
+
+const COMPARATOR = {
+  name: "Comparator Input/Output Pins",
+  color: "#BFD366",
+};
+
+const EXTERNAL_INTERRUPT = {
+  name: "External Interrupt Pins",
+  color: "#FF9D07",
+};
+
+const PROGRAMMING_PINS = {
+  name: "Programming Pins",
+};
+
+const ADC = {
+  name: "ADC Input Channel",
+  color: "#95B600",
+};
+
+const TIMER_CLOCK_SOURCES = {
+  name: "Timer Clock Source Pins",
+  color: "#F4D620",
+};
+
+const CRYSTAL_AND_TIMER_CLOCK_SOURCES = {
+  ...TIMER_CLOCK_SOURCES,
+  name: "External Crystal / Timer Clock Source Pins",
+};
+
 const chips = [
   {
     name: "PFS154",
@@ -38,16 +96,15 @@ const chips = [
         ]
       },
     ],
-    data: {
-      "Pins with Internal Pull-up/Pull-Down": {
-        color: "#FFC869",
+    data: [
+      {
+        ...PULL_UP_DOWN,
         pins: {
           "pull-up": ["PA7", "PA6", "PA5", "PA4", "PA3", "PA0", "PB7", "PB6", "PB5", "PB4", "PB3", "PB2", "PB1", "PB0"],
         }
       },
-      "Maximum Sink/Drive Current": {
-        color: "#FFC869",
-        defaultHidden: true,
+      {
+        ...MAXIMUM_CURRENT,
         pins: {
           "sink: 5mA":        [              "PA5"                                                                             ],
           "sink: 2mA/6mA":    ["PA7", "PA6",                             "PB7",               "PB4", "PB3",        "PB1"       ],
@@ -57,8 +114,8 @@ const chips = [
           "drive: 1.6mA/5mA": ["PA7", "PA6",        "PA4", "PA3", "PA0", "PB7", "PB6", "PB5", "PB4", "PB3", "PB2", "PB1", "PB0"],
         }
       },
-      "LCD Pins (VDD/2 LCD Bias Voltage Generator)": {
-        color: "#E5CDA2",
+      {
+        ...LCD,
         pins: {
           "COM3": "PA4",
           "COM4": "PA3",
@@ -66,38 +123,38 @@ const chips = [
           "COM1": "PB0",
         }
       },
-      "11-bit PWM Output Pins": {
-        color: "#26B9E4",
+      {
+        ...PWM11,
         pins: {
           PWM2: ["PA5", "PA4", "PA3", "PB3", "PB2"],
           PWM1: ["PB7", "PB6"],
           PWM0: ["PA0", "PB5", "PB4"],
         }
       },
-      "Timer PWM Output Pins": {
-        color: "#67CEEC",
+      {
+        ...PWM_TIMER,
         pins: {
           "T2 PWM": ["PA3", "PB4", "PB2"],
           "T3 PWM": ["PB7", "PB6", "PB5"],
         }
       },
-      "Comparator Input/Output Pins": {
-        color: "#BFD366",
+      {
+        ...COMPARATOR,
         pins: {
           "COMP +": "PA4",
           "COMP −": ["PA4", "PA3", "PB7", "PB6"],
           "COMP = ": "PA0"
         }
       },
-      "External Interrupt Pins": {
-        color: "#FF9D07",
+      {
+        ...EXTERNAL_INTERRUPT,
         pins: {
           INT1: ["PB0"],
           INT0: ["PA0"]
         }
       },
-      "External Crystal / Timer Clock Source Pins": {
-        color: "#F4D620",
+      {
+        ...CRYSTAL_AND_TIMER_CLOCK_SOURCES,
         pins: {
           "T1 CLK": ["PA0",        "PA4"],
           "T2 CLK": ["PA0", "PB0", "PA4"],
@@ -106,7 +163,8 @@ const chips = [
           XTAL2: "PA6"
         }
       },
-      "Programming Pins": {
+      {
+        ...PROGRAMMING_PINS,
         pins: {
           ICPCK: "PA3",
           ICPDA: "PA6",
@@ -114,7 +172,7 @@ const chips = [
           ICVDD: "VDD"
         }
       }
-    }
+    ]
   },
   {
     name: "PFS172",
@@ -155,17 +213,16 @@ const chips = [
         ]
       },
     ],
-    data: {
-      "Pins with Internal Pull-up/Pull-Down": {
-        color: "#FFC869",
+    data: [
+      {
+        ...PULL_UP_DOWN,
         pins: {
           "pull-up":   ["PA7", "PA6", "PA5", "PA4", "PA3", "PA0", "PB7", "PB6", "PB5", "PB4", "PB3", "PB2", "PB1", "PB0"],
           "pull-down": ["PA7", "PA6", "PA5", "PA4", "PA3", "PA0", "PB7", "PB6", "PB5", "PB4", "PB3", "PB2", "PB1", "PB0"],
         }
       },
-      "Maximum Sink/Drive Current": {
-        color: "#FFC869",
-        defaultHidden: true,
+      {
+        ...MAXIMUM_CURRENT,
         pins: {
           "sink: 22mA":       ["PA7", "PA6", "PA5", "PA4", "PA3", "PA0",        "PB6", "PB5",        "PB3", "PB2", "PB1", "PB0"],
           "sink: 21mA/35mA":  [                                          "PB7",               "PB4"                            ],
@@ -175,15 +232,15 @@ const chips = [
           "drive: 11mA/23mA": [                                          "PB7",               "PB4"                            ],
         }
       },
-      "Timer PWM Output Pins": {
-        color: "#67CEEC",
+      {
+        ...PWM_TIMER,
         pins: {
           "T2 PWM": ["PA3", "PB4", "PB2"],
           "T3 PWM": ["PB7", "PB6", "PB5"],
         }
       },
-      "ADC Input Channel": {
-        color: "#95B600",
+      {
+        ...ADC,
         pins: {
           ADC0:  "PB0",
           ADC1:  "PB1",
@@ -198,23 +255,23 @@ const chips = [
           ADC10: "PA0",
         }
       },
-      "Comparator Input/Output Pins": {
-        color: "#BFD366",
+      {
+        ...COMPARATOR,
         pins: {
           "COMP +": "PA4",
           "COMP −": ["PA4", "PA3", "PB7", "PB6"],
           "COMP = ": "PA0"
         }
       },
-      "External Interrupt Pins": {
-        color: "#FF9D07",
+      {
+        ...EXTERNAL_INTERRUPT,
         pins: {
           INT1: ["PA4", "PB0"],
           INT0: ["PA0", "PB5"]
         }
       },
-      "External Crystal / Timer Clock Source Pins": {
-        color: "#F4D620",
+      {
+        ...CRYSTAL_AND_TIMER_CLOCK_SOURCES,
         pins: {
           "T1 CLK": ["PA0",        "PA4"],
           "T2 CLK": ["PA0", "PB0", "PA4"],
@@ -223,7 +280,8 @@ const chips = [
           XTAL2: "PA6"
         }
       },
-      "Programming Pins": {
+      {
+        ...PROGRAMMING_PINS,
         pins: {
           ICPCK: "PA3",
           ICPDA: "PA6",
@@ -231,7 +289,7 @@ const chips = [
           ICVDD: "VDD"
         }
       }
-    }
+    ]
   },
   {
     name: "PFS173",
@@ -279,17 +337,16 @@ const chips = [
         ],
       }
     ],
-    data: {
-      "Pins with Internal Pull-up/Pull-Down": {
-        color: "#FFC869",
+    data: [
+      {
+        ...PULL_UP_DOWN,
         pins: {
           "pull-up":         ["PA7", "PA6", "PA5", "PA4", "PA3", "PA0", "PB7", "PB6", "PB5", "PB4", "PB3", "PB2", "PB1", "PB0", "PC3", "PC2", "PC1", "PC0"],
           "pull-down":       [                                                                      "PB3", "PB2",                             "PC1", "PC0"],
         }
       },
-      "Maximum Sink/Drive Current": {
-        color: "#FFC869",
-        defaultHidden: true,
+      {
+        ...MAXIMUM_CURRENT,
         pins: {
           "sink: 10mA":      ["PA7", "PA6", "PA5", "PA4", "PA3", "PA0", "PB7", "PB6",               "PB3", "PB2", "PB1", "PB0",               "PC1",      ],
           "sink: 30mA":      [                                                                                                  "PC3", "PC2",        "PC0"],
@@ -300,8 +357,8 @@ const chips = [
           "drive: 5mA/20mA": [                                                        "PB5", "PB4",                                                       ],
         }
       },
-      "LCD Pins (VDD/2 LCD Bias Voltage Generator)": {
-        color: "#E5CDA2",
+      {
+        ...LCD,
         pins: {
           "COM3": "PB5",
           "COM4": "PB6",
@@ -310,23 +367,23 @@ const chips = [
           "COM0": "PB0",
         }
       },
-      "11-bit PWM Output Pins": {
-        color: "#26B9E4",
+      {
+        ...PWM11,
         pins: {
           PWM2: ["PA5",        "PA3",                      "PB5",        "PB3", "PB2",               "PC0"],
           PWM1: [       "PA4",               "PB7", "PB6",                             "PC3"],
           PWM0: [                     "PA0",        "PB6", "PB5", "PB4",                      "PC2"],
         }
       },
-      "Timer PWM Output Pins": {
-        color: "#67CEEC",
+      {
+        ...PWM_TIMER,
         pins: {
           "T2 PWM": ["PA3", "PB4", "PB2"],
           "T3 PWM": ["PB7", "PB6", "PB5"],
         }
       },
-      "ADC Input Channel": {
-        color: "#95B600",
+      {
+        ...ADC,
         pins: {
           ADC0: "PB0",
           ADC1: "PB1",
@@ -344,23 +401,23 @@ const chips = [
           AREF: "PB1"
         }
       },
-      "Comparator Input/Output Pins": {
-        color: "#BFD366",
+      {
+        ...COMPARATOR,
         pins: {
           "COMP +": "PA4",
           "COMP −": ["PA4", "PA3", "PB7", "PB6"],
           "COMP = ": "PA0"
         }
       },
-      "External Interrupt Pins": {
-        color: "#FF9D07",
+      {
+        ...EXTERNAL_INTERRUPT,
         pins: {
           INT1: ["PA4", "PB0"],
           INT0: ["PA0", "PB5"]
         }
       },
-      "External Crystal / Timer Clock Source Pins": {
-        color: "#F4D620",
+      {
+        ...CRYSTAL_AND_TIMER_CLOCK_SOURCES,
         pins: {
           "T1 CLK": ["PA0",        "PA4"],
           "T2 CLK": ["PA0", "PB0", "PA4"],
@@ -369,7 +426,8 @@ const chips = [
           XTAL2: "PA6"
         }
       },
-      "Programming Pins": {
+      {
+        ...PROGRAMMING_PINS,
         pins: {
           ICPCK: "PA3",
           ICPDA: "PA6",
@@ -377,7 +435,7 @@ const chips = [
           ICVDD: "VDD"
         }
       }
-    }
+    ]
   },
   {
     name: "PMS152",
@@ -418,16 +476,15 @@ const chips = [
         ]
       },
     ],
-    data: {
-      "Pins with Internal Pull-up/Pull-down": {
-        color: "#FFC869",
+    data: [
+      {
+        ...PULL_UP_DOWN,
         pins: {
           "pull-up": ["PA7", "PA6", "PA5", "PA4", "PA3", "PA0", "PB7", "PB6", "PB5", "PB4", "PB3", "PB2", "PB1", "PB0"],
         }
       },
-      "Maximum Sink/Drive Current": {
-        color: "#FFC869",
-        defaultHidden: true,
+      {
+        ...MAXIMUM_CURRENT,
         pins: {
           "sink: 4mA":       [              "PA5",                                                                            ],
           "sink: 14mA":      ["PA7", "PA6",        "PA4", "PA3", "PA0",        "PB6",        "PB4",        "PB2", "PB1", "PB0"],
@@ -437,37 +494,37 @@ const chips = [
           "drive: 7mA":      ["PA7", "PA6",        "PA4", "PA3", "PA0", "PB7", "PB6", "PB5", "PB4", "PB3", "PB2", "PB1", "PB0"],
         }
       },
-      "11-bit PWM Output Pins": {
-        color: "#26B9E4",
+      {
+        ...PWM11,
         pins: {
           PWM2: ["PA5", "PA3", "PB3", "PB2"],
           PWM1: ["PA4", "PB7", "PB6"],
           PWM0: ["PA0", "PB5", "PB4"],
         }
       },
-      "Timer PWM Output Pins": {
-        color: "#67CEEC",
+      {
+        ...PWM_TIMER,
         pins: {
           "T2 PWM": ["PA3", "PB4", "PB2"],
         }
       },
-      "Comparator Input/Output Pins": {
-        color: "#BFD366",
+      {
+        ...COMPARATOR,
         pins: {
           "COMP +": "PA4",
           "COMP −": ["PA4", "PA3", "PB7", "PB6"],
           "COMP = ": "PA0"
         }
       },
-      "External Interrupt Pins": {
-        color: "#FF9D07",
+      {
+        ...EXTERNAL_INTERRUPT,
         pins: {
           INT1: ["PB0", "PA4"],
           INT0: ["PA0", "PB5"],
         }
       },
-      "External Crystal / Timer Clock Source Pins": {
-        color: "#F4D620",
+      {
+        ...CRYSTAL_AND_TIMER_CLOCK_SOURCES,
         pins: {
           "T16 CLK": ["PA0",        "PA4"],
           "T2 CLK":  ["PA0", "PB0", "PA4"],
@@ -475,7 +532,8 @@ const chips = [
           XTAL2: "PA6"
         }
       },
-      "Programming Pins": {
+      {
+        ...PROGRAMMING_PINS,
         pins: {
           ICPCK: "PA3",
           ICPDA: "PA6",
@@ -483,7 +541,7 @@ const chips = [
           ICVDD: "VDD",
         }
       }
-    }
+    ]
   },
   {
     name: "PMS150C",
@@ -503,16 +561,15 @@ const chips = [
         ]
       },
     ],
-    data: {
-      "Pins with Internal Pull-up/Pull-down": {
-        color: "#FFC869",
+    data: [
+      {
+        ...PULL_UP_DOWN,
         pins: {
           "pull-up": ["PA7", "PA6", "PA5", "PA4", "PA3", "PA0"],
         }
       },
-      "Maximum Sink/Drive Current": {
-        color: "#FFC869",
-        defaultHidden: true,
+      {
+        ...MAXIMUM_CURRENT,
         pins: {
           "sink: 6mA/26.5mA":  [              "PA5",                    ],
           "sink: 5mA/14.5mA":  ["PA7", "PA6",        "PA4", "PA3", "PA0"],
@@ -521,34 +578,35 @@ const chips = [
           "drive: 3.5mA/12mA": ["PA7", "PA6",        "PA4", "PA3", "PA0"],
         }
       },
-      "Timer PWM Output Pins": {
-        color: "#67CEEC",
+      {
+        ...PWM_TIMER,
         pins: {
           "T2 PWM": ["PA4", "PA3"],
         }
       },
-      "Comparator Input/Output Pins": {
-        color: "#BFD366",
+      {
+        ...COMPARATOR,
         pins: {
           "COMP +": "PA4",
           "COMP −": ["PA4", "PA3", "PA7", "PA6"],
           "COMP = ": "PA0"
         }
       },
-      "External Interrupt Pins": {
-        color: "#FF9D07",
+      {
+        ...EXTERNAL_INTERRUPT,
         pins: {
           INT0: ["PA0"],
         }
       },
-      "Timer Clock Source Pins": {
-        color: "#F4D620",
+      {
+        ...TIMER_CLOCK_SOURCES,
         pins: {
           "T16 CLK": ["PA4", "PA0"],
           "T2 CLK":  ["PA4", "PA0"],
         }
       },
-      "Programming Pins": {
+      {
+        ...PROGRAMMING_PINS,
         pins: {
           ICPCK: "PA3",
           ICPDA: "PA6",
@@ -556,7 +614,7 @@ const chips = [
           ICVDD: "VDD",
         }
       }
-    }
+    ]
   },
 ];
 

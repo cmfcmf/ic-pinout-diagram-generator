@@ -64,7 +64,10 @@ function handlePin(chip, variant, idx, isLeft, visibleData) {
 }
 
 export function Chip({ chip }) {
-  const [visibleData, setVisibleData] = React.useState(Object.keys(chip.data));
+  const [visibleData, setVisibleData] = React.useState(
+    Object.entries(chip.data)
+      .filter(([key, datum]) => datum.defaultHidden !== true)
+      .map(([key]) => key));
   const { settings: { fontSize, selectedChip, embed } } = React.useContext(SettingsContext);
 
   let variants = chip.variants;

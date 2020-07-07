@@ -47,6 +47,7 @@ const chips = [
       },
       "Maximum Sink/Drive Current": {
         color: "#FFC869",
+        defaultHidden: true,
         pins: {
           "sink: 5mA":        [              "PA5"                                                                             ],
           "sink: 2mA/6mA":    ["PA7", "PA6",                             "PB7",               "PB4", "PB3",        "PB1"       ],
@@ -164,6 +165,7 @@ const chips = [
       },
       "Maximum Sink/Drive Current": {
         color: "#FFC869",
+        defaultHidden: true,
         pins: {
           "sink: 22mA":       ["PA7", "PA6", "PA5", "PA4", "PA3", "PA0",        "PB6", "PB5",        "PB3", "PB2", "PB1", "PB0"],
           "sink: 21mA/35mA":  [                                          "PB7",               "PB4"                            ],
@@ -287,6 +289,7 @@ const chips = [
       },
       "Maximum Sink/Drive Current": {
         color: "#FFC869",
+        defaultHidden: true,
         pins: {
           "sink: 10mA":      ["PA7", "PA6", "PA5", "PA4", "PA3", "PA0", "PB7", "PB6",               "PB3", "PB2", "PB1", "PB0",               "PC1",      ],
           "sink: 30mA":      [                                                                                                  "PC3", "PC2",        "PC0"],
@@ -424,6 +427,7 @@ const chips = [
       },
       "Maximum Sink/Drive Current": {
         color: "#FFC869",
+        defaultHidden: true,
         pins: {
           "sink: 4mA":       [              "PA5",                                                                            ],
           "sink: 14mA":      ["PA7", "PA6",        "PA4", "PA3", "PA0",        "PB6",        "PB4",        "PB2", "PB1", "PB0"],
@@ -508,6 +512,7 @@ const chips = [
       },
       "Maximum Sink/Drive Current": {
         color: "#FFC869",
+        defaultHidden: true,
         pins: {
           "sink: 6mA/26.5mA":  [              "PA5",                    ],
           "sink: 5mA/14.5mA":  ["PA7", "PA6",        "PA4", "PA3", "PA0"],

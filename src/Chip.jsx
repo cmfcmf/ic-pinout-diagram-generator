@@ -105,7 +105,7 @@ function Variant({ chip, variant, visibleData, marginBottom }) {
   console.assert(variant.pins.length % 2 === 0);
 
   const { settings: { alignData } } = React.useContext(SettingsContext);
-  return <>
+  return <div className="table-responsive">
     <table>
       <tbody>
         {nTimes(variant.pins.length / 2).map(i => {
@@ -175,5 +175,5 @@ function Variant({ chip, variant, visibleData, marginBottom }) {
       </tbody>
     </table>
     {marginBottom && <div style={{ marginBottom: '5em' }} />}
-  </>;
+  </div>;
 }

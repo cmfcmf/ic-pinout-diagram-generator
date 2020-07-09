@@ -27,6 +27,12 @@ label.badge, div.badge {
   color: black;
 }
 
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
 table {
   border-spacing: 0.25em;
   border-collapse: separate;
@@ -45,6 +51,7 @@ td.ic {
 td {
   text-align: center;
   position: relative;
+  white-space: nowrap;
 }
 
 td.empty:before {

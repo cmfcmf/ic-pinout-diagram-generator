@@ -105,75 +105,77 @@ function Variant({ chip, variant, visibleData, marginBottom }) {
   console.assert(variant.pins.length % 2 === 0);
 
   const { settings: { alignData } } = React.useContext(SettingsContext);
-  return <div className="table-responsive">
-    <table>
-      <tbody>
-        {nTimes(variant.pins.length / 2).map(i => {
-          const pinLeft = handlePin(chip, variant, i, true, visibleData);
-          let leftFirstTagIndex = pinLeft.tags.findIndex(each => each !== null);
-          if (leftFirstTagIndex === -1) {
-            leftFirstTagIndex = Infinity;
-          }
-
-          const pinRight = handlePin(chip, variant, variant.pins.length - i - 1, false, visibleData);
-          let rightLastTagIndex = findLastIndex(pinRight.tags, each => each !== null);
-          if (rightLastTagIndex === -1) {
-            rightLastTagIndex = 0;
-          }
-
-          return <tr key={i}>
-            {alignData
-              ? <>
-                {pinLeft.tags.map((tag, i) => tag === null
-                  ? <td key={i} className={i >= leftFirstTagIndex ? "empty" : ""} />
-                  : <td
-                    key={i}
-                    className="badge"
-                    style={tag.style}>{tag.value}</td>)}
-              </>
-              : <td style={{ textAlign: 'right' }}>
-                <div className="dense">
-                  {pinLeft.tags.filter(tag => tag !== null).map((tag, i) =>
-                    <div
-                      key={i}
-                      className="badge"
-                      style={tag.style}>{tag.value}</div>)}
-                </div>
-              </td>}
-
-            <td className="badge pin-name" style={pinLeft.name.style}>{pinLeft.name.value}</td>
-            <td className="pin-number">{pinLeft.number}</td>
-            {i === 0 && <td className="ic" rowSpan={variant.pins.length / 2}>
-              {chip.name}
-              <br />
-              {variant.name}
-            </td>}
-            <td className="pin-number">{pinRight.number}</td>
-            <td className="badge pin-name" style={pinRight.name.style}>{pinRight.name.value}</td>
-
-            {alignData
-              ? <>
-                {pinRight.tags.map((tag, i) => tag === null
-                  ? <td key={i} className={i < rightLastTagIndex ? "empty" : ""} />
-                  : <td
-                    key={i}
-                    className="badge"
-                    style={tag.style}>{tag.value}</td>)}
-              </>
-              : <td style={{ textAlign: 'left' }}>
-                <div className="dense">
-                  {pinRight.tags.filter(tag => tag !== null).map((tag, i) =>
-                    <div
-                      key={i}
-                      className="badge"
-                      style={tag.style}>{tag.value}</div>)}
-                </div>
-              </td>
+  return <>
+    <div className="table-responsive">
+      <table>
+        <tbody>
+          {nTimes(variant.pins.length / 2).map(i => {
+            const pinLeft = handlePin(chip, variant, i, true, visibleData);
+            let leftFirstTagIndex = pinLeft.tags.findIndex(each => each !== null);
+            if (leftFirstTagIndex === -1) {
+              leftFirstTagIndex = Infinity;
             }
-          </tr>;
-        })}
-      </tbody>
-    </table>
+
+            const pinRight = handlePin(chip, variant, variant.pins.length - i - 1, false, visibleData);
+            let rightLastTagIndex = findLastIndex(pinRight.tags, each => each !== null);
+            if (rightLastTagIndex === -1) {
+              rightLastTagIndex = 0;
+            }
+
+            return <tr key={i}>
+              {alignData
+                ? <>
+                  {pinLeft.tags.map((tag, i) => tag === null
+                    ? <td key={i} className={i >= leftFirstTagIndex ? "empty" : ""} />
+                    : <td
+                      key={i}
+                      className="badge"
+                      style={tag.style}>{tag.value}</td>)}
+                </>
+                : <td style={{ textAlign: 'right' }}>
+                  <div className="dense">
+                    {pinLeft.tags.filter(tag => tag !== null).map((tag, i) =>
+                      <div
+                        key={i}
+                        className="badge"
+                        style={tag.style}>{tag.value}</div>)}
+                  </div>
+                </td>}
+
+              <td className="badge pin-name" style={pinLeft.name.style}>{pinLeft.name.value}</td>
+              <td className="pin-number">{pinLeft.number}</td>
+              {i === 0 && <td className="ic" rowSpan={variant.pins.length / 2}>
+                {chip.name}
+                <br />
+                {variant.name}
+              </td>}
+              <td className="pin-number">{pinRight.number}</td>
+              <td className="badge pin-name" style={pinRight.name.style}>{pinRight.name.value}</td>
+
+              {alignData
+                ? <>
+                  {pinRight.tags.map((tag, i) => tag === null
+                    ? <td key={i} className={i < rightLastTagIndex ? "empty" : ""} />
+                    : <td
+                      key={i}
+                      className="badge"
+                      style={tag.style}>{tag.value}</td>)}
+                </>
+                : <td style={{ textAlign: 'left' }}>
+                  <div className="dense">
+                    {pinRight.tags.filter(tag => tag !== null).map((tag, i) =>
+                      <div
+                        key={i}
+                        className="badge"
+                        style={tag.style}>{tag.value}</div>)}
+                  </div>
+                </td>
+              }
+            </tr>;
+          })}
+        </tbody>
+      </table>
+    </div>
     {marginBottom && <div style={{ marginBottom: '5em' }} />}
-  </div>;
+  </>;
 }

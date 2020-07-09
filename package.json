@@ -1,11 +1,14 @@
 {
+  "author": "Christian Flach",
   "name": "@cmfcmf/pinout-diagrams",
   "version": "0.1.0",
-  "private": false,
-  "homepage": ".",
+  "license": "MIT",
   "files": [
     "dist/sdk.min.js"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
   "dependencies": {
     "onecolor": "^3.1.0",
     "query-string": "^6.13.1",

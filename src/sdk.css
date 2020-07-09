@@ -2,30 +2,22 @@
   box-sizing: border-box;
 }
 
-.ic {
-  background-color: black;
-  color: white;
-  text-align: center;
-  padding: 0.5em;
-  border: 4px solid #555;
-}
-
 .pin-number {
   background-color: #cccccc;
   width: 1.5em;
 }
 
-.badge {
+.badge, .badge {
   border: 1px solid rgba(0.33, 0.33, 0.33, 0.2);
   border-radius: 0.25em;
   padding: 0.125em 0.25em;
 }
 
-div.dense {
-    margin: -0.125em;
+.dense {
+  margin: -0.125em;
 }
 
-div.badge, label.badge {
+label.badge, div.badge {
   display: inline-block;
   margin: 0.125em 0.125em;
 }
@@ -33,6 +25,21 @@ div.badge, label.badge {
 .pin-name {
   background: moccasin;
   color: black;
+}
+
+table {
+  border-spacing: 0.25em;
+  border-collapse: separate;
+  margin: 0 auto;
+  width: auto;
+}
+
+td.ic {
+  background-color: black;
+  color: white;
+  text-align: center;
+  padding: 0.5em;
+  border: 4px solid #555;
 }
 
 td {
@@ -51,12 +58,19 @@ td.empty:before {
   transform: translateY(-50%);
 }
 
-table {
-  border-spacing: 0.25em;
-  border-collapse: separate;
-  /* margin: 0 auto; This breaks the download buttons */
+.wrapper {
+  max-width: 980px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 1em;
 }
 
-body {
-  margin: 2em;
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 2em;
+}
+
+.legend label {
+  flex-grow: 1;
 }

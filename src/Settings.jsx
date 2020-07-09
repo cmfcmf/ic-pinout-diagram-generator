@@ -4,8 +4,8 @@ export const SettingsContext = React.createContext();
 
 export function Settings() {
   const { settings, setSettings } = useContext(SettingsContext);
-  return <div style={{marginBottom: '1em'}}>
-    {!settings.embed && <h2>Settings</h2>}
+  return <>
+    <h2>Display Settings</h2>
     <label>
       Align data
       <input type="checkbox" value="1" checked={settings.alignData}
@@ -23,10 +23,5 @@ export function Settings() {
           return setSettings(settings => ({ ...settings, fontSize }));
         }} />
     </label>
-    {!settings.embed && <p>
-      You can add support for your own chips by editing{" "}
-      <a href="https://github.com/cmfcmf/ic-pinout-diagram-generator/blob/master/src/chips.js">src/chips.js</a>.
-      Please contribute new chip definitions as pull requests!
-    </p>}
-  </div>;
+  </>;
 }

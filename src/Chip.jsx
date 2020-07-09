@@ -1,8 +1,6 @@
 import React from "react";
 import { getContrastColor, reversed, nTimes, findLastIndex } from "./util";
 import { SettingsContext } from "./Settings";
-import domtoimage from 'dom-to-image';
-import { saveAs } from 'file-saver';
 
 function handlePin(chip, variant, idx, isLeft, visibleData) {
   const pinName = variant.pins[idx];
@@ -68,18 +66,17 @@ export function Chip({ chip }) {
     chip.data
       .filter(({ defaultHidden }) => defaultHidden !== true)
       .map(({ name }) => name));
-  const { settings: { fontSize, selectedChip, embed } } = React.useContext(SettingsContext);
+  const { settings: { fontSize, ics } } = React.useContext(SettingsContext);
 
-  let variants = chip.variants;
-  if (selectedChip?.variant) {
-    variants = variants.filter(variant => variant.name === selectedChip?.variant);
-  }
+  const variants = chip.variants;
 
   return <>
-    {!embed && <h2 id={`IC-${chip.name}`}>{chip.name} <small>({variants.length} variants)</small></h2>}
-    {chip.notes && <p>{chip.notes}</p>}
-    <Legend chip={chip} visibleData={visibleData} setVisibleData={setVisibleData} />
-    <div style={{ fontSize: fontSize }}>
+    <div className="wrapper">
+      {ics.length !== 1 && <h2 id={`IC-${chip.name}`}>{chip.name} <small>({variants.length} variants)</small></h2>}
+      {chip.notes && <p>{chip.notes}</p>}
+      <Legend chip={chip} variants={variants} visibleData={visibleData} setVisibleData={setVisibleData} />
+    </div>
+    <div style={{ fontSize }}>
       {variants.map((variant, i) =>
         <Variant key={i} chip={chip} variant={variant} visibleData={visibleData} marginBottom={i < variants.length - 1} />)}
     </div>
@@ -87,7 +84,7 @@ export function Chip({ chip }) {
 }
 
 function Legend({ chip, visibleData, setVisibleData }) {
-  return <>
+  return <div className="legend">
     {chip.data.map(({ color, name }) => <label key={name} className="badge" style={{
       color: getContrastColor(color),
       background: color,
@@ -101,18 +98,15 @@ function Legend({ chip, visibleData, setVisibleData }) {
       }} />
       {name}
     </label>)}
-    <br />
-    <br />
-  </>;
+  </div>;
 }
 
 function Variant({ chip, variant, visibleData, marginBottom }) {
   console.assert(variant.pins.length % 2 === 0);
 
   const { settings: { alignData } } = React.useContext(SettingsContext);
-  const ref = React.useRef(null);
   return <>
-    <table ref={ref}>
+    <table>
       <tbody>
         {nTimes(variant.pins.length / 2).map(i => {
           const pinLeft = handlePin(chip, variant, i, true, visibleData);
@@ -180,18 +174,6 @@ function Variant({ chip, variant, visibleData, marginBottom }) {
         })}
       </tbody>
     </table>
-    <div style={{ textAlign: 'center', marginTop: '1em'}}>
-      <button onClick={e => {
-        domtoimage.toPng(ref.current)
-          .then(function (blob) {
-            saveAs(blob, `${chip.name} ${variant.name}.png`);
-          })
-          .catch(function (error) {
-            console.error(error);
-            alert('Something went wrong :(')
-          });
-      }}>download as image</button>
-    </div>
     {marginBottom && <div style={{ marginBottom: '5em' }} />}
   </>;
 }

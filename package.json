@@ -1,40 +1,26 @@
 {
-  "name": "pinout-creator",
+  "name": "@cmfcmf/pinout-diagrams",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
   "homepage": ".",
   "dependencies": {
-    "@testing-library/jest-dom": "^4.2.4",
-    "@testing-library/react": "^9.3.2",
-    "@testing-library/user-event": "^7.1.2",
-    "dom-to-image": "^2.6.0",
-    "file-saver": "^2.0.2",
-    "iframe-resizer": "^4.2.11",
     "onecolor": "^3.1.0",
     "query-string": "^6.13.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-scripts": "3.4.1"
+    "react-shadow": "^18.1.2",
+    "regenerator-runtime": "^0.13.5"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "build": "webpack --mode production",
+    "start": "webpack-dev-server --mode development --open"
   },
-  "eslintConfig": {
-    "extends": "react-app"
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+  "devDependencies": {
+    "@neutrinojs/react": "^9.2.0",
+    "neutrino": "^9.2.0",
+    "raw-loader": "^4.0.1",
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.12",
+    "webpack-dev-server": "^3.11.0"
   }
 }

@@ -1,4 +1,4 @@
 import './demo.css';
 import '../sdk';
 
-window.PinOutDiagrams.render(document.getElementById('root'), []);
+window.PinoutDiagrams.render(document.getElementById('root'), []);

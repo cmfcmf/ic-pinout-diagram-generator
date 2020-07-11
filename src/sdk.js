@@ -5,7 +5,7 @@ import App from './App';
 import shadowRoot from 'react-shadow';
 import css from '!!raw-loader!./sdk.css';
 
-window.PinOutDiagrams = {
+window.PinoutDiagrams = {
   render:  (root, { ics, maxWidth }) => {
     ReactDOM.render(
       <React.StrictMode>

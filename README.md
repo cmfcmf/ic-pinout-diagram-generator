@@ -17,7 +17,7 @@ You can embed these pinout diagrams on your own page. To do that, simply place t
 <div id="pinout-diagram"></div>
 <script src="https://unpkg.com/@cmfcmf/pinout-diagrams/dist/sdk.min.js"></script>
 <script>
-  PinOutDiagrams.render(document.getElementById('pinout-diagram'), {
+  PinoutDiagrams.render(document.getElementById('pinout-diagram'), {
     // Don't specify if you want to disply all ICs
     ics: [
       "name-of-the-first-ic-you-want-to-embed",

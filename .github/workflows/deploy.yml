@@ -22,7 +22,7 @@ jobs:
       with:
         GITHUB_TOKEN : ${{ secrets.GITHUB_TOKEN }}
         BRANCH: gh-pages
-        FOLDER: build
+        FOLDER: dist
         CLEAN: true
         SINGLE_COMMIT: true
         GIT_CONFIG_NAME: GitHub Actions

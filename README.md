@@ -7,7 +7,7 @@ It is inspired by the work done by @sleemanj on their [ArduinoOrientedChipPinout
 Currently, pin mappings for many [Padauk mikrocontrollers](http://www.padauk.com.tw) are available.
 You can add your own pin mappings by editing `src/chips.js`.
 
-To preview your changes, clone this repository, install `yarn`, and run `yarn install` and `yarn start`.
+To preview your changes, clone this repository, install `yarn`, run `yarn install` and `yarn start`, and then open http://localhost:5000/ic-pinout-diagram-generator.
 
 ## SDK
 

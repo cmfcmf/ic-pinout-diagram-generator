@@ -23,6 +23,7 @@ module.exports = {
       });
       neutrino.config.output
         .path(path.join(__dirname, 'dist'))
+        .publicPath("/ic-pinout-diagram-generator")
         .filename('[name].min.js');
     },
   ]

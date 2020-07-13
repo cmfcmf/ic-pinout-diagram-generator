@@ -602,6 +602,15 @@ const chips = [
         }
       },
       {
+        ...LCD,
+        pins: {
+          "COM3": "PA4",
+          "COM4": "PA3",
+          "COM2": "PA0",
+          "COM1": "PB0",
+        }
+      },
+      {
         ...PWM11,
         pins: {
           PWM2: ["PA5", "PA3", "PB3", "PB2"],

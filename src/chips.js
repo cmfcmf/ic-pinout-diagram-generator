@@ -922,6 +922,78 @@ const chips = [
       }
     ]
   },
+  {
+    name: "PMS150G",
+    variants: [
+      {
+        name: "6 Pin",
+        pins: [
+          "PA4", "GND", "PA6",
+          "PA5", "VDD", "PA3"
+        ]
+      },
+      {
+        name: "8 Pin",
+        pins: [
+          "VDD", "PA7", "PA6", "PA5",
+          "PA3", "PA4", "PA0", "GND",
+        ]
+      },
+    ],
+    data: [
+      {
+        ...PULL_UP_DOWN,
+        pins: {
+          "pull-up": ["PA7", "PA6", "PA5", "PA4", "PA3", "PA0"],
+        }
+      },
+      {
+        ...MAXIMUM_CURRENT,
+        pins: {
+          "sink: 21mA":      ["PA7", "PA6", "PA5", "PA4", "PA3", "PA0"],
+
+          "drive: 0mA/13mA": [              "PA5",                    ],
+          "drive: 13mA":     ["PA7", "PA6",        "PA4", "PA3", "PA0"],
+        }
+      },
+      {
+        ...PWM_TIMER,
+        pins: {
+          "T2 PWM": ["PA4", "PA3"],
+        }
+      },
+      {
+        ...COMPARATOR,
+        pins: {
+          "COMP +": "PA4",
+          "COMP −": ["PA4", "PA3", "PA7", "PA6"],
+          "COMP = ": "PA0"
+        }
+      },
+      {
+        ...EXTERNAL_INTERRUPT,
+        pins: {
+          INT0: ["PA0"],
+        }
+      },
+      {
+        ...TIMER_CLOCK_SOURCES,
+        pins: {
+          "T16 CLK": ["PA4", "PA0"],
+          "T2 CLK":  ["PA4", "PA0"],
+        }
+      },
+      {
+        ...PROGRAMMING_PINS,
+        pins: {
+          ICPCK: "PA3",
+          ICPDA: "PA6",
+          ICVPP: "PA5",
+          ICVDD: "VDD",
+        }
+      }
+    ]
+  },
 ];
 
 chips.push({

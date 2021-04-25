@@ -1,7 +1,7 @@
 {
   "author": "Christian Flach",
   "name": "@cmfcmf/pinout-diagrams",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "license": "MIT",
   "files": [
     "dist/sdk.min.js"

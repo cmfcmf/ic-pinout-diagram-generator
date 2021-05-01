@@ -944,7 +944,8 @@ const chips = [
       {
         ...PULL_UP_DOWN,
         pins: {
-          "pull-up": ["PA7", "PA6", "PA5", "PA4", "PA3", "PA0"],
+          "pull-up":   ["PA7", "PA6", "PA5", "PA4", "PA3", "PA0"],
+          "pull-down": ["PA7", "PA6", "PA5", "PA4", "PA3", "PA0"],
         }
       },
       {

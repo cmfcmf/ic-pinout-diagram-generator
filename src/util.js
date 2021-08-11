@@ -1,11 +1,14 @@
-import onecolor from 'onecolor/one-color-all';
+import onecolor from "onecolor/one-color-all";
 
 export function getContrastColor(color = "white") {
   const rgb = onecolor(color);
-  const brightness = Math.round(((parseInt(rgb.red() * 0xFF) * 299) +
-    (parseInt(rgb.green() * 0xFF) * 587) +
-    (parseInt(rgb.blue() * 0xFF) * 114)) / 1000);
-  return (brightness > 125) ? 'black' : 'white';
+  const brightness = Math.round(
+    (parseInt(rgb.red() * 0xff) * 299 +
+      parseInt(rgb.green() * 0xff) * 587 +
+      parseInt(rgb.blue() * 0xff) * 114) /
+      1000
+  );
+  return brightness > 125 ? "black" : "white";
 }
 
 export function nTimes(n) {

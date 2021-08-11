@@ -19,11 +19,13 @@
   },
   "scripts": {
     "build": "webpack --mode production",
-    "start": "webpack-dev-server --mode development --open --open-page ic-pinout-diagram-generator"
+    "start": "webpack-dev-server --mode development --open --open-page ic-pinout-diagram-generator",
+    "format": "prettier --write ."
   },
   "devDependencies": {
     "@neutrinojs/react": "^9.5.0",
     "neutrino": "^9.5.0",
+    "prettier": "^2.3.2",
     "raw-loader": "^4.0.2",
     "webpack": "^4",
     "webpack-cli": "^3",

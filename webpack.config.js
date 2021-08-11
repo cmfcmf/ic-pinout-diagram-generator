@@ -1,3 +1,3 @@
-const neutrino = require('neutrino');
+const neutrino = require("neutrino");
 
 module.exports = neutrino().webpack();

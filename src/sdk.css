@@ -7,7 +7,7 @@
   width: 1.5em;
 }
 
-.badge, .badge {
+.badge {
   border: 1px solid rgba(0.33, 0.33, 0.33, 0.2);
   border-radius: 0.25em;
   padding: 0.125em 0.25em;
@@ -17,7 +17,8 @@
   margin: -0.125em;
 }
 
-label.badge, div.badge {
+label.badge,
+div.badge {
   display: inline-block;
   margin: 0.125em 0.125em;
 }
@@ -55,7 +56,7 @@ td {
 }
 
 td.empty:before {
-  content: '';
+  content: "";
   position: absolute;
   top: 50%;
   left: 0;

@@ -1,17 +1,17 @@
-const react = require('@neutrinojs/react');
-const path = require('path');
+const react = require("@neutrinojs/react");
+const path = require("path");
 
 module.exports = {
   options: {
     root: __dirname,
     mains: {
-      "sdk": {
-        entry: 'sdk',
+      sdk: {
+        entry: "sdk",
       },
-      "index": {
+      index: {
         entry: "demo/demo",
-        template: 'src/demo/demo.html',
-      }
+        template: "src/demo/demo.html",
+      },
     },
   },
   use: [
@@ -22,9 +22,9 @@ module.exports = {
         runtimeChunk: false,
       });
       neutrino.config.output
-        .path(path.join(__dirname, 'dist'))
+        .path(path.join(__dirname, "dist"))
         .publicPath("/ic-pinout-diagram-generator")
-        .filename('[name].min.js');
+        .filename("[name].min.js");
     },
-  ]
+  ],
 };

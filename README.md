@@ -17,14 +17,14 @@ You can embed these pinout diagrams on your own page. To do that, simply place t
 <div id="pinout-diagram"></div>
 <script src="https://unpkg.com/@cmfcmf/pinout-diagrams/dist/sdk.min.js"></script>
 <script>
-  PinoutDiagrams.render(document.getElementById('pinout-diagram'), {
+  PinoutDiagrams.render(document.getElementById("pinout-diagram"), {
     // Don't specify if you want to disply all ICs
     ics: [
       "name-of-the-first-ic-you-want-to-embed",
-      "name-of-the-second-ic-you-want-to-embed"
+      "name-of-the-second-ic-you-want-to-embed",
     ],
     // maxWidth of the legend. Don't specify to use 100%
-    maxWidth: '980px'
+    maxWidth: "980px",
   });
 </script>
 ```

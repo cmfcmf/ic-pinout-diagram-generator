@@ -1,5 +1,5 @@
 import React from "react";
-import definedChips from "./chips";
+import allChips from "./chips";
 import { Chip } from "./Chip";
 import { Settings, SettingsContext } from "./Settings";
 
@@ -7,14 +7,13 @@ function App({ ics }) {
   const [settings, setSettings] = React.useState({
     alignData: true,
     fontSize: 12,
-    chips: definedChips,
-    ics: ics,
+    ics,
   });
 
-  let chips = settings.chips;
-  if (settings.ics.length) {
-    chips = chips.filter((chip) => ics.includes(chip.name));
-  }
+  const chips =
+    settings.ics.length > 0
+      ? allChips.filter((chip) => ics.includes(chip.name))
+      : allChips;
 
   return (
     <SettingsContext.Provider

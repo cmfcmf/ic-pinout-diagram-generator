@@ -49,7 +49,7 @@ function handleAdditionalPin(chip, pinName, reverse, visibleData) {
   }
 
   const nameStyle = {};
-  if (chip.pins !== undefined && chip.pins[pinName] !== undefined && chip.pins[pinName].color !== undefined) {
+  if (chip.pins?.[pinName]?.color !== undefined) {
     nameStyle.background = chip.pins[pinName].color;
     nameStyle.color = getContrastColor(nameStyle.background);
   } else if (["VCC", "VDD"].includes(pinName)) {
@@ -316,7 +316,7 @@ function QuadVerticalPins({
         {side === "bottom" && (
           <table>
             <tbody>
-              {(variant.additionalPins ?? []).map(
+              {variant.additionalPins?.map(
                 ({ description, pin: pinName }, i) => {
                   const pin = handleAdditionalPin(
                     chip,
@@ -413,30 +413,23 @@ function DualPackage({ chip, variant, visibleData, alignData }) {
           </tr>
         );
       })}
-      {(variant.additionalPins ?? []).map(
-        ({ description, pin: pinName }, i) => {
-          const pin = handleAdditionalPin(
-            chip,
-            pinName,
-            false,
-            visibleData
-          );
-          return (
-            <tr key={i}>
-              <td
-                colSpan={(alignData ? chip.data.length : 3) + 2}
-                style={{ textAlign: "right" }}
-              >
-                {description}
-              </td>
-              <td className="badge pin-name" style={pin.name.style}>
-                {pin.name.value}
-              </td>
-              <PinRow side="right" alignData={alignData} pin={pin} />
-            </tr>
-          );
-        }
-      )}
+      {variant.additionalPins?.map(({ description, pin: pinName }, i) => {
+        const pin = handleAdditionalPin(chip, pinName, false, visibleData);
+        return (
+          <tr key={i}>
+            <td
+              colSpan={(alignData ? chip.data.length : 3) + 2}
+              style={{ textAlign: "right" }}
+            >
+              {description}
+            </td>
+            <td className="badge pin-name" style={pin.name.style}>
+              {pin.name.value}
+            </td>
+            <PinRow side="right" alignData={alignData} pin={pin} />
+          </tr>
+        );
+      })}
     </>
   );
 }

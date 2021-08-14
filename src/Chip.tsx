@@ -319,7 +319,7 @@ function QuadVerticalPins({
   alignData: boolean;
 }) {
   const getPinIdx = (i: number) =>
-    side === "top" ? pinsPerSide * 4 - 1 - i : pinsPerSide + 1 + i;
+    side === "top" ? pinsPerSide * 4 - i : pinsPerSide + 1 + i;
   const writingMode = "vertical-lr";
 
   const rows = [
@@ -474,7 +474,7 @@ function DualPackage({
         return (
           <tr key={i}>
             <td
-              colSpan={(alignData ? chip.data.length : 3) + 2}
+              colSpan={(alignData ? chip.data.length : 1) + 4}
               style={{ textAlign: "right" }}
             >
               {description}

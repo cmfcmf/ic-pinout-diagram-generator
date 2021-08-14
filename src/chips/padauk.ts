@@ -305,10 +305,7 @@ export const chips: ChipDefinition[] = [
           "PB6", "PB7", "VDD", "PA7",
           "PA6", "PA5", "PA3", "PA4",
         ],
-        additionalPins: [
-          { description: "Bottom Pad", pin: "GND" },
-          { description: "foo", pin: "PB7" },
-        ],
+        additionalPins: [{ description: "Bottom Pad", pin: "GND" }],
       },
     ],
     data: [

@@ -78,7 +78,8 @@ export function Chip({ chip }) {
       <div className="wrapper">
         {ics.length !== 1 && (
           <h2 id={`IC-${chip.name}`}>
-            {chip.name} <small>({variants.length} variants)</small>
+            {chip.manufacturer} {chip.name}{" "}
+            <small>({variants.length} variants)</small>
           </h2>
         )}
         {chip.notes && <p>{chip.notes}</p>}
@@ -224,6 +225,11 @@ function QFNPackage({ chip, variant, visibleData }) {
             <td className="pin-number">{pinLeft.number}</td>
             {i === 0 && (
               <td className="ic" rowSpan={pinsPerSide} colSpan={pinsPerSide}>
+                {chip.manufacturer && (
+                  <>
+                    {chip.manufacturer} <br />
+                  </>
+                )}
                 {chip.name}
                 <br />
                 {variant.name}
@@ -347,6 +353,11 @@ function DIPPackage({ chip, variant, visibleData, alignData }) {
             <td className="pin-number">{pinLeft.number}</td>
             {i === 0 && (
               <td className="ic" rowSpan={variant.pins.length / 2}>
+                {chip.manufacturer && (
+                  <>
+                    {chip.manufacturer} <br />
+                  </>
+                )}
                 {chip.name}
                 <br />
                 {variant.name}

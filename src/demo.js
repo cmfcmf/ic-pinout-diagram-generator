@@ -1,4 +1,4 @@
 import "./demo.css";
-import "../sdk";
+import "./sdk.min";
 
 window.PinoutDiagrams.render(document.getElementById("root"), []);

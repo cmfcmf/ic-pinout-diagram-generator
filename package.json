@@ -9,29 +9,34 @@
   "publishConfig": {
     "access": "public"
   },
+  "scripts": {
+    "build": "parcel build --public-url /ic-pinout-diagram-generator",
+    "start": "parcel serve --public-url /ic-pinout-diagram-generator --port 5000 --open",
+    "format": "prettier --write ."
+  },
+  "source": [
+    "src/sdk.min.js",
+    "src/index.html"
+  ],
+  "targets": {
+    "my-target": {
+      "engines": {
+        "browsers": "> 0.25%"
+      }
+    }
+  },
   "dependencies": {
     "onecolor": "^3.1.0",
-    "query-string": "^6.13.8",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-shadow": "^19.0.1",
     "regenerator-runtime": "^0.13.7"
   },
-  "scripts": {
-    "build": "webpack --mode production",
-    "start": "webpack-dev-server --mode development --open --open-page ic-pinout-diagram-generator",
-    "format": "prettier --write ."
-  },
   "devDependencies": {
-    "@neutrinojs/react": "^9.5.0",
-    "neutrino": "^9.5.0",
+    "@parcel/optimizer-data-url": "2.0.0-rc.0",
+    "@parcel/transformer-inline-string": "2.0.0-rc.0",
+    "parcel": "^2.0.0-rc.0",
     "prettier": "^2.3.2",
-    "raw-loader": "^4.0.2",
-    "webpack": "^4",
-    "webpack-cli": "^3",
-    "webpack-dev-server": "^3.11.1"
-  },
-  "resolutions": {
-    "acorn": "8.0.4"
+    "prop-types": "^15.7.2"
   }
 }

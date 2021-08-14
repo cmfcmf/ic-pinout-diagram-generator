@@ -976,10 +976,10 @@ export const chips: ChipDefinition[] = [
 
 chips.push(
   // PMS150C and PMS15A are identical except for their ROM size.
-  copyAndChangeName(chips.find((chip) => chip.name === "PMS150C")!, "PMS15A"),
+  copyAndChangeName(chips.find((chip) => chip.name === "PMS150C")!, "PMS150C", "PMS15A"),
 );
 
 chips.push(
   // PMS150G and PMS15B are identical except for their ROM size.
-  copyAndChangeName(chips.find((chip) => chip.name === "PMS150G")!, "PMS15B"),
+  copyAndChangeName(chips.find((chip) => chip.name === "PMS150G")!, "PMS150G", "PMS15B"),
 );

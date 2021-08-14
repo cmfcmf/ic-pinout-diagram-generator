@@ -12,12 +12,12 @@ import { ChipDefinition, ChipVariant } from "./chips/common";
 function formatVariantName(str: string) {
   return str.split("\n").flatMap((rawLine, i, lines) => {
     const line =
-      i === 0 ? <strong>{rawLine}</strong> : <small>{rawLine}</small>;
+      i === 0 ? <strong key={i}>{rawLine}</strong> : <small key={i}>{rawLine}</small>;
 
     if (i === lines.length - 1) {
       return line;
     }
-    return [line, <br />];
+    return [line, <br  key={`${i}_br`} />];
   });
 }
 

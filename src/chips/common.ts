@@ -87,14 +87,14 @@ export type ChipData = {
   pins: Record<string, string | string[]>;
 };
 
-export function copyAndChangeName(chip: ChipDefinition, newName: string) {
+export function copyAndChangeName(chip: ChipDefinition, oldName: string, newName: string) {
   return {
     ...chip,
-    name: newName,
+    name: chip.name.replaceAll(oldName, newName),
     variants: chip.variants.map(variant => ({
       ...variant,
       name: variant.name !== undefined
-        ? ensureIsArray(variant.name).map(name => name.replaceAll(chip.name, newName))
+        ? ensureIsArray(variant.name).map(name => name.replaceAll(oldName, newName))
         : variant.name,
     })),
   };

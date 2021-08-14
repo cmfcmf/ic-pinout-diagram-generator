@@ -49,7 +49,7 @@ function handleAdditionalPin(chip, pinName, reverse, visibleData) {
   }
 
   const nameStyle = {};
-  if (chip.pins !== undefined && chip.pins[pinName]?.color !== undefined) {
+  if (chip.pins !== undefined && chip.pins[pinName] !== undefined && chip.pins[pinName].color !== undefined) {
     nameStyle.background = chip.pins[pinName].color;
     nameStyle.color = getContrastColor(nameStyle.background);
   } else if (["VCC", "VDD"].includes(pinName)) {

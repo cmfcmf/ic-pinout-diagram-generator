@@ -38,5 +38,8 @@
     "parcel": "^2.0.0-rc.0",
     "prettier": "^2.3.2",
     "prop-types": "^15.7.2"
+  },
+  "engines": {
+    "node": ">=12"
   }
 }

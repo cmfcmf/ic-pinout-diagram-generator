@@ -35,7 +35,7 @@ div.badge {
   -webkit-overflow-scrolling: touch;
 }
 
-table {
+table.pinout {
   border-spacing: 0.25em;
   border-collapse: separate;
   margin: 0 auto;

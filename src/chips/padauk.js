@@ -67,7 +67,7 @@ export const chips = [
           "sink: 2mA/6mA":    ["PA7", "PA6",                             "PB7",               "PB4", "PB3",        "PB1"       ],
           "sink: 2mA/10mA":   [                     "PA4", "PA3", "PA0",        "PB6", "PB5",               "PB2",        "PB0"],
 
-          "drive: 0mA":      [              "PA5",                                                                             ],
+          "drive: 0mA":       [              "PA5",                                                                            ],
           "drive: 1.6mA/5mA": ["PA7", "PA6",        "PA4", "PA3", "PA0", "PB7", "PB6", "PB5", "PB4", "PB3", "PB2", "PB1", "PB0"],
         }
       },
@@ -294,7 +294,21 @@ export const chips = [
           "PB4", "PB5", "PB6", "PB7", "PC2", "VDD", "PC3", "PA7", "PA6", "PA5",
           "PA3", "PA4", "PA0", "PC0", "GND", "PC1", "PB0", "PB1", "PB2", "PB3",
         ],
-      }
+      },
+      {
+        name: "16 Pin QFN",
+        package: "quad",
+        pins: [
+          "PA0", "GND", "PB0", "PB1",
+          "PB2", "PB3", "PB4", "PB5",
+          "PB6", "PB7", "VDD", "PA7",
+          "PA6", "PA5", "PA3", "PA4",
+        ],
+        additionalPins: [
+          { description: "Bottom Pad", pin: "GND" },
+          { description: "foo", pin: "PB7" },
+        ],
+      },
     ],
     data: [
       {

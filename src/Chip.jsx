@@ -2,11 +2,17 @@ import React from "react";
 import { getContrastColor, reversed, nTimes, findLastIndex } from "./util";
 import { SettingsContext } from "./Settings";
 
-function handlePin(chip, variant, idx, isLeft, visibleData) {
+function handlePin(chip, variant, idx, reverse, visibleData) {
   const pinName = variant.pins[idx];
+  return {
+    number: idx + 1,
+    ...handleAdditionalPin(chip, pinName, reverse, visibleData),
+  };
+}
 
+function handleAdditionalPin(chip, pinName, reverse, visibleData) {
   let functions = [];
-  const data = !isLeft ? chip.data : reversed(chip.data);
+  const data = !reverse ? chip.data : reversed(chip.data);
   for (const entry of data) {
     if (!visibleData.includes(entry.name)) {
       continue;
@@ -43,7 +49,10 @@ function handlePin(chip, variant, idx, isLeft, visibleData) {
   }
 
   const nameStyle = {};
-  if (["VCC", "VDD"].includes(pinName)) {
+  if (chip.pins !== undefined && chip.pins[pinName]?.color !== undefined) {
+    nameStyle.background = chip.pins[pinName].color;
+    nameStyle.color = getContrastColor(nameStyle.background);
+  } else if (["VCC", "VDD"].includes(pinName)) {
     nameStyle.background = "red";
     nameStyle.color = getContrastColor("red");
   } else if (["GND", "VSS"].includes(pinName)) {
@@ -52,7 +61,6 @@ function handlePin(chip, variant, idx, isLeft, visibleData) {
   }
 
   return {
-    number: idx + 1,
     name: {
       value: pinName,
       style: nameStyle,
@@ -139,16 +147,24 @@ function Legend({ chip, visibleData, setVisibleData }) {
 }
 
 function Variant({ chip, variant, visibleData, marginBottom }) {
-  const pkg = variant.package ?? "DIP";
+  const pkg = variant.package ?? "dual";
   switch (pkg) {
-    case "DIP":
-      console.assert(variant.pins.length % 2 === 0);
+    case "dual":
+      if (variant.pins.length % 2 !== 0) {
+        throw new Error(
+          `The variant ${variant.name} must have an even number of pins`
+        );
+      }
       break;
-    case "QFN":
-      console.assert((variant.pins.length - 1) % 4 === 0);
+    case "quad":
+      if (variant.pins.length % 4 !== 0) {
+        throw new Error(
+          `The variant ${variant.name} must have a number of pins divisible by 4.`
+        );
+      }
       break;
     default:
-      throw new Error("Unknown package.");
+      throw new Error("Unknown package Only 'dual' and 'quad' are supported.");
   }
 
   const {
@@ -158,20 +174,21 @@ function Variant({ chip, variant, visibleData, marginBottom }) {
   return (
     <>
       <div className="table-responsive">
-        <table>
+        <table className="pinout">
           <tbody>
-            {pkg === "DIP" ? (
-              <DIPPackage
+            {pkg === "dual" ? (
+              <DualPackage
                 chip={chip}
                 variant={variant}
                 visibleData={visibleData}
                 alignData={alignData}
               />
             ) : (
-              <QFNPackage
+              <QuadPackage
                 chip={chip}
                 variant={variant}
                 visibleData={visibleData}
+                // TODO: Not yet supported
                 // alignData={alignData}
               />
             )}
@@ -183,22 +200,14 @@ function Variant({ chip, variant, visibleData, marginBottom }) {
   );
 }
 
-function QFNPackage({ chip, variant, visibleData }) {
+function QuadPackage({ chip, variant, visibleData }) {
   const alignData = false; // TODO: Not yet supported.
 
-  const pinsPerSide = (variant.pins.length - 1) / 4;
-
-  const centerPin = handlePin(
-    chip,
-    variant,
-    variant.pins.length - 1,
-    false,
-    visibleData
-  );
+  const pinsPerSide = variant.pins.length / 4;
 
   return (
     <>
-      <QFNVerticalPins
+      <QuadVerticalPins
         pinsPerSide={pinsPerSide}
         side="top"
         chip={chip}
@@ -230,7 +239,7 @@ function QFNPackage({ chip, variant, visibleData }) {
                     {chip.manufacturer} <br />
                   </>
                 )}
-                {chip.name}
+                <strong>{chip.name}</strong>
                 <br />
                 {variant.name}
               </td>
@@ -244,30 +253,18 @@ function QFNPackage({ chip, variant, visibleData }) {
           </tr>
         );
       })}
-      <QFNVerticalPins
+      <QuadVerticalPins
         pinsPerSide={pinsPerSide}
         side="bottom"
         chip={chip}
         variant={variant}
         visibleData={visibleData}
       />
-
-      <tr>
-        <td colSpan={3} />
-        <td colSpan={pinsPerSide} style={{ textAlign: "right" }}>
-          Center Pad
-        </td>
-        <td className="pin-number">{centerPin.number}</td>
-        <td className="badge pin-name" style={centerPin.name.style}>
-          {centerPin.name.value}
-        </td>
-        <PinRow side="left" alignData={alignData} pin={centerPin} />
-      </tr>
     </>
   );
 }
 
-function QFNVerticalPins({
+function QuadVerticalPins({
   pinsPerSide,
   side,
   chip,
@@ -276,7 +273,7 @@ function QFNVerticalPins({
   alignData,
 }) {
   const getPinIdx = (i) =>
-    side === "top" ? variant.pins.length - 1 - i : pinsPerSide + 1 + i;
+    side === "top" ? pinsPerSide * 4 - 1 - i : pinsPerSide + 1 + i;
   const writingMode = "vertical-lr";
 
   const rows = [
@@ -296,7 +293,13 @@ function QFNVerticalPins({
       <td colSpan={3} />
       {nTimes(pinsPerSide).map((i) => {
         const pinIdx = getPinIdx(i);
-        const pin = handlePin(chip, variant, pinIdx, true, visibleData);
+        const pin = handlePin(
+          chip,
+          variant,
+          pinIdx - 1,
+          side === "top",
+          visibleData
+        );
 
         return (
           <td
@@ -308,18 +311,56 @@ function QFNVerticalPins({
           </td>
         );
       })}
-      <td colSpan={3} />
+      <td />
+      <td colSpan={2} rowSpan={2} style={{ verticalAlign: "top" }}>
+        {side === "bottom" && (
+          <table>
+            <tbody>
+              {(variant.additionalPins ?? []).map(
+                ({ description, pin: pinName }, i) => {
+                  const pin = handleAdditionalPin(
+                    chip,
+                    pinName,
+                    false,
+                    visibleData
+                  );
+                  return (
+                    <tr key={i}>
+                      <td
+                        colSpan={pinsPerSide + 1}
+                        style={{ textAlign: "right" }}
+                      >
+                        {description}
+                      </td>
+                      <td className="badge pin-name" style={pin.name.style}>
+                        {pin.name.value}
+                      </td>
+                      <PinRow side="right" alignData={alignData} pin={pin} />
+                    </tr>
+                  );
+                }
+              )}
+            </tbody>
+          </table>
+        )}
+      </td>
     </tr>,
     <tr key="pin-data">
       <td colSpan={3} />
       {nTimes(pinsPerSide).map((i) => {
         const pinIdx = getPinIdx(i);
-        const pin = handlePin(chip, variant, pinIdx, true, visibleData);
+        const pin = handlePin(
+          chip,
+          variant,
+          pinIdx - 1,
+          side === "top",
+          visibleData
+        );
         return (
-          <PinRow key={pinIdx} side="bottom" alignData={alignData} pin={pin} />
+          <PinRow key={pinIdx} side={side} alignData={alignData} pin={pin} />
         );
       })}
-      <td colSpan={3} />
+      <td />
     </tr>,
   ];
 
@@ -330,7 +371,7 @@ function QFNVerticalPins({
   return rows;
 }
 
-function DIPPackage({ chip, variant, visibleData, alignData }) {
+function DualPackage({ chip, variant, visibleData, alignData }) {
   return (
     <>
       {nTimes(variant.pins.length / 2).map((i) => {
@@ -358,7 +399,7 @@ function DIPPackage({ chip, variant, visibleData, alignData }) {
                     {chip.manufacturer} <br />
                   </>
                 )}
-                {chip.name}
+                <strong>{chip.name}</strong>
                 <br />
                 {variant.name}
               </td>
@@ -372,6 +413,30 @@ function DIPPackage({ chip, variant, visibleData, alignData }) {
           </tr>
         );
       })}
+      {(variant.additionalPins ?? []).map(
+        ({ description, pin: pinName }, i) => {
+          const pin = handleAdditionalPin(
+            chip,
+            pinName,
+            false,
+            visibleData
+          );
+          return (
+            <tr key={i}>
+              <td
+                colSpan={(alignData ? chip.data.length : 3) + 2}
+                style={{ textAlign: "right" }}
+              >
+                {description}
+              </td>
+              <td className="badge pin-name" style={pin.name.style}>
+                {pin.name.value}
+              </td>
+              <PinRow side="right" alignData={alignData} pin={pin} />
+            </tr>
+          );
+        }
+      )}
     </>
   );
 }
@@ -411,7 +476,8 @@ function PinRow({ side, alignData, pin }) {
         <td
           style={{
             textAlign: side === "left" || side === "top" ? "right" : "left",
-            writingMode: side === "bottom" ? "vertical-lr" : undefined,
+            writingMode:
+              side === "bottom" || side === "top" ? "vertical-lr" : undefined,
           }}
         >
           <div className="dense">

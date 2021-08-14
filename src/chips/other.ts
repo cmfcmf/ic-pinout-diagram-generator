@@ -5,7 +5,6 @@ export const chips: ChipDefinition[] = [
     name: "74HC595",
     variants: [
       {
-        name: "",
         pins: [
           "Q_B",
           "Q_C",

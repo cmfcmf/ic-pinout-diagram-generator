@@ -1,3 +1,5 @@
+import { ensureIsArray } from "../util";
+
 export const PULL_UP_DOWN = {
   name: "Pins with Internal Pull-up/Pull-Down",
   color: "#FFC869",
@@ -69,7 +71,7 @@ export type ChipDefinition = {
 };
 
 export type ChipVariant = {
-  name: string;
+  name?: string | string[];
   pins: string[];
   package?: "dual" | "quad";
   additionalPins?: {
@@ -84,3 +86,16 @@ export type ChipData = {
   defaultHidden?: boolean;
   pins: Record<string, string | string[]>;
 };
+
+export function copyAndChangeName(chip: ChipDefinition, newName: string) {
+  return {
+    ...chip,
+    name: newName,
+    variants: chip.variants.map(variant => ({
+      ...variant,
+      name: variant.name !== undefined
+        ? ensureIsArray(variant.name).map(name => name.replaceAll(chip.name, newName))
+        : variant.name,
+    })),
+  };
+}

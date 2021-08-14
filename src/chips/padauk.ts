@@ -11,6 +11,7 @@ import {
   ADC,
   TIMER_CLOCK_SOURCES,
   ChipDefinition,
+  copyAndChangeName,
 } from "./common";
 
 export const chips: ChipDefinition[] = [
@@ -19,39 +20,53 @@ export const chips: ChipDefinition[] = [
     name: "PFS154",
     variants: [
       {
-        name: "6 Pin",
+        name: "PFS154-U06\nSOT23-6 60mil",
         pins: [
           "PA4", "GND", "PA5",
           "PA6", "VDD", "PA3"
         ]
       },
       {
-        name: "8 Pin",
+        name: "PFS154-S08\nSOP8 150mil",
         pins: [
           "VDD", "PA7", "PA6", "PA5",
           "PA3", "PA4", "PA0", "GND",
         ]
       },
       {
-        name: "10 Pin",
+        name: "PFS154-M10\nMSOP10 118mil",
         pins: [
           "PB7", "VDD", "PA7", "PA6", "PA5",
           "PA3", "PA4", "PA0", "GND", "PB0",
         ]
       },
       {
-        name: "14 Pin",
+        name: "PFS154-S14\nSOP14 150mil",
         pins: [
           "PB5", "PB6", "PB7", "VDD", "PA7", "PA6", "PA5",
           "PA3", "PA4", "PA0", "GND", "PB0", "PB1", "PB2",
         ]
       },
       {
-        name: "16 Pin",
+        name: [
+          "PFS154-S16\nSOP16 150mil",
+          "PFS154-D16\nDUP16 300mil",
+        ],
         pins: [
           "PB4", "PB5", "PB6", "PB7", "VDD", "PA7", "PA6", "PA5",
           "PA3", "PA4", "PA0", "GND", "PB0", "PB1", "PB2", "PB3"
         ]
+      },
+      {
+        name: "PFS154-1J16A\nQFN3*3 16pin\n0.5pitch",
+        package: "quad",
+        pins: [
+          "PA0", "GND", "PB0", "PB1",
+          "PB2", "PB3", "PB4", "PB5",
+          "PB6", "PB7", "VDD", "PA7",
+          "PA6", "PA5", "PA3", "PA4",
+        ],
+        additionalPins: [{ description: "Bottom Pad", pin: "GND" }],
       },
     ],
     data: [
@@ -137,38 +152,48 @@ export const chips: ChipDefinition[] = [
     name: "PFS172",
     variants: [
       {
-        name: "6 Pin",
+        name: "PFS172-U06\nSOT23-6 60mil",
         pins: [
           "PA4", "GND", "PA6",
           "PA5", "VDD", "PA3",
         ]
       },
       {
-        name: "8 Pin",
+        name: "PFS172-S08\nSOP8 150mil",
         pins: [
           "VDD", "PA6", "PA5", "PB7",
           "PB1", "PA3", "PA4", "GND",
         ]
       },
       {
-        name: "10 Pin",
+        name: [
+          "PFS172-M10\nMSOP10 118mil",
+          "PFS172-EY10\nESSOP10 150mil"
+        ],
         pins: [
           "VDD", "PA6", "PA5", "PB7", "PB4",
           "PB1", "PA3", "PA4", "PA0", "GND",
         ]
       },
       {
-        name: "14 Pin",
+        name: "PFS172-S14\nSOP14 150mil",
         pins: [
           "VDD", "PA7", "PA6", "PA5", "PB7", "PB4", "PB5",
           "PB0", "PB1", "PB3", "PA3", "PA4", "PA0", "GND",
         ]
       },
       {
-        name: "16 Pin",
+        name: "PFS172-S16A\nSOP16 150mil",
         pins: [
           "VDD", "PA7", "PA6", "PA5", "PB7", "PB4", "PB5", "PB6",
           "PB2", "PB0", "PB1", "PB3", "PA3", "PA4", "PA0", "GND",
+        ]
+      },
+      {
+        name: "PFS172-4N10\nDFN3*3 10pin\n0.5pitch",
+        pins: [
+          "VDD", "PA6", "PA5", "PB7", "PB4",
+          "PB1", "PA3", "PA4", "PA0", "GND",
         ]
       },
     ],
@@ -255,49 +280,55 @@ export const chips: ChipDefinition[] = [
     name: "PFS173",
     variants: [
       {
-        name: "6 Pin",
+        name: "PFS173-U06\nSOT23-6 60mil",
         pins: [
           "PA4", "GND", "PA5",
           "PA6", "VDD", "PA3"
         ],
       },
       {
-        name: "8 Pin",
+        name: "PFS173-S08\nSOP8 150mil",
         pins: [
           "VDD", "PA7", "PA6", "PA5",
           "PA3", "PA4", "PA0", "GND",
         ],
       },
       {
-        name: "10 Pin",
+        name: "PFS173-M10\nMSOP10 118mil",
         pins: [
           "PB7", "VDD", "PA7", "PA6", "PA5",
           "PA3", "PA4", "PA0", "GND", "PB0",
         ],
       },
       {
-        name: "14 Pin",
+        name: "PFS173-S14\nSOP14 150mil",
         pins: [
           "PB5", "PB6", "PB7", "VDD", "PA7", "PA6", "PA5",
           "PA3", "PA4", "PA0", "GND", "PB0", "PB1", "PB2"
         ],
       },
       {
-        name: "16 Pin",
+        name: [
+          "PFS173-S16\nSOP16 150mil",
+          "PFS173-D16\nDIP16 300mil",
+        ],
         pins: [
           "PB4", "PB5", "PB6", "PB7", "VDD", "PA7", "PA6", "PA5",
           "PA3", "PA4", "PA0", "GND", "PB0", "PB1", "PB2", "PB3",
         ],
       },
       {
-        name: "20 Pin",
+        name: [
+          "PFS173-S20\nSOP20 300mil",
+          "PFS173-H20\nHTSOP20 150mil"
+        ],
         pins: [
           "PB4", "PB5", "PB6", "PB7", "PC2", "VDD", "PC3", "PA7", "PA6", "PA5",
           "PA3", "PA4", "PA0", "PC0", "GND", "PC1", "PB0", "PB1", "PB2", "PB3",
         ],
       },
       {
-        name: "16 Pin QFN",
+        name: "PFS173-1J16A\nQFN3*3 16pin\n0.5pitch",
         package: "quad",
         pins: [
           "PA0", "GND", "PB0", "PB1",
@@ -413,38 +444,48 @@ export const chips: ChipDefinition[] = [
     name: "PMS152",
     variants: [
       {
-        name: "6 Pin",
+        name: "PMS152-U06\nSOT23-6 60mil",
         pins: [
           "PA4", "GND", "PA6",
           "PA5", "VDD", "PA3"
         ]
       },
       {
-        name: "8 Pin",
+        name: "PMS152-S08\nSOP8 150mil",
         pins: [
           "VDD", "PA7", "PA6", "PA5",
           "PA3", "PA4", "PA0", "GND",
         ]
       },
       {
-        name: "10 Pin",
+        name: "PMS152-M10\nMSOP10 118mil",
         pins: [
           "PB7", "VDD", "PA7", "PA6", "PA5",
           "PA3", "PA4", "PA0", "GND", "PB0",
         ]
       },
       {
-        name: "14 Pin",
+        name: "PMS152-S14\nSOP14 150mil",
         pins: [
           "PB5", "PB6", "PB7", "VDD", "PA7", "PA6", "PA5",
           "PA3", "PA4", "PA0", "GND", "PB0", "PB1", "PB2",
         ]
       },
       {
-        name: "16 Pin",
+        name: "PMS152-S16\nSOP15 150mil",
         pins: [
           "PB4", "PB5", "PB6", "PB7", "VDD", "PA7", "PA6", "PA5",
           "PA3", "PA4", "PA0", "GND", "PB0", "PB1", "PB2", "PB3"
+        ]
+      },
+      {
+        name: "PMS152-1J16A\nQFN3*3 16pin\n0.5pitch",
+        package: "quad",
+        pins: [
+          "PA0", "GND", "PB0", "PB1",
+          "PB2", "PB3", "PB4", "PB5",
+          "PB6", "PB7", "VDD", "PA7",
+          "PA6", "PA5", "PA3", "PA4",
         ]
       },
     ],
@@ -520,38 +561,51 @@ export const chips: ChipDefinition[] = [
     name: "PMS154C",
     variants: [
       {
-        name: "6 Pin",
+        name: "PMS154C-U06\nSOT23-6 60mil",
         pins: [
           "PA4", "GND", "PA6",
           "PA5", "VDD", "PA3"
         ]
       },
       {
-        name: "8 Pin",
+        name: "PMS154C-S08\nSOP8 150mil",
         pins: [
           "VDD", "PA7", "PA6", "PA5",
           "PA3", "PA4", "PA0", "GND",
         ]
       },
       {
-        name: "10 Pin",
+        name: "PMS154C-M10\nMSOP10 118mil",
         pins: [
           "PB7", "VDD", "PA7", "PA6", "PA5",
           "PA3", "PA4", "PA0", "GND", "PB0",
         ]
       },
       {
-        name: "14 Pin",
+        name: "PMS154C-S14\nSOP14 150mil",
         pins: [
           "PB5", "PB6", "PB7", "VDD", "PA7", "PA6", "PA5",
           "PA3", "PA4", "PA0", "GND", "PB0", "PB1", "PB2",
         ]
       },
       {
-        name: "16 Pin",
+        name: [
+          "PMS154C-S16\n SOP16 150mil",
+          "PMS154C-D16\n DIP16 300mil"
+        ],
         pins: [
           "PB4", "PB5", "PB6", "PB7", "VDD", "PA7", "PA6", "PA5",
           "PA3", "PA4", "PA0", "GND", "PB0", "PB1", "PB2", "PB3"
+        ]
+      },
+      {
+        name: "PMS154C-1J16A\nQFN3*3 16pin\n0.5pitch",
+        package: "quad",
+        pins: [
+          "PA0", "GND", "PB0", "PB1",
+          "PB2", "PB3", "PB4", "PB5",
+          "PB6", "PB7", "VDD", "PA7",
+          "PA6", "PA5", "PA3", "PA4",
         ]
       },
     ],
@@ -638,38 +692,48 @@ export const chips: ChipDefinition[] = [
     name: "PMS171B",
     variants: [
       {
-        name: "6 Pin",
+        name: "PMS171B-U06\nSOT23-6 60mil",
         pins: [
           "PA4", "GND", "PA6",
           "PA5", "VDD", "PA3"
         ]
       },
       {
-        name: "8 Pin",
+        name: "PMS171B-SO8\nSOP8 150mil",
         pins: [
           "VDD", "PA7", "PA6", "PA5",
           "PA3", "PA4", "PA0", "GND",
         ]
       },
       {
-        name: "10 Pin",
+        name: "PMS171B-M10\nMSOP10 118mil",
         pins: [
           "PB7", "VDD", "PA7", "PA6", "PA5",
           "PA3", "PA4", "PA0", "GND", "PB0",
         ]
       },
       {
-        name: "14 Pin",
+        name: "PMS171B-S14\nSOP14 150mil",
         pins: [
           "PB5", "PB6", "PB7", "VDD", "PA7", "PA6", "PA5",
           "PA3", "PA4", "PA0", "GND", "PB0", "PB1", "PB2",
         ]
       },
       {
-        name: "16 Pin",
+        name: "PMS171B-S16\nSOP16 150mil",
         pins: [
           "PB4", "PB5", "PB6", "PB7", "VDD", "PA7", "PA6", "PA5",
           "PA3", "PA4", "PA0", "GND", "PB0", "PB1", "PB2", "PB3"
+        ]
+      },
+      {
+        name: "PMS171B-1J16A\nQFN3*3 16pin\n0.5pitch",
+        package: "quad",
+        pins: [
+          "PA0", "GND", "PB0", "PB1",
+          "PB2", "PB3", "PB4", "PB5",
+          "PB6", "PB7", "VDD", "PA7",
+          "PA6", "PA5", "PA3", "PA4",
         ]
       },
     ],
@@ -759,14 +823,17 @@ export const chips: ChipDefinition[] = [
     name: "PMS150C",
     variants: [
       {
-        name: "6 Pin",
+        name: "PMS150C-U06\nSOT23-6 60mil",
         pins: [
           "PA4", "GND", "PA6",
           "PA5", "VDD", "PA3"
         ]
       },
       {
-        name: "8 Pin",
+        name: [
+          "PMS150C-S08\nSOP8 150mil",
+          "PMS150C-D08\nDIP8 300mil",
+        ],
         pins: [
           "VDD", "PA7", "PA6", "PA5",
           "PA3", "PA4", "PA0", "GND",
@@ -833,14 +900,17 @@ export const chips: ChipDefinition[] = [
     name: "PMS150G",
     variants: [
       {
-        name: "6 Pin",
+        name: "PMS150G-U06\nSOT23-6 60mil",
         pins: [
           "PA4", "GND", "PA6",
           "PA5", "VDD", "PA3"
         ]
       },
       {
-        name: "8 Pin",
+        name: [
+          "PMS150G-S08\nSOP8 150mil",
+          "PMS150G-D08\nDIP8 300mil",
+        ],
         pins: [
           "VDD", "PA7", "PA6", "PA5",
           "PA3", "PA4", "PA0", "GND",
@@ -904,14 +974,12 @@ export const chips: ChipDefinition[] = [
   },
 ];
 
-chips.push({
+chips.push(
   // PMS150C and PMS15A are identical except for their ROM size.
-  ...chips.find((chip) => chip.name === "PMS150C")!,
-  name: "PMS15A",
-});
+  copyAndChangeName(chips.find((chip) => chip.name === "PMS150C")!, "PMS15A"),
+);
 
-chips.push({
+chips.push(
   // PMS150G and PMS15B are identical except for their ROM size.
-  ...chips.find((chip) => chip.name === "PMS150G")!,
-  name: "PMS15B",
-});
+  copyAndChangeName(chips.find((chip) => chip.name === "PMS150G")!, "PMS15B"),
+);

@@ -29,3 +29,7 @@ export function findLastIndex<T>(arr: T[], cmp: (element: T) => boolean) {
     return arr.length - lastIndex - 1;
   }
 }
+
+export function ensureIsArray<T>(input: T | T[]): T[] {
+  return Array.isArray(input) ? input : [input];
+}

@@ -36,13 +36,13 @@
     "alwaysStrict": true /* Parse in strict mode and emit "use strict" for each source file. */,
 
     /* Additional Checks */
-    // "noUnusedLocals": true,                      /* Report errors on unused locals. */
+    "noUnusedLocals": true                          /* Report errors on unused locals. */,
     // "noUnusedParameters": true,                  /* Report errors on unused parameters. */
-    // "noImplicitReturns": true,                   /* Report error when not all code paths in function return a value. */
-    "noFallthroughCasesInSwitch": true /* Report errors for fallthrough cases in switch statement. */,
-    "noUncheckedIndexedAccess": true /* Include 'undefined' in index signature results */,
-    "noImplicitOverride": true /* Ensure overriding members in derived classes are marked with an 'override' modifier. */,
-    "noPropertyAccessFromIndexSignature": true /* Require undeclared properties from index signatures to use element accesses. */,
+    "noImplicitReturns": true                       /* Report error when not all code paths in function return a value. */,
+    "noFallthroughCasesInSwitch": true              /* Report errors for fallthrough cases in switch statement. */,
+    "noUncheckedIndexedAccess": true                /* Include 'undefined' in index signature results */,
+    "noImplicitOverride": true                      /* Ensure overriding members in derived classes are marked with an 'override' modifier. */,
+    "noPropertyAccessFromIndexSignature": true      /* Require undeclared properties from index signatures to use element accesses. */,
 
     /* Module Resolution Options */
     // "moduleResolution": "node",                  /* Specify module resolution strategy: 'node' (Node.js) or 'classic' (TypeScript pre-1.6). */

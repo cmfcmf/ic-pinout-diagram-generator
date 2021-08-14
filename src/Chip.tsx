@@ -1,7 +1,25 @@
 import React from "react";
-import { getContrastColor, reversed, nTimes, findLastIndex } from "./util";
+import {
+  getContrastColor,
+  reversed,
+  nTimes,
+  findLastIndex,
+  ensureIsArray,
+} from "./util";
 import { SettingsContext } from "./Settings";
 import { ChipDefinition, ChipVariant } from "./chips/common";
+
+function formatVariantName(str: string) {
+  return str.split("\n").flatMap((rawLine, i, lines) => {
+    const line =
+      i === 0 ? <strong>{rawLine}</strong> : <small>{rawLine}</small>;
+
+    if (i === lines.length - 1) {
+      return line;
+    }
+    return [line, <br />];
+  });
+}
 
 function handlePin(
   chip: ChipDefinition,
@@ -99,7 +117,10 @@ export function Chip({ chip }: { chip: ChipDefinition }) {
         {ics.length !== 1 && (
           <h2 id={`IC-${chip.name}`}>
             {chip.manufacturer} {chip.name}{" "}
-            <small>({variants.length} variants)</small>
+            <small>
+              ({variants.length}{" "}
+              {variants.length === 1 ? "variant" : "variants"})
+            </small>
           </h2>
         )}
         {chip.notes && <p>{chip.notes}</p>}
@@ -277,9 +298,14 @@ function QuadPackage({
                     {chip.manufacturer} <br />
                   </>
                 )}
-                <strong>{chip.name}</strong>
-                <br />
-                {variant.name}
+                {ensureIsArray(variant.name ?? chip.name).map(
+                  (name, i, names) => (
+                    <React.Fragment key={i}>
+                      {formatVariantName(name)}
+                      {i !== names.length - 1 && <hr />}
+                    </React.Fragment>
+                  )
+                )}
               </td>
             )}
             <td className="pin-number">{pinRight.number}</td>
@@ -455,9 +481,14 @@ function DualPackage({
                     {chip.manufacturer} <br />
                   </>
                 )}
-                <strong>{chip.name}</strong>
-                <br />
-                {variant.name}
+                {ensureIsArray(variant.name ?? chip.name).map(
+                  (name, i, names) => (
+                    <React.Fragment key={i}>
+                      {formatVariantName(name)}
+                      {i !== names.length - 1 && <hr />}
+                    </React.Fragment>
+                  )
+                )}
               </td>
             )}
             <td className="pin-number">{pinRight.number}</td>

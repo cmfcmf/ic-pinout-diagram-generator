@@ -1,6 +1,22 @@
 import React, { useContext } from "react";
 
-export const SettingsContext = React.createContext();
+export type Settings = {
+  alignData: boolean;
+  fontSize: number;
+  ics: string[];
+};
+
+export const SettingsContext = React.createContext<{
+  settings: Settings;
+  setSettings: React.Dispatch<React.SetStateAction<Settings>>;
+}>({
+  settings: {
+    alignData: true,
+    fontSize: 12,
+    ics: [],
+  },
+  setSettings: () => {},
+});
 
 export function Settings() {
   const { settings, setSettings } = useContext(SettingsContext);

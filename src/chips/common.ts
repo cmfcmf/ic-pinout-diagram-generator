@@ -58,3 +58,29 @@ export const CRYSTAL_AND_TIMER_CLOCK_SOURCES = {
   ...TIMER_CLOCK_SOURCES,
   name: "External Crystal / Timer Clock Source Pins",
 };
+
+export type ChipDefinition = {
+  name: string;
+  manufacturer?: string;
+  notes?: string;
+  variants: ChipVariant[];
+  data: ChipData[];
+  pins?: Record<string, { color?: string }>;
+};
+
+export type ChipVariant = {
+  name: string;
+  pins: string[];
+  package?: "dual" | "quad";
+  additionalPins?: {
+    description: string;
+    pin: string;
+  }[];
+};
+
+export type ChipData = {
+  name: string;
+  color?: string;
+  defaultHidden?: boolean;
+  pins: Record<string, string | string[]>;
+};

@@ -3,8 +3,8 @@ import allChips from "./chips";
 import { Chip } from "./Chip";
 import { Settings, SettingsContext } from "./Settings";
 
-function App({ ics }) {
-  const [settings, setSettings] = React.useState({
+function App({ ics }: { ics: string[] }) {
+  const [settings, setSettings] = React.useState<Settings>({
     alignData: true,
     fontSize: 12,
     ics,

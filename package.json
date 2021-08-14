@@ -15,7 +15,7 @@
     "format": "prettier --write ."
   },
   "source": [
-    "src/sdk.min.js",
+    "src/sdk.min.tsx",
     "src/index.html"
   ],
   "targets": {
@@ -35,9 +35,13 @@
   "devDependencies": {
     "@parcel/optimizer-data-url": "2.0.0-rc.0",
     "@parcel/transformer-inline-string": "2.0.0-rc.0",
+    "@parcel/validator-typescript": "^2.0.0-rc.0",
+    "@types/react": "^17.0.18",
+    "@types/react-dom": "^17.0.9",
     "parcel": "^2.0.0-rc.0",
     "prettier": "^2.3.2",
-    "prop-types": "^15.7.2"
+    "prop-types": "^15.7.2",
+    "typescript": "^4.3.5"
   },
   "engines": {
     "node": ">=12"

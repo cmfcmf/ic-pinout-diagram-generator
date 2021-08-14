@@ -1,16 +1,28 @@
 import React from "react";
 import { getContrastColor, reversed, nTimes, findLastIndex } from "./util";
 import { SettingsContext } from "./Settings";
+import { ChipDefinition, ChipVariant } from "./chips/common";
 
-function handlePin(chip, variant, idx, reverse, visibleData) {
-  const pinName = variant.pins[idx];
+function handlePin(
+  chip: ChipDefinition,
+  variant: ChipVariant,
+  idx: number,
+  reverse: boolean,
+  visibleData: string[]
+) {
+  const pinName = variant.pins[idx]!;
   return {
     number: idx + 1,
     ...handleAdditionalPin(chip, pinName, reverse, visibleData),
   };
 }
 
-function handleAdditionalPin(chip, pinName, reverse, visibleData) {
+function handleAdditionalPin(
+  chip: ChipDefinition,
+  pinName: string,
+  reverse: boolean,
+  visibleData: string[]
+) {
   let functions = [];
   const data = !reverse ? chip.data : reversed(chip.data);
   for (const entry of data) {
@@ -48,9 +60,9 @@ function handleAdditionalPin(chip, pinName, reverse, visibleData) {
     }
   }
 
-  const nameStyle = {};
+  const nameStyle: { background?: string; color?: string } = {};
   if (chip.pins?.[pinName]?.color !== undefined) {
-    nameStyle.background = chip.pins[pinName].color;
+    nameStyle.background = chip.pins[pinName]!.color;
     nameStyle.color = getContrastColor(nameStyle.background);
   } else if (["VCC", "VDD"].includes(pinName)) {
     nameStyle.background = "red";
@@ -69,7 +81,7 @@ function handleAdditionalPin(chip, pinName, reverse, visibleData) {
   };
 }
 
-export function Chip({ chip }) {
+export function Chip({ chip }: { chip: ChipDefinition }) {
   const [visibleData, setVisibleData] = React.useState(
     chip.data
       .filter(({ defaultHidden }) => defaultHidden !== true)
@@ -93,7 +105,6 @@ export function Chip({ chip }) {
         {chip.notes && <p>{chip.notes}</p>}
         <Legend
           chip={chip}
-          variants={variants}
           visibleData={visibleData}
           setVisibleData={setVisibleData}
         />
@@ -113,7 +124,15 @@ export function Chip({ chip }) {
   );
 }
 
-function Legend({ chip, visibleData, setVisibleData }) {
+function Legend({
+  chip,
+  visibleData,
+  setVisibleData,
+}: {
+  chip: ChipDefinition;
+  visibleData: string[];
+  setVisibleData: React.Dispatch<React.SetStateAction<string[]>>;
+}) {
   return (
     <div className="legend">
       {chip.data.map(({ color, name }) => (
@@ -146,7 +165,17 @@ function Legend({ chip, visibleData, setVisibleData }) {
   );
 }
 
-function Variant({ chip, variant, visibleData, marginBottom }) {
+function Variant({
+  chip,
+  variant,
+  visibleData,
+  marginBottom,
+}: {
+  chip: ChipDefinition;
+  variant: ChipVariant;
+  visibleData: string[];
+  marginBottom: boolean;
+}) {
   const pkg = variant.package ?? "dual";
   switch (pkg) {
     case "dual":
@@ -200,7 +229,15 @@ function Variant({ chip, variant, visibleData, marginBottom }) {
   );
 }
 
-function QuadPackage({ chip, variant, visibleData }) {
+function QuadPackage({
+  chip,
+  variant,
+  visibleData,
+}: {
+  chip: ChipDefinition;
+  variant: ChipVariant;
+  visibleData: string[];
+}) {
   const alignData = false; // TODO: Not yet supported.
 
   const pinsPerSide = variant.pins.length / 4;
@@ -213,6 +250,7 @@ function QuadPackage({ chip, variant, visibleData }) {
         chip={chip}
         variant={variant}
         visibleData={visibleData}
+        alignData={alignData}
       />
       {nTimes(pinsPerSide).map((i) => {
         const pinLeft = handlePin(chip, variant, i, true, visibleData);
@@ -259,6 +297,7 @@ function QuadPackage({ chip, variant, visibleData }) {
         chip={chip}
         variant={variant}
         visibleData={visibleData}
+        alignData={alignData}
       />
     </>
   );
@@ -271,8 +310,15 @@ function QuadVerticalPins({
   variant,
   visibleData,
   alignData,
+}: {
+  pinsPerSide: number;
+  side: "top" | "bottom";
+  chip: ChipDefinition;
+  variant: ChipVariant;
+  visibleData: string[];
+  alignData: boolean;
 }) {
-  const getPinIdx = (i) =>
+  const getPinIdx = (i: number) =>
     side === "top" ? pinsPerSide * 4 - 1 - i : pinsPerSide + 1 + i;
   const writingMode = "vertical-lr";
 
@@ -368,10 +414,20 @@ function QuadVerticalPins({
     rows.reverse();
   }
 
-  return rows;
+  return <>{rows}</>;
 }
 
-function DualPackage({ chip, variant, visibleData, alignData }) {
+function DualPackage({
+  chip,
+  variant,
+  visibleData,
+  alignData,
+}: {
+  chip: ChipDefinition;
+  variant: ChipVariant;
+  visibleData: string[];
+  alignData: boolean;
+}) {
   return (
     <>
       {nTimes(variant.pins.length / 2).map((i) => {
@@ -434,7 +490,17 @@ function DualPackage({ chip, variant, visibleData, alignData }) {
   );
 }
 
-function PinRow({ side, alignData, pin }) {
+function PinRow({
+  side,
+  alignData,
+  pin,
+}: {
+  side: "top" | "bottom" | "left" | "right";
+  alignData: boolean;
+  pin: {
+    tags: Array<{ style: Record<string, unknown>; value: string } | null>;
+  };
+}) {
   let leftFirstTagIndex = pin.tags.findIndex((each) => each !== null);
   if (leftFirstTagIndex === -1) {
     leftFirstTagIndex = Infinity;
@@ -475,7 +541,7 @@ function PinRow({ side, alignData, pin }) {
         >
           <div className="dense">
             {pin.tags
-              .filter((tag) => tag !== null)
+              .flatMap((tag) => (tag !== null ? tag : []))
               .map((tag, i) => (
                 <Tag key={i} element="div" tag={tag} />
               ))}
@@ -486,7 +552,13 @@ function PinRow({ side, alignData, pin }) {
   );
 }
 
-function Tag({ tag: { style, value }, element }) {
+function Tag({
+  tag: { style, value },
+  element,
+}: {
+  tag: { style: Record<string, unknown>; value: string };
+  element?: string;
+}) {
   return React.createElement(
     element ?? "td",
     { className: "badge", style },

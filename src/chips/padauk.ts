@@ -10,9 +10,10 @@ import {
   PROGRAMMING_PINS,
   ADC,
   TIMER_CLOCK_SOURCES,
+  ChipDefinition,
 } from "./common";
 
-export const chips = [
+export const chips: ChipDefinition[] = [
   {
     manufacturer: "Padauk",
     name: "PFS154",
@@ -908,12 +909,12 @@ export const chips = [
 
 chips.push({
   // PMS150C and PMS15A are identical except for their ROM size.
-  ...chips.find((chip) => chip.name === "PMS150C"),
+  ...chips.find((chip) => chip.name === "PMS150C")!,
   name: "PMS15A",
 });
 
 chips.push({
   // PMS150G and PMS15B are identical except for their ROM size.
-  ...chips.find((chip) => chip.name === "PMS150G"),
+  ...chips.find((chip) => chip.name === "PMS150G")!,
   name: "PMS15B",
 });

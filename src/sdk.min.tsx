@@ -5,19 +5,25 @@ import App from "./App";
 import shadowRoot from "react-shadow";
 import css from "bundle-text:./sdk.css";
 
+// @ts-expect-error PinoutDiagrams does not exist of course.
 window.PinoutDiagrams = {
-  render: (root, { ics, maxWidth }) => {
+  render: (
+    root: ReactDOM.Container,
+    { ics, maxWidth }: { ics?: []; maxWidth?: string }
+  ) => {
     ReactDOM.render(
       <React.StrictMode>
-        <shadowRoot.div>
+        {React.createElement(
+          shadowRoot["div"]!,
+          {},
           <style>
             {css}
             {`.wrapper {
-              max-width: ${maxWidth !== undefined ? maxWidth : "100%"}
-            }`}
-          </style>
+             max-width: ${maxWidth !== undefined ? maxWidth : "100%"}
+           }`}
+          </style>,
           <App ics={Array.isArray(ics) ? ics : []} />
-        </shadowRoot.div>
+        )}
       </React.StrictMode>,
       root
     );

@@ -1,4 +1,6 @@
-export const chips = [
+import { ChipDefinition } from "./common";
+
+export const chips: ChipDefinition[] = [
   {
     name: "74HC595",
     variants: [

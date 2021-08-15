@@ -29,6 +29,11 @@ You can embed these pinout diagrams on your own page. To do that, simply place t
 </script>
 ```
 
+### Nightly Builds
+
+Use the following URL for nightly builds of the SDK: https://cdn.jsdelivr.net/gh/cmfcmf/ic-pinout-diagram-generator@nightly/sdk.min.js
+
+
 ## LICENSE
 
 MIT

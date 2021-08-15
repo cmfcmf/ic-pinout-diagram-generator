@@ -7,7 +7,7 @@ It is inspired by the work done by @sleemanj on their [ArduinoOrientedChipPinout
 Currently, pin mappings for many [Padauk mikrocontrollers](http://www.padauk.com.tw) are available.
 You can add your own pin mappings by editing `src/chips.ts` and the files in `src/chips`.
 
-To preview your changes, clone this repository, install `yarn`, run `yarn install` and `yarn start`, and then open http://localhost:5000.
+To preview your changes, clone this repository, install Node.js 12 or later, run `npm install` and `npm run start`, and then open http://localhost:5000.
 
 ## SDK
 

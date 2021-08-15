@@ -56,8 +56,13 @@ export const TIMER_CLOCK_SOURCES = {
   color: "#F4D620",
 };
 
-export const CRYSTAL_AND_TIMER_CLOCK_SOURCES = {
+export const EXTERNAL_CRYSTAL = {
   ...TIMER_CLOCK_SOURCES,
+  name: "External Crystal Pins",
+};
+
+export const CRYSTAL_AND_TIMER_CLOCK_SOURCES = {
+  ...EXTERNAL_CRYSTAL,
   name: "External Crystal / Timer Clock Source Pins",
 };
 

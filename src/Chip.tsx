@@ -26,13 +26,26 @@ function formatVariantName(str: string) {
   });
 }
 
+type PinWithFunctions = {
+  name: {
+    value: string;
+    style: CSSProperties;
+  };
+  tags: Array<null | {
+    values: string[];
+    style: { background: string; color: string };
+  }>;
+};
+
+type PinWithFunctionsAndNumber = PinWithFunctions & { number: number };
+
 function handlePin(
   chip: ChipDefinition,
   variant: ChipVariant,
   idx: number,
   reverse: boolean,
   visibleData: string[]
-) {
+): PinWithFunctionsAndNumber {
   const pinName = variant.pins[idx]!;
   return {
     number: idx + 1,
@@ -45,7 +58,7 @@ function handleAdditionalPin(
   pinName: string,
   reverse: boolean,
   visibleData: string[]
-) {
+): PinWithFunctions {
   let functions = [];
   const data = !reverse ? chip.data : reversed(chip.data);
   for (const entry of data) {
@@ -293,33 +306,13 @@ function QuadPackage({
         return (
           <tr key={i}>
             <PinRow side="left" alignData={alignData} pin={pinLeft} />
-
-            <td className="badge pin-name" style={pinLeft.name.style}>
-              {pinLeft.name.value}
-            </td>
-            <td className="pin-number">{pinLeft.number}</td>
-            {i === 0 && (
-              <td className="ic" rowSpan={pinsPerSide} colSpan={pinsPerSide}>
-                {chip.manufacturer && (
-                  <>
-                    {chip.manufacturer} <br />
-                  </>
-                )}
-                {ensureIsArray(variant.name ?? chip.name).map(
-                  (name, i, names) => (
-                    <React.Fragment key={i}>
-                      {formatVariantName(name)}
-                      {i !== names.length - 1 && <hr />}
-                    </React.Fragment>
-                  )
-                )}
-              </td>
-            )}
-            <td className="pin-number">{pinRight.number}</td>
-            <td className="badge pin-name" style={pinRight.name.style}>
-              {pinRight.name.value}
-            </td>
-
+            <ICBodyAndPinNames
+              chip={chip}
+              variant={variant}
+              pinLeft={pinLeft}
+              pinRight={pinRight}
+              isTopRow={i === 0}
+            />
             <PinRow side="right" alignData={alignData} pin={pinRight} />
           </tr>
         );
@@ -395,30 +388,12 @@ function QuadVerticalPins({
         {side === "bottom" && (
           <table>
             <tbody>
-              {variant.additionalPins?.map(
-                ({ description, pin: pinName }, i) => {
-                  const pin = handleAdditionalPin(
-                    chip,
-                    pinName,
-                    false,
-                    visibleData
-                  );
-                  return (
-                    <tr key={i}>
-                      <td
-                        colSpan={pinsPerSide + 1}
-                        style={{ textAlign: "right" }}
-                      >
-                        {description}
-                      </td>
-                      <td className="badge pin-name" style={pin.name.style}>
-                        {pin.name.value}
-                      </td>
-                      <PinRow side="right" alignData={alignData} pin={pin} />
-                    </tr>
-                  );
-                }
-              )}
+              <AdditionalPins
+                chip={chip}
+                variant={variant}
+                visibleData={visibleData}
+                alignData={alignData}
+              />
             </tbody>
           </table>
         )}
@@ -476,37 +451,40 @@ function DualPackage({
         return (
           <tr key={i}>
             <PinRow side="left" alignData={alignData} pin={pinLeft} />
-
-            <td className="badge pin-name" style={pinLeft.name.style}>
-              {pinLeft.name.value}
-            </td>
-            <td className="pin-number">{pinLeft.number}</td>
-            {i === 0 && (
-              <td className="ic" rowSpan={variant.pins.length / 2}>
-                {chip.manufacturer && (
-                  <>
-                    {chip.manufacturer} <br />
-                  </>
-                )}
-                {ensureIsArray(variant.name ?? chip.name).map(
-                  (name, i, names) => (
-                    <React.Fragment key={i}>
-                      {formatVariantName(name)}
-                      {i !== names.length - 1 && <hr />}
-                    </React.Fragment>
-                  )
-                )}
-              </td>
-            )}
-            <td className="pin-number">{pinRight.number}</td>
-            <td className="badge pin-name" style={pinRight.name.style}>
-              {pinRight.name.value}
-            </td>
-
+            <ICBodyAndPinNames
+              chip={chip}
+              variant={variant}
+              pinLeft={pinLeft}
+              pinRight={pinRight}
+              isTopRow={i === 0}
+            />
             <PinRow side="right" alignData={alignData} pin={pinRight} />
           </tr>
         );
       })}
+      <AdditionalPins
+        chip={chip}
+        variant={variant}
+        visibleData={visibleData}
+        alignData={alignData}
+      />
+    </>
+  );
+}
+
+function AdditionalPins({
+  chip,
+  variant,
+  visibleData,
+  alignData,
+}: {
+  chip: ChipDefinition;
+  variant: ChipVariant;
+  visibleData: string[];
+  alignData: boolean;
+}) {
+  return (
+    <>
       {variant.additionalPins?.map(({ description, pin: pinName }, i) => {
         const pin = handleAdditionalPin(chip, pinName, false, visibleData);
         return (
@@ -528,6 +506,56 @@ function DualPackage({
   );
 }
 
+function ICBodyAndPinNames({
+  chip,
+  variant,
+  pinLeft,
+  pinRight,
+  isTopRow,
+}: {
+  chip: ChipDefinition;
+  variant: ChipVariant;
+  pinLeft: PinWithFunctionsAndNumber;
+  pinRight: PinWithFunctionsAndNumber;
+  isTopRow: boolean;
+}) {
+  const rowSpan =
+    (variant.package ?? "dual") === "dual"
+      ? variant.pins.length / 2
+      : variant.pins.length / 4;
+  const colSpan =
+    (variant.package ?? "dual") === "dual" ? 1 : variant.pins.length / 4;
+
+  return (
+    <>
+      <td className="badge pin-name" style={pinLeft.name.style}>
+        {pinLeft.name.value}
+      </td>
+      <td className="pin-number">{pinLeft.number}</td>
+      {isTopRow && (
+        <td className="ic" rowSpan={rowSpan} colSpan={colSpan}>
+          {chip.manufacturer && (
+            <>
+              {chip.manufacturer}
+              <br />
+            </>
+          )}
+          {ensureIsArray(variant.name ?? chip.name).map((name, i, names) => (
+            <React.Fragment key={i}>
+              {formatVariantName(name)}
+              {i !== names.length - 1 && <hr />}
+            </React.Fragment>
+          ))}
+        </td>
+      )}
+      <td className="pin-number">{pinRight.number}</td>
+      <td className="badge pin-name" style={pinRight.name.style}>
+        {pinRight.name.value}
+      </td>
+    </>
+  );
+}
+
 function PinRow({
   side,
   alignData,
@@ -535,9 +563,7 @@ function PinRow({
 }: {
   side: "top" | "bottom" | "left" | "right";
   alignData: boolean;
-  pin: {
-    tags: Array<{ style: Record<string, unknown>; values: string[] } | null>;
-  };
+  pin: PinWithFunctions;
 }) {
   let leftFirstTagIndex = pin.tags.findIndex((each) => each !== null);
   if (leftFirstTagIndex === -1) {
@@ -593,15 +619,25 @@ function PinRow({
 function Tag({
   tag: { style, values },
   element,
+  onHover,
 }: {
   tag: { style: CSSProperties; values: string[] };
   element?: string;
+  onHover?: (hover: boolean) => void;
 }) {
   return React.createElement(
     element ?? "td",
     { className: "badge", style },
     ...separateArrayBy(
-      values.map((value) => <div className="badge-text">{value}</div>),
+      values.map((value) => (
+        <div
+          className="badge-text"
+          onMouseOver={() => onHover?.(true)}
+          onMouseOut={() => onHover?.(false)}
+        >
+          {value}
+        </div>
+      )),
       // This space is important -> otherwise copy/pasting will not include a space
       <span className="badge-divider"> </span>
     )

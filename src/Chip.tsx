@@ -1,10 +1,11 @@
-import React from "react";
+import React, { CSSProperties } from "react";
 import {
   getContrastColor,
   reversed,
   nTimes,
   findLastIndex,
   ensureIsArray,
+  separateArrayBy,
 } from "./util";
 import { SettingsContext } from "./Settings";
 import { ChipDefinition, ChipVariant } from "./chips/common";
@@ -12,12 +13,16 @@ import { ChipDefinition, ChipVariant } from "./chips/common";
 function formatVariantName(str: string) {
   return str.split("\n").flatMap((rawLine, i, lines) => {
     const line =
-      i === 0 ? <strong key={i}>{rawLine}</strong> : <small key={i}>{rawLine}</small>;
+      i === 0 ? (
+        <strong key={i}>{rawLine}</strong>
+      ) : (
+        <small key={i}>{rawLine}</small>
+      );
 
     if (i === lines.length - 1) {
       return line;
     }
-    return [line, <br  key={`${i}_br`} />];
+    return [line, <br key={`${i}_br`} />];
   });
 }
 
@@ -67,7 +72,7 @@ function handleAdditionalPin(
 
     if (values.length) {
       functions.push({
-        value: values.join(", "),
+        values,
         style: {
           background: backgroundColor,
           color: fontColor,
@@ -78,7 +83,7 @@ function handleAdditionalPin(
     }
   }
 
-  const nameStyle: { background?: string; color?: string } = {};
+  const nameStyle: CSSProperties = {};
   if (chip.pins?.[pinName]?.color !== undefined) {
     nameStyle.background = chip.pins[pinName]!.color;
     nameStyle.color = getContrastColor(nameStyle.background);
@@ -88,6 +93,10 @@ function handleAdditionalPin(
   } else if (["GND", "VSS"].includes(pinName)) {
     nameStyle.background = "black";
     nameStyle.color = getContrastColor("black");
+  } else if ("nc" === pinName) {
+    nameStyle.background = "white";
+    nameStyle.color = getContrastColor("white");
+    nameStyle.borderStyle = "dashed";
   }
 
   return {
@@ -109,8 +118,6 @@ export function Chip({ chip }: { chip: ChipDefinition }) {
     settings: { fontSize, ics },
   } = React.useContext(SettingsContext);
 
-  const variants = chip.variants;
-
   return (
     <>
       <div className="wrapper">
@@ -118,8 +125,8 @@ export function Chip({ chip }: { chip: ChipDefinition }) {
           <h2 id={`IC-${chip.name}`}>
             {chip.manufacturer} {chip.name}{" "}
             <small>
-              ({variants.length}{" "}
-              {variants.length === 1 ? "variant" : "variants"})
+              ({chip.variants.length}{" "}
+              {chip.variants.length === 1 ? "variant" : "variants"})
             </small>
           </h2>
         )}
@@ -131,13 +138,13 @@ export function Chip({ chip }: { chip: ChipDefinition }) {
         />
       </div>
       <div style={{ fontSize }}>
-        {variants.map((variant, i) => (
+        {chip.variants.map((variant, i) => (
           <Variant
             key={i}
             chip={chip}
             variant={variant}
             visibleData={visibleData}
-            marginBottom={i < variants.length - 1}
+            marginBottom={i < chip.variants.length - 1}
           />
         ))}
       </div>
@@ -529,7 +536,7 @@ function PinRow({
   side: "top" | "bottom" | "left" | "right";
   alignData: boolean;
   pin: {
-    tags: Array<{ style: Record<string, unknown>; value: string } | null>;
+    tags: Array<{ style: Record<string, unknown>; values: string[] } | null>;
   };
 }) {
   let leftFirstTagIndex = pin.tags.findIndex((each) => each !== null);
@@ -584,15 +591,19 @@ function PinRow({
 }
 
 function Tag({
-  tag: { style, value },
+  tag: { style, values },
   element,
 }: {
-  tag: { style: Record<string, unknown>; value: string };
+  tag: { style: CSSProperties; values: string[] };
   element?: string;
 }) {
   return React.createElement(
     element ?? "td",
     { className: "badge", style },
-    value
+    ...separateArrayBy(
+      values.map((value) => <div className="badge-text">{value}</div>),
+      // This space is important -> otherwise copy/pasting will not include a space
+      <span className="badge-divider"> </span>
+    )
   );
 }

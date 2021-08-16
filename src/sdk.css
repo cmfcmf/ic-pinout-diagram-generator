@@ -10,8 +10,27 @@
 .badge {
   border: 1px solid rgba(0.33, 0.33, 0.33, 0.2);
   border-radius: 0.25em;
+  padding: 0;
+}
+
+.badge-text {
+  display: inline-block;
+  border-inline: 1px solid rgba(0.33, 0.33, 0.33, 0.2);
+
   padding-inline: 0.25em;
   padding-block: 0.125em;
+}
+
+.badge-text:first-of-type {
+  border-inline-start: none;
+}
+
+.badge-text:last-of-type {
+  border-inline-end: none;
+}
+
+.badge-divider {
+  font-size: 0;
 }
 
 .dense {

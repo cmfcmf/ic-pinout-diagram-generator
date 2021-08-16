@@ -33,3 +33,9 @@ export function findLastIndex<T>(arr: T[], cmp: (element: T) => boolean) {
 export function ensureIsArray<T>(input: T | T[]): T[] {
   return Array.isArray(input) ? input : [input];
 }
+
+export function separateArrayBy<T, U>(input: T[], separator: U): Array<T | U> {
+  return input.flatMap((element, idx) =>
+    idx === 0 ? [element] : [separator, element]
+  );
+}

@@ -1,7 +1,7 @@
 import "regenerator-runtime/runtime";
 import React from "react";
 import ReactDOM from "react-dom";
-import App from "./App";
+import { App } from "./App";
 import shadowRoot from "react-shadow";
 import css from "bundle-text:./sdk.css";
 
@@ -9,7 +9,7 @@ import css from "bundle-text:./sdk.css";
 window.PinoutDiagrams = {
   render: (
     root: ReactDOM.Container,
-    { ics, maxWidth }: { ics?: []; maxWidth?: string }
+    { ics, maxWidth }: { ics?: string[]; maxWidth?: string }
   ) => {
     ReactDOM.render(
       <React.StrictMode>

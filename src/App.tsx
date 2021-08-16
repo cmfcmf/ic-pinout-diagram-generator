@@ -3,7 +3,7 @@ import allChips from "./chips";
 import { Chip } from "./Chip";
 import { Settings, SettingsContext } from "./Settings";
 
-function App({ ics }: { ics: string[] }) {
+export function App({ ics }: { ics: string[] }) {
   const [settings, setSettings] = React.useState<Settings>({
     alignData: true,
     fontSize: 12,
@@ -51,5 +51,3 @@ function App({ ics }: { ics: string[] }) {
     </SettingsContext.Provider>
   );
 }
-
-export default App;

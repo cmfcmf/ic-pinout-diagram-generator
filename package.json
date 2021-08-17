@@ -11,6 +11,7 @@
   },
   "scripts": {
     "build": "parcel build --public-url /ic-pinout-diagram-generator",
+    "build:netlify": "parcel build --public-url /",
     "start": "parcel serve --public-url /ic-pinout-diagram-generator --port 5000 --open",
     "format": "prettier --write ."
   },

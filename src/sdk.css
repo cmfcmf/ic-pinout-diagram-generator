@@ -13,6 +13,7 @@
   padding: 0;
 }
 
+label.badge,
 .badge.pin-name,
 .badge-text {
   padding-inline: 0.25em;

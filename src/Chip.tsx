@@ -124,20 +124,25 @@ function handleAdditionalPin(
   };
 }
 
-export function Chip({ chip }: { chip: ChipDefinition }) {
-  const [visibleData, setVisibleData] = React.useState(
+export const Chip = React.memo(function Chip({
+  chip,
+  showName,
+  fontSize,
+}: {
+  chip: ChipDefinition;
+  showName: boolean;
+  fontSize: number;
+}) {
+  const [visibleData, setVisibleData] = React.useState(() =>
     chip.data
       .filter(({ defaultHidden }) => defaultHidden !== true)
       .map(({ name }) => name)
   );
-  const {
-    settings: { fontSize, ics },
-  } = React.useContext(SettingsContext);
 
   return (
     <>
       <div className="wrapper">
-        {ics.length !== 1 && (
+        {showName && (
           <h2 id={`IC-${chip.name}`}>
             {chip.manufacturer} {chip.name}{" "}
             <small>
@@ -166,7 +171,7 @@ export function Chip({ chip }: { chip: ChipDefinition }) {
       </div>
     </>
   );
-}
+});
 
 function Legend({
   chip,
@@ -240,10 +245,6 @@ function Variant({
       throw new Error("Unknown package Only 'dual' and 'quad' are supported.");
   }
 
-  const {
-    settings: { alignData },
-  } = React.useContext(SettingsContext);
-
   return (
     <>
       <div className="table-responsive">
@@ -254,15 +255,12 @@ function Variant({
                 chip={chip}
                 variant={variant}
                 visibleData={visibleData}
-                alignData={alignData}
               />
             ) : (
               <QuadPackage
                 chip={chip}
                 variant={variant}
                 visibleData={visibleData}
-                // TODO: Not yet supported
-                // alignData={alignData}
               />
             )}
           </tbody>
@@ -282,7 +280,11 @@ function QuadPackage({
   variant: ChipVariant;
   visibleData: string[];
 }) {
-  const alignData = false; // TODO: Not yet supported.
+  // TODO: Not yet supported.
+  // const {
+  //   settings: { alignData },
+  // } = React.useContext(SettingsContext);
+  const alignData = false;
 
   const pinsPerSide = variant.pins.length / 4;
 
@@ -432,13 +434,15 @@ function DualPackage({
   chip,
   variant,
   visibleData,
-  alignData,
 }: {
   chip: ChipDefinition;
   variant: ChipVariant;
   visibleData: string[];
-  alignData: boolean;
 }) {
+  const {
+    settings: { alignData },
+  } = React.useContext(SettingsContext);
+
   return (
     <>
       {nTimes(variant.pins.length / 2).map((i) => {
@@ -475,7 +479,7 @@ function DualPackage({
   );
 }
 
-function AdditionalPins({
+const AdditionalPins = React.memo(function AdditionalPins({
   chip,
   variant,
   visibleData,
@@ -507,7 +511,7 @@ function AdditionalPins({
       })}
     </>
   );
-}
+});
 
 function ICBodyAndPinNames({
   chip,

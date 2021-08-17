@@ -23,31 +23,42 @@ export function App({ ics }: { ics: string[] }) {
       }}
     >
       {chips.map((chip) => (
-        <Chip key={chip.name} chip={chip} />
+        <Chip
+          key={chip.name}
+          chip={chip}
+          fontSize={settings.fontSize}
+          showName={ics.length !== 1}
+        />
       ))}
       <div className="wrapper">
         <Settings />
         <hr />
-        <p>
-          Disclaimer: These unofficial diagrams have been created from the
-          official datasheets. However, mistakes happen and there may be errors
-          in the diagrams above. Please{" "}
-          <a href="https://github.com/cmfcmf/ic-pinout-diagram-generator/issues/new">
-            report errors
-          </a>{" "}
-          if you find any.
-          <br />
-          <small>
-            Pinout diagram generator made by{" "}
-            <a href="https://github.com/cmfcmf">Christian Flach (@cmfcmf)</a>.
-            The source code can be found at GitHub:{" "}
-            <a href="https://github.com/cmfcmf/ic-pinout-diagram-generator">
-              cmfcmf/ic-pinout-diagram-generator
-            </a>
-            .
-          </small>
-        </p>
+        <Disclaimer />
       </div>
     </SettingsContext.Provider>
+  );
+}
+
+function Disclaimer() {
+  return (
+    <p>
+      Disclaimer: These unofficial diagrams have been created from the official
+      datasheets. However, mistakes happen and there may be errors in the
+      diagrams above. Please{" "}
+      <a href="https://github.com/cmfcmf/ic-pinout-diagram-generator/issues/new">
+        report errors
+      </a>{" "}
+      if you find any.
+      <br />
+      <small>
+        Pinout diagram generator made by{" "}
+        <a href="https://github.com/cmfcmf">Christian Flach (@cmfcmf)</a>. The
+        source code can be found at GitHub:{" "}
+        <a href="https://github.com/cmfcmf/ic-pinout-diagram-generator">
+          cmfcmf/ic-pinout-diagram-generator
+        </a>
+        .
+      </small>
+    </p>
   );
 }

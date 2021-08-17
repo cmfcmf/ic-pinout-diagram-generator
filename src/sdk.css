@@ -23,7 +23,6 @@ label.badge,
 .badge-text {
   display: inline-block;
   border-inline: 1px solid rgba(0.33, 0.33, 0.33, 0.2);
-
 }
 
 .badge-text:first-of-type {

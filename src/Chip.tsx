@@ -19,10 +19,13 @@ function formatVariantName(str: string) {
         <small key={i}>{rawLine}</small>
       );
 
-    if (i === lines.length - 1) {
-      return line;
-    }
-    return [line, <br key={`${i}_br`} />];
+    return i === 0 ? line : [<br key={`${i}_br`} />, line];
+  });
+}
+
+function nl2br(str: string) {
+  return str.split("\n").flatMap((line, i) => {
+    return i === 0 ? line : [<br key={`${i}_br`} />, line];
   });
 }
 
@@ -143,7 +146,7 @@ export function Chip({ chip }: { chip: ChipDefinition }) {
             </small>
           </h2>
         )}
-        {chip.notes && <p>{chip.notes}</p>}
+        {chip.notes && <p>{nl2br(chip.notes)}</p>}
         <Legend
           chip={chip}
           visibleData={visibleData}

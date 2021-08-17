@@ -42,6 +42,7 @@ export const chips: ChipDefinition[] = [
   {
     manufacturer: "Parallax",
     name: "Propeller P2 P2X8C4M64P",
+    notes: "8 Core 32-bit CPU\n180MHz-320MHz 720-1280 MIPs\n542KB SRAM, 16KB Boot ROM\n64 SmartPin I/O pins",
     variants: [
       {
         name: "P2X8C4M64P\nTQFP100-14x14\n-- Parallax Propeller P2 --\n8 Core 32-bit CPU\n180MHz-320MHz 720-1280 MIPs\n542KB SRAM, 16KB Boot ROM\n64 SmartPin I/O pins",

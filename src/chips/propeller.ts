@@ -9,13 +9,13 @@ const BOOT = {
 };
 
 const SMART_PINS = {
-  name: "Smart Pins",
+  name: "Smart Pins USART/PWM/ADC/DAC/Timers/etc",
   color: "#d000d0",
 };
 
 const UART = {
   name: "USART 1-32bit async/sync/usb",
-  color: "#4090d0",
+  color: "#3080f0",
 };
 
 const VGA = {
@@ -41,16 +41,16 @@ const DAC = {
 export const chips: ChipDefinition[] = [
   {
     manufacturer: "Parallax",
-    name: "Propeller P2X8C4M64P",
+    name: "Propeller P2 P2X8C4M64P",
     variants: [
       {
-        name: "Propeller P2X8C4M64P\nTQFP100-14x14",
+        name: "P2X8C4M64P\nTQFP100-14x14\n-- Parallax Propeller P2 --\n8 Core 32-bit CPU\n180MHz-320MHz 720-1280 MIPs\n542KB SRAM, 16KB Boot ROM\n64 SmartPin I/O pins",
         package: "quad",
         pins: [
           "TST", "V18", "P00", "P01", "V33", "P02", "P03", "V18", "P04", "P05", "V33", "P06", "P07", "V18", "P08", "P09", "V33", "P10", "P11", "V18", "P12", "P13", "V33", "P14", "P15",
           "V18", "P16", "P17", "V33", "P18", "P19", "V18", "P20", "P21", "V33", "P22", "P23", "V18", "P24", "P25", "V33", "P26", "P27", "V18", "P28", "P29", "V33", "P30", "P31", "XO",
           "XI",  "V18", "P32", "P33", "V33", "P34", "P35", "V18", "P36", "P37", "V33", "P38", "P39", "V18", "P40", "P41", "V33", "P42", "P43", "V18", "P44", "P45", "V33", "P46", "P47",
-          "V18", "P48", "P49", "V33", "P50", "P51", "V18", "P52", "P53", "V33", "P54", "P55", "V18", "P56", "P57", "V33", "P58", "P59", "V18", "P60", "P61", "V33", "P62", "P63", "RES#",
+          "V18", "P48", "P49", "V33", "P50", "P51", "V18", "P52", "P53", "V33", "P54", "P55", "V18", "P56", "P57", "V33", "P58", "P59", "V18", "P60", "P61", "V33", "P62", "P63", "RESn",
         ],
         additionalPins: [{ description: "Bottom Pad", pin: "GND" }]
       }
@@ -210,58 +210,6 @@ export const chips: ChipDefinition[] = [
           "TXD/RXD-61":   ["P61"],
           "TXD/RXD-62":   ["P62"],
           "TXD/RXD-63":   ["P63"]
-        }
-      },
-      {
-        ...VGA,
-        pins: {
-          "VGA0-H":   ["P00", "P04"],
-          "VGA0-B":   ["P01", "P05"],
-          "VGA0-G":   ["P02", "P06"],
-          "VGA0-R":   ["P03", "P07"],
-          "VGA0-V":   ["P04", "P03"],
-
-          "VGA1-H":   ["P08", "P12"],
-          "VGA1-B":   ["P09", "P13"],
-          "VGA1-G":   ["P10", "P14"],
-          "VGA1-R":   ["P11", "P15"],
-          "VGA1-V":   ["P12", "P11"],
-
-          "VGA2-H":   ["P16", "P20"],
-          "VGA2-B":   ["P17", "P21"],
-          "VGA2-G":   ["P18", "P22"],
-          "VGA2-R":   ["P19", "P23"],
-          "VGA2-V":   ["P20", "P19"],
-
-          "VGA3-H":   ["P24", "P28"],
-          "VGA3-B":   ["P25", "P29"],
-          "VGA3-G":   ["P26", "P30"],
-          "VGA3-R":   ["P27", "P31"],
-          "VGA3-V":   ["P28", "P27"],
-
-          "VGA4-H":   ["P32", "P36"],
-          "VGA4-B":   ["P33", "P37"],
-          "VGA4-G":   ["P34", "P38"],
-          "VGA4-R":   ["P35", "P39"],
-          "VGA4-V":   ["P36", "P35"],
-
-          "VGA5-H":   ["P40", "P44"],
-          "VGA5-B":   ["P41", "P45"],
-          "VGA5-G":   ["P42", "P46"],
-          "VGA5-R":   ["P43", "P47"],
-          "VGA5-V":   ["P44", "P43"],
-
-          "VGA6-H":   ["P48", "P52"],
-          "VGA6-B":   ["P49", "P53"],
-          "VGA6-G":   ["P50", "P54"],
-          "VGA6-R":   ["P51", "P55"],
-          "VGA6-V":   ["P52", "P51"],
-
-          "VGA7-H":   ["P56", "P60"],
-          "VGA7-B":   ["P57", "P61"],
-          "VGA7-G":   ["P58", "P62"],
-          "VGA7-R":   ["P59", "P63"],
-          "VGA7-V":   ["P60", "P59"]
         }
       },
       {
@@ -469,6 +417,58 @@ export const chips: ChipDefinition[] = [
           "DAC-61":   ["P61"],
           "DAC-62":   ["P62"],
           "DAC-63":   ["P63"]
+        }
+      },
+      {
+        ...VGA,
+        pins: {
+          "VGA0-H":   ["P00", "P04"],
+          "VGA0-B":   ["P01", "P05"],
+          "VGA0-G":   ["P02", "P06"],
+          "VGA0-R":   ["P03", "P07"],
+          "VGA0-V":   ["P04", "P03"],
+
+          "VGA1-H":   ["P08", "P12"],
+          "VGA1-B":   ["P09", "P13"],
+          "VGA1-G":   ["P10", "P14"],
+          "VGA1-R":   ["P11", "P15"],
+          "VGA1-V":   ["P12", "P11"],
+
+          "VGA2-H":   ["P16", "P20"],
+          "VGA2-B":   ["P17", "P21"],
+          "VGA2-G":   ["P18", "P22"],
+          "VGA2-R":   ["P19", "P23"],
+          "VGA2-V":   ["P20", "P19"],
+
+          "VGA3-H":   ["P24", "P28"],
+          "VGA3-B":   ["P25", "P29"],
+          "VGA3-G":   ["P26", "P30"],
+          "VGA3-R":   ["P27", "P31"],
+          "VGA3-V":   ["P28", "P27"],
+
+          "VGA4-H":   ["P32", "P36"],
+          "VGA4-B":   ["P33", "P37"],
+          "VGA4-G":   ["P34", "P38"],
+          "VGA4-R":   ["P35", "P39"],
+          "VGA4-V":   ["P36", "P35"],
+
+          "VGA5-H":   ["P40", "P44"],
+          "VGA5-B":   ["P41", "P45"],
+          "VGA5-G":   ["P42", "P46"],
+          "VGA5-R":   ["P43", "P47"],
+          "VGA5-V":   ["P44", "P43"],
+
+          "VGA6-H":   ["P48", "P52"],
+          "VGA6-B":   ["P49", "P53"],
+          "VGA6-G":   ["P50", "P54"],
+          "VGA6-R":   ["P51", "P55"],
+          "VGA6-V":   ["P52", "P51"],
+
+          "VGA7-H":   ["P56", "P60"],
+          "VGA7-B":   ["P57", "P61"],
+          "VGA7-G":   ["P58", "P62"],
+          "VGA7-R":   ["P59", "P63"],
+          "VGA7-V":   ["P60", "P59"]
         }
       }
     ]

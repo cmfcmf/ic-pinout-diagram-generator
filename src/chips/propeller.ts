@@ -1,5 +1,4 @@
 import {
-  EXTERNAL_CRYSTAL,
   ChipDefinition,
 } from "./common";
 
@@ -13,8 +12,8 @@ const SMART_PINS = {
   color: "#d000d0",
 };
 
-const UART = {
-  name: "USART 1-32bit async/sync/usb",
+const USART = {
+  name: "USART async/sync/usb 1-32bits",
   color: "#3080f0",
 };
 
@@ -66,13 +65,6 @@ export const chips: ChipDefinition[] = [
           "SF_SCK/SD_CS":  ["P60"],
           "SF/SD_COPI":    ["P59"],
           "SF/SD_CIPO":    ["P58"]
-        }
-      },
-      {
-        ...EXTERNAL_CRYSTAL,
-        pins: {
-          "XI":     ["XI"],
-          "XO":     ["XO"]
         }
       },
       {
@@ -145,7 +137,7 @@ export const chips: ChipDefinition[] = [
         }
       },
       {
-        ...UART,
+        ...USART,
         pins: {
           "TXD/RXD-00":   ["P00"],
           "TXD/RXD-01":   ["P01"],

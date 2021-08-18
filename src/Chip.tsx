@@ -103,12 +103,27 @@ function handleAdditionalPin(
   if (chip.pins?.[pinName]?.color !== undefined) {
     nameStyle.background = chip.pins[pinName]!.color;
     nameStyle.color = getContrastColor(nameStyle.background);
-  } else if (["VCC", "VDD"].includes(pinName)) {
+  } else if (["VCC", "VDD", "V5", "5V", "5V0"].includes(pinName)) {
     nameStyle.background = "red";
     nameStyle.color = getContrastColor("red");
+  } else if (["V33", "3V3"].includes(pinName)) {
+    nameStyle.background = "#d00000";
+    nameStyle.color = getContrastColor("#d00000");
+  } else if (["V18", "1V8"].includes(pinName)) {
+    nameStyle.background = "#700000";
+    nameStyle.color = getContrastColor("#700000");
   } else if (["GND", "VSS"].includes(pinName)) {
     nameStyle.background = "black";
     nameStyle.color = getContrastColor("black");
+  } else if (["XI", "XO"].includes(pinName)) {
+    nameStyle.background = "#ff8000";
+    nameStyle.color = getContrastColor("#ff8000");
+  } else if (["RST", "RSTn", "RES", "RESn"].includes(pinName)) {
+    nameStyle.background = "#40c000";
+    nameStyle.color = getContrastColor("#40c000");
+  } else if (["TST"].includes(pinName)) {
+    nameStyle.background = "#404040";
+    nameStyle.color = getContrastColor("#404040");
   } else if ("nc" === pinName) {
     nameStyle.background = "white";
     nameStyle.color = getContrastColor("white");

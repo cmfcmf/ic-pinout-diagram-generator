@@ -1,8 +1,11 @@
 # Integrated Circuit Pinout Diagram Generator
 
+![Screenshot](screenshot.png)
+
 This is a simple web tool to generate pin mappings for integrated circuits.
 It is live at [cmfcmf.github.io/ic-pinout-diagram-generator](https://cmfcmf.github.io/ic-pinout-diagram-generator).
-It is inspired by the work done by @sleemanj on their [ArduinoOrientedChipPinoutCreator](https://github.com/sleemanj/ArduinoOrientedChipPinoutCreator), but is a bit more flexible.
+It is inspired by the work done by [@sleemanj](https://github.com/sleemanj/) on their
+[ArduinoOrientedChipPinoutCreator](https://github.com/sleemanj/ArduinoOrientedChipPinoutCreator), but is a bit more flexible.
 
 Currently, pin mappings for many [Padauk mikrocontrollers](http://www.padauk.com.tw) are available.
 You can add your own pin mappings by editing `src/chips.ts` and the files in `src/chips`.
@@ -38,6 +41,8 @@ To preview your changes, clone this repository, install Node.js 12 or later, run
 All code (except for code in `src/chips`) should be formatted using prettier by running `npm run format`.
 
 In development, the bottom right of your screen will show a green "lag radar" that is used to visualize "lag" when rendering (e.g., when toggling different ic functions on and off).
+
+**Please note that changes to the CSS files are not currently hot reloaded. You need to reload your browser manually after making changes to CSS.**
 
 ## LICENSE
 

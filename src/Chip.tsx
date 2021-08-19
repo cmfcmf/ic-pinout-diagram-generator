@@ -115,7 +115,7 @@ function handleAdditionalPin(
   } else if (["GND", "VSS"].includes(pinName)) {
     nameStyle.background = "black";
     nameStyle.color = getContrastColor("black");
-  } else if (["XI", "XO"].includes(pinName)) {
+  } else if (["XI", "XO","XI*", "XO*"].includes(pinName)) {
     nameStyle.background = "#ff8000";
     nameStyle.color = getContrastColor("#ff8000");
   } else if (["RST", "RSTn", "RES", "RESn"].includes(pinName)) {

@@ -106,19 +106,19 @@ function handleAdditionalPin(
   } else if (["VCC", "VDD", "V5", "5V", "5V0"].includes(pinName)) {
     nameStyle.background = "red";
     nameStyle.color = getContrastColor("red");
-  } else if (["V33", "3V3"].includes(pinName)) {
+  } else if (["V33", "3V3", "VDDIO"].includes(pinName)) {
     nameStyle.background = "#d00000";
     nameStyle.color = getContrastColor("#d00000");
-  } else if (["V18", "1V8"].includes(pinName)) {
+  } else if (["V18", "1V8", "V11", "1V1", "Vcore"].includes(pinName)) {
     nameStyle.background = "#700000";
     nameStyle.color = getContrastColor("#700000");
-  } else if (["GND", "VSS"].includes(pinName)) {
+  } else if (["GND", "VSS", "AGND"].includes(pinName)) {
     nameStyle.background = "black";
     nameStyle.color = getContrastColor("black");
   } else if (["XI", "XO","XI*", "XO*"].includes(pinName)) {
     nameStyle.background = "#ff8000";
     nameStyle.color = getContrastColor("#ff8000");
-  } else if (["RST", "RSTn", "RES", "RESn"].includes(pinName)) {
+  } else if (["RST", "RSTn", "RES", "RESn", "RUN"].includes(pinName)) {
     nameStyle.background = "#40c000";
     nameStyle.color = getContrastColor("#40c000");
   } else if (["TST"].includes(pinName)) {

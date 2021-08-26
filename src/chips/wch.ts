@@ -57,7 +57,7 @@ const INTERRUPT = {
 
 export const chips: ChipDefinition[] = [
   {
-    name: "CH340 CH340E CH340K CH340B CH340C CH340G CH340T (7 variants)",
+    name: "CH340/CH340E/CH340K/CH340B/CH340C/CH340G/CH340T",
     manufacturer: "WCH",
     notes: "CH340N (SOP8-150)\nCH340E (MSOP10-118)\nCH340K (ESSOP10-15)\nCH340B CH340C CH340G (SOP16-150)\nCH340T (SOP20-209)",
     variants: [
@@ -84,7 +84,7 @@ export const chips: ChipDefinition[] = [
         additionalPins: [{ description: "Bottom Pad", pin: "GND" }]
       },
       {
-        name: "CH340B CH340C CH340G\nCH340B\nCH340C\nCH340G\nSOP16-150",
+        name: "CH340B/CH340C/CH340G\nSOP16-150",
         pins: [
           "GND",  "TXD",  "RXD",  "V33",  "UDP",  "UDM",  "XI*", "XO*",
           "CTSn", "DSRn", "RIn",  "DCDn", "DTRn", "RTSn", "TNOW", "VCC"
@@ -139,12 +139,12 @@ export const chips: ChipDefinition[] = [
     ]
   },
   {
-    name: "CH552E CH554E (MSOP10-118 - 2 variants) ",
+    name: "CH552E/CH554E",
     manufacturer: "WCH",
     notes: "CH552E can only do USB Device\nCH554E can also do USB Host",
     variants: [
       {
-        name: "CH552E CH554E\nMSOP10-118",
+        name: "CH552E/CH554E\nMSOP10-118",
         pins: [
           "P1.4", "P1.5", "P1.6", "P1.7", "RST",
           "P3.6", "P3.7", "GND",  "VCC",  "V33",
@@ -242,12 +242,12 @@ export const chips: ChipDefinition[] = [
     ]
   },
   {
-    name: "CH551G CH552G CH554G (SOP16 150) (3 variants) ",
+    name: "CH551G/CH552G/CH554G",
     manufacturer: "WCH",
     notes: "CH551G does not have UART1, ADC, Touch, USB-C and has less Flash & XRAM\nCH552G has UART1, ADC, Touch, USB-C and more Flash and XRAM\nCH554G same as CH552G and can also do USB Host",
     variants: [
       {
-        name: "CH551G CH552G CH554G\nCH551G\nCH552G\nCH554G\nSOP16-150",
+        name: "CH551G/CH552G/CH554G\nSOP16-150",
         pins: [
           "P3.2", "P1.4", "P1.5", "P1.6", "P1.7", "RST",  "P3.1", "P3.0",
           "P1.1", "P3.3", "P3.4", "P3.6", "P3.7", "GND",  "VCC",  "V33",
@@ -339,12 +339,12 @@ export const chips: ChipDefinition[] = [
     ]
   },
   {
-    name: "CH552T CH554T (TSSOP20-173) (2 variants) ",
+    name: "CH552T/CH554T",
     manufacturer: "WCH",
     notes: "CH552T can only do USB Device\nCH554T can also do USB Host",
     variants: [
       {
-        name: "CH552T CH554T\nCH552T\nCH554T\nTSSOP20-173",
+        name: "CH552T/CH554T\nTSSOP20-173",
         pins: [
           "P3.2", "P1.4", "P1.5", "P1.6", "P1.7", "RST",  "P1.0", "P1.1", "P3.1", "P3.0",
           "P3.3", "P3.4", "P3.5", "P3.6", "P3.7", "P1.3", "P1.2", "GND",  "VCC",  "V33",
@@ -443,12 +443,12 @@ export const chips: ChipDefinition[] = [
     ]
   },
   {
-    name: "CH558T CH559T (SSOP20-209) (2 variants)",
+    name: "CH558T/CH559T",
     manufacturer: "WCH",
     notes: "CH558T & CH559T (SSOP20-209)\n- CH558 can only do USB Device\n- CH559 can also do USB Host x2",
     variants: [
       {
-        name: "CH558T CH559T\nCH558T\nCH559T\nSSOP20-209",
+        name: "CH558T/CH559T\nSSOP20-209",
         pins: [
           "P1.2", "P1.4", "P1.5", "P1.6", "P1.7", "P5.7", "P3.2", "P3.4", "P4.6", "P4.7",
           "P2.5", "P2.6", "P2.7", "P5.1", "P5.0", "P0.3", "P0.2", "GND",  "VCC",  "V33"
@@ -561,12 +561,12 @@ export const chips: ChipDefinition[] = [
     ]
   },
   {
-    name: "CH558L CH559L (LQFP48-7x7) (2 variants)",
+    name: "CH558L/CH559L",
     manufacturer: "WCH",
     notes: "CH558L & CH559L (LQFP48-7x7)\n- CH558 can only do USB Device\n- CH559 can also do USB Host x2",
     variants: [
       {
-        name: "CH558L CH559L\nCH558L\nCH559L\nLQFP48-7x7",
+        name: "CH558L/CH559L\nLQFP48-7x7",
         package: "quad",
         pins: [
           "P1.6", "P1.7", "P5.7", "P3.0", "P4.5", "P4.4", "P3.1", "P3.2", "P3.3", "P3.4", "P3.5", "P3.6",

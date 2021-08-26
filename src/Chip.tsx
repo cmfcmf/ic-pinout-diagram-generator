@@ -161,7 +161,7 @@ export const Chip = React.memo(function Chip({
           <h2 id={`IC-${chip.name}`}>
             {chip.manufacturer} {chip.name}{" "}
             <small>
-              ({chip.variants.length}{" "}
+              ({chip.variants.length} package{" "}
               {chip.variants.length === 1 ? "variant" : "variants"})
             </small>
           </h2>

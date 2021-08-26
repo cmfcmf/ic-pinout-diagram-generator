@@ -359,7 +359,7 @@ function QuadVerticalPins({
       {nTimes(pinsPerSide).map((i) => {
         const pinIdx = getPinIdx(i);
         return (
-          <td key={pinIdx} className="pin-number" style={{ writingMode }}>
+          <td key={pinIdx} className="pin-number">
             {pinIdx}
           </td>
         );

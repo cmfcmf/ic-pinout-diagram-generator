@@ -2,62 +2,62 @@ import { ChipDefinition } from "./common";
 
 const PWR_3V3 = {
   name: "Power",
-  color: "#d00000",
+  color: "#ff2e3f",
 };
 
 const DEBUG = {
   name: "SWD",
-  color: "#e09050",
+  color: "#ff6480",
 };
 
 const BOOT = {
   name: "Boot",
-  color: "#e08020",
+  color: "#ffcfab",
 };
 
 const UART1 = {
   name: "UART1",
-  color: "#20B690",
+  color: "#275fe4",
 };
 
 const UART2 = {
   name: "UART2",
-  color: "#20B650",
-};
-
-const I2C1 = {
-  name: "I2C1",
-  color: "#c54620",
-};
-
-const I2C2 = {
-  name: "I2C2",
-  color: "#e59620",
+  color: "#0ab6ff",
 };
 
 const SPI1 = {
   name: "SPI1",
-  color: "#c52660",
+  color: "#ce33c0",
 };
 
 const SPI2 = {
   name: "SPI2",
-  color: "#c521a0",
+  color: "#f067f0",
+};
+
+const I2C1 = {
+  name: "I2C1",
+  color: "#df631c",
+};
+
+const I2C2 = {
+  name: "I2C2",
+  color: "#ffa023",
 };
 
 const ADC = {
   name: "ADC",
-  color: "#80B600",
+  color: "#1fc255",
 };
 
 const CLOCKS = {
   name: "Clocks",
-  color: "#3367a4",
+  color: "#823ff1",
 };
 
 const WAKEUP = {
   name: "Wake-Up",
-  color: "#23a5a3",
+  color: "#d52753",
 };
 
 export const chips: ChipDefinition[] = [

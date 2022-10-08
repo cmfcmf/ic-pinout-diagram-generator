@@ -40,7 +40,7 @@
     "@types/node": "^12.20.19",
     "@types/react": "^17.0.18",
     "@types/react-dom": "^17.0.9",
-    "parcel": "^2.0.0-rc.0",
+    "parcel": "^2.7.0",
     "prettier": "^2.3.2",
     "prop-types": "^15.7.2",
     "react-lag-radar": "^1.0.0",

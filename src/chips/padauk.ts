@@ -99,8 +99,8 @@ export const chips: ChipDefinition[] = [
       {
         ...PWM11,
         pins: {
-          PWM2: ["PA5", "PA4", "PA3", "PB3", "PB2"],
-          PWM1: ["PB7", "PB6"],
+          PWM2: ["PA5", "PA3", "PB3", "PB2"],
+          PWM1: ["PA4", "PB7", "PB6"],
           PWM0: ["PA0", "PB5", "PB4"],
         }
       },

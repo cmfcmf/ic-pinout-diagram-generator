@@ -67,10 +67,10 @@ export const chips: ChipDefinition[] = [
   {
     manufacturer: "Sonix",
     name: "SN32F24xB",
-    notes: "1 Core 32-bit ARM M0\n48MHz\n8KB SRAM, 64KB Boot ROM\n57 GPIO pins",
+    notes: "Single Core 32-bit ARM M0\n48MHz\n8KB SRAM, 64KB Boot ROM\n57 GPIO pins",
     variants: [
         {
-        name: "SN32F24xB\nLQFP64\1 Core 32-bit ARM M0\n48MHz\n8KB SRAM, 64KB Boot ROM\n57 GPIO pins",
+        name: "SN32F24xB\nLQFP64\nSingle Core 32-bit ARM M0\n48MHz\n8KB SRAM, 64KB Boot ROM\n57 GPIO pins",
         package: "quad",
         pins: [
             "P2.0",  "P2.1", "P2.2", "P2.3", "P2.4", "P2.5", "P2.6", "P2.7", "P2.8", "P2.9",  "P2.10", "P2.11", "P2.11", "P2.12", "P2.13", "P2.14", "VDDIO1",

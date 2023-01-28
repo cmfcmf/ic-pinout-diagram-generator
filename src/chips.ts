@@ -8,4 +8,14 @@ import { chips as stm32g0 } from "./chips/stm32g0";
 import { chips as sn32f240b } from "./chips/sn32f240b";
 import { chips as sn32f260 } from "./chips/sn32f260";
 
-export default [...other, ...padauk, ...wch, ...propeller, ...propeller1, ...raspberrypi, ...stm32g0, ...sn32f240b, ...sn32f260];
+export default [
+  ...other,
+  ...padauk,
+  ...wch,
+  ...propeller,
+  ...propeller1,
+  ...raspberrypi,
+  ...stm32g0,
+  ...sn32f240b,
+  ...sn32f260,
+];

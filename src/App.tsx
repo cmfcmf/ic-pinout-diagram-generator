@@ -42,11 +42,9 @@ export function App({ ics }: { ics: string[] }) {
 function Disclaimer() {
   return (
     <p>
-      Disclaimer: These unofficial diagrams have been created from the official
-      datasheets. However, mistakes happen and there may be errors in the
-      diagrams above. Please{" "}
+      Disclaimer: These unofficial pinout diagrams were created manually based on the original datasheets. Since this was a manual process, there may be errors in the diagrams. The diagrams come with absolutely no warranty of any kind. Please{" "}
       <a href="https://github.com/cmfcmf/ic-pinout-diagram-generator/issues/new">
-        report errors
+        report errors here
       </a>{" "}
       if you find any.
       <br />

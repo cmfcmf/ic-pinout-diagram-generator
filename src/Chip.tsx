@@ -115,7 +115,7 @@ function handleAdditionalPin(
   } else if (["GND", "VSS", "AGND"].includes(pinName)) {
     nameStyle.background = "black";
     nameStyle.color = getContrastColor("black");
-  } else if (["XI", "XO","XI*", "XO*"].includes(pinName)) {
+  } else if (["XI", "XO", "XI*", "XO*"].includes(pinName)) {
     nameStyle.background = "#ff8000";
     nameStyle.color = getContrastColor("#ff8000");
   } else if (["RST", "RSTn", "RES", "RESn", "RUN"].includes(pinName)) {
@@ -252,7 +252,7 @@ function Variant({
     case "quad":
       if (variant.pins.length % 4 !== 0) {
         throw new Error(
-          `The variant ${variant.name} must have a number of pins divisible by 4.`
+          `The variant ${variant.name} must have a number of pins divisible by 4, but has ${variant.pins.length} pins.`
         );
       }
       break;
@@ -647,16 +647,15 @@ function Tag({
   element?: string;
   onHover?: (hover: boolean) => void;
 }) {
+  const eventHandlers = onHover
+    ? { onMouseOver: () => onHover(true), onMouseOut: () => onHover(false) }
+    : {};
   return React.createElement(
     element ?? "td",
     { className: "badge", style },
     ...separateArrayBy(
       values.map((value) => (
-        <div
-          className="badge-text"
-          onMouseOver={() => onHover?.(true)}
-          onMouseOut={() => onHover?.(false)}
-        >
+        <div className="badge-text" {...eventHandlers}>
           {value}
         </div>
       )),

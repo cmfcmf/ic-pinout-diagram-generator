@@ -37,7 +37,7 @@ const I2C = {
   color: "#df631c",
 };
 
-   
+
 export const chips: ChipDefinition[] = [
   {
     manufacturer: "Sonix",
@@ -45,13 +45,13 @@ export const chips: ChipDefinition[] = [
     notes: "Single Core 32-bit ARM M0\n48MHz\n2KB SRAM, 30KB Boot ROM\n42 GPIO pins",
     variants: [
         {
-        name: "SN32F24xB\nLQFP48\nSingle Core 32-bit ARM M0\n48MHz\n2KB SRAM, 30KB Boot ROM\n42 GPIO pins",
+        name: "SN32F268F\nLQFP48\nSingle Core 32-bit ARM M0\n48MHz\n2KB SRAM, 30KB Boot ROM\n42 GPIO pins",
         package: "quad",
         pins: [
-            "P2.0", "P2.1", "P2.2", "P0.0",  "P0.1", "P0.0", "P0.3", "P0.4", "P0.5", "P0.6", "P0.7", "P0.8",
-            "P0.9", "P0.10", "P0.11", "P0.11", "P0.10", "P0.13", "P0.14", "P0.15", "P3.0", "P3.1", "P3.2", "P3.3", "P3.4",
-            "P3.5", "P3.6", "P3.7", "P3.8", "P2.3", "P2.4", "P2.5", "P2.6", "P2.7", "P2.8", "P2.9",  "P2.10",
-            "P1.5", "P1.4", "P1.3", "P1.2", "P1.1", "P1.0", "VDDIO1", "VDD", "VREG33", "D+", "D-","VSS"
+            "P2.0", "P2.1",  "P2.2",  "P0.0",  "P0.1",  "P0.2",  "P0.3",  "P0.4", "P0.5",   "P0.6", "P0.7", "P0.8",
+            "P0.9", "P0.10", "P0.11", "P0.12", "P0.13", "P0.14", "P0.15", "P3.0", "P3.1",   "P3.2", "P3.3", "P3.4",
+            "P3.5", "P3.6",  "P3.7",  "P3.8",  "P2.3",  "P2.4",  "P2.5",  "P2.6", "P2.7",   "P2.8", "P2.9", "P2.10",
+            "P1.5", "P1.4",  "P1.3",  "P1.2",  "P1.1",  "P1.0", "VDDIO1", "VDD",  "VREG33", "D+",   "D-",   "VSS"
           ],
         }
     ],
@@ -86,8 +86,8 @@ export const chips: ChipDefinition[] = [
       {
         ...I2C,
         pins: {
-          "SDAO":      ["P0.9"],
-          "SCL0":      ["P0.8"],
+          "SDAO":      ["P0.5"],
+          "SCL0":      ["P0.4"],
         }
       },
       {
@@ -99,7 +99,7 @@ export const chips: ChipDefinition[] = [
           "SEL0":       ["P1.2"],
         }
       },
-      
+
       {
         ...PWM,
         pins: {
@@ -125,7 +125,7 @@ export const chips: ChipDefinition[] = [
             "PWM19":      ["P3.3"],
             "PWM20":      ["P3.4"],
             "PWM21":      ["P3.5"],
-            "PWM22":      ["P3.6"],
+            "PWM22":      ["P3.8"],
         }
       },
     ]

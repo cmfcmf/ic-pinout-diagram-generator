@@ -36,7 +36,7 @@ Use the following URL for nightly builds of the SDK: https://cdn.jsdelivr.net/gh
 
 ## Development
 
-To preview your changes, clone this repository, install Node.js 12 or later, run `npm install`, `npm run start`, and then open http://localhost:5000.
+To preview your changes, clone this repository, install Node.js 14 or later, run `npm install`, `npm run start`, and then open http://localhost:5000.
 
 All code (except for code in `src/chips`) should be formatted using prettier by running `npm run format`.
 

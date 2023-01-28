@@ -28,25 +28,26 @@
   },
   "dependencies": {
     "onecolor": "^3.1.0",
-    "react": "^17.0.1",
-    "react-dom": "^17.0.1",
-    "react-shadow": "^19.0.1",
-    "regenerator-runtime": "^0.13.7"
+    "react": "^18",
+    "react-dom": "^18",
+    "react-shadow": "^20",
+    "regenerator-runtime": "^0.13.11"
   },
   "devDependencies": {
-    "@parcel/optimizer-data-url": "2.0.0-rc.0",
-    "@parcel/transformer-inline-string": "2.0.0-rc.0",
-    "@parcel/validator-typescript": "^2.0.0-rc.0",
-    "@types/node": "^12.20.19",
-    "@types/react": "^17.0.18",
-    "@types/react-dom": "^17.0.9",
-    "parcel": "^2.0.0-rc.0",
-    "prettier": "^2.3.2",
-    "prop-types": "^15.7.2",
+    "@parcel/optimizer-data-url": "^2.8.3",
+    "@parcel/transformer-inline-string": "^2.8.3",
+    "@parcel/validator-typescript": "^2.8.3",
+    "@types/node": "^14",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "parcel": "^2.8.3",
+    "prettier": "^2.8.3",
+    "process": "^0.11.10",
+    "prop-types": "^15.8.1",
     "react-lag-radar": "^1.0.0",
-    "typescript": "^4.3.5"
+    "typescript": "^4.9.4"
   },
   "engines": {
-    "node": ">=12"
+    "node": ">=14"
   }
 }

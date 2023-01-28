@@ -1,9 +1,9 @@
 import "regenerator-runtime/runtime";
 import React, { Suspense } from "react";
-import ReactDOM from "react-dom";
 import { App } from "./App";
 import shadowRoot from "react-shadow";
 import css from "bundle-text:./sdk.css";
+import { createRoot } from "react-dom/client";
 
 let LagRadar: React.ComponentType;
 if (process.env.NODE_ENV === "development") {
@@ -15,10 +15,11 @@ if (process.env.NODE_ENV === "development") {
 // @ts-expect-error PinoutDiagrams does not exist of course.
 window.PinoutDiagrams = {
   render: (
-    root: ReactDOM.Container,
+    container: Element,
     { ics, maxWidth }: { ics?: string[]; maxWidth?: string }
   ) => {
-    ReactDOM.render(
+    const root = createRoot(container);
+    root.render(
       <React.StrictMode>
         {React.createElement(
           shadowRoot["div"]!,
@@ -36,8 +37,7 @@ window.PinoutDiagrams = {
             <LagRadar />
           </Suspense>
         )}
-      </React.StrictMode>,
-      root
+      </React.StrictMode>
     );
   },
 };

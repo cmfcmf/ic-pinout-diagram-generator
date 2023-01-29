@@ -44,6 +44,16 @@ In development, the bottom right of your screen will show a green "lag radar" th
 
 **Please note that changes to the CSS files are not currently hot reloaded. You need to reload your browser manually after making changes to CSS.**
 
+### Releasing a new version
+
+```bash
+npm version patch|minor|major
+git push --follow-tags
+gh release create --verify-tag --generate-notes
+```
+
+GitHub Actions will then take care of publishing to the npm registry.
+
 ## LICENSE
 
 MIT

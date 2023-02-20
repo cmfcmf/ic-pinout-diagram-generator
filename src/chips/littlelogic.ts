@@ -388,6 +388,44 @@ export const chips: ChipDefinition[] = [
     },
     {
         manufacturer: "Texas Instruments",
+        name: "SN74__1T157",
+        notes: "Single 2-Input Schmitt-Trigger Buffer Multiplexer\nAvailable in AUP family",
+        variants: [
+            {
+                name: [
+                    "1T157\nSOT-363 DCK"
+                ],
+                package: "dual",
+                pins: [
+                    "A", "GND", "B",
+                    "C", "VCC", "Y",
+                ],
+            }
+        ],
+        data: [
+            {
+                ...LOGIC_INPUT_SCHMITT,
+                pins: {
+                    "Input A":      ["A"],
+                    "Input B":      ["B"]
+                }
+            },
+            {
+                ...LOGIC_OUTPUT,
+                pins: {
+                    "Output":     ["Y"]
+                }
+            },
+            {
+                ...CONTROL,
+                pins: {
+                    "Mux Select":   ["C"]
+                }
+            }
+        ]
+    },
+    {
+        manufacturer: "Texas Instruments",
         name: "SN74__1G175",
         notes: "Single D-Type Flip-Flop with Asynchronous Clear\nAvailable in LVC family",
         variants: [

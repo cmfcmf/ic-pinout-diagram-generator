@@ -7,6 +7,7 @@ import { chips as raspberrypi } from "./chips/raspberrypi";
 import { chips as stm32g0 } from "./chips/stm32g0";
 import { chips as sn32f240b } from "./chips/sn32f240b";
 import { chips as sn32f260 } from "./chips/sn32f260";
+import { chips as littlelogic } from "./chips/littlelogic";
 
 export default [
   ...other,
@@ -18,4 +19,5 @@ export default [
   ...stm32g0,
   ...sn32f240b,
   ...sn32f260,
+  ...littlelogic,
 ];

@@ -326,8 +326,8 @@ export const chips: ChipDefinition[] = [
             {
                 ...LOGIC_INPUT_SCHMITT,
                 pins: {
-                    "Failling Edge Input":          ["~A"],
-                    "Rising Edge Input":            ["B"]
+                    "Falling Edge Input":          ["~A"],
+                    "Rising Edge Input":           ["B"]
                 }
             },
             {
@@ -565,7 +565,7 @@ export const chips: ChipDefinition[] = [
             {
                 ...CONTROL,
                 pins: {
-                    "Flip-Flip Clock":                  ["CLK"],
+                    "Flip-Flop Clock":                  ["CLK"],
                     "Output Enable (Active Low)":       ["~OE"]
                 }
             }

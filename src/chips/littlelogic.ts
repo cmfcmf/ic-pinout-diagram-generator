@@ -1,5 +1,5 @@
 import {
-    ChipDefinition,
+    ChipDefinition, SKIPPED_PIN,
 } from "./common";
 
 import {
@@ -13,6 +13,38 @@ import {
 } from "./logiccommon";
 
 export const chips: ChipDefinition[] = [
+    {
+        manufacturer: "Texas Instruments",
+        name: "SN74__1G00",
+        notes: "Single 2-Input Positive-NAND Gate\nAvailable in AHC, AHCT, LVC, AUC, AUP, LV1T and AUP1T family",
+        variants: [
+            {
+                name: [
+                    "1G00\nSOT-235 DBV\nSOT-353 DCK\nSOT-535 DRL"
+                ],
+                package: "dual",
+                pins: [
+                    "A", "B", "GND",
+                    "Y", SKIPPED_PIN, "VCC"
+                ],
+            }
+        ],
+        data: [
+            {
+                ...LOGIC_INPUT,
+                pins: {
+                    "Input A":    ["A"],
+                    "Input B":    ["B"]
+                }
+            },
+            {
+                ...LOGIC_OUTPUT,
+                pins: {
+                    "NAND Output":      ["Y"]
+                }
+            }
+        ]
+    },
     {
         manufacturer: "Texas Instruments",
         name: "SN74__1GX04",

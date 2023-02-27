@@ -90,6 +90,11 @@ td.empty:before {
   transform: translateY(-50%);
 }
 
+.pin-placeholder {
+  opacity: 0;
+  user-select: none;
+}
+
 .wrapper {
   max-width: 980px;
   margin-left: auto;

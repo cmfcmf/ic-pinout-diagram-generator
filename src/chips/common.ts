@@ -66,6 +66,12 @@ export const CRYSTAL_AND_TIMER_CLOCK_SOURCES = {
   name: "External Crystal / Timer Clock Source Pins",
 };
 
+export const SKIPPED_PIN = Symbol();
+export const SKIPPED_PIN_WITH_NUMBER = Symbol();
+
+export type SKIPPED_PIN = typeof SKIPPED_PIN;
+export type SKIPPED_PIN_WITH_NUMBER = typeof SKIPPED_PIN_WITH_NUMBER;
+
 export type ChipDefinition = {
   name: string;
   manufacturer?: string;
@@ -77,7 +83,7 @@ export type ChipDefinition = {
 
 export type ChipVariant = {
   name?: string | string[];
-  pins: string[];
+  pins: (string | SKIPPED_PIN | SKIPPED_PIN_WITH_NUMBER)[];
   package?: "dual" | "quad";
   additionalPins?: {
     description: string;

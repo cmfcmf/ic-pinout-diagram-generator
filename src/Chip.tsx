@@ -34,40 +34,66 @@ function nl2br(str: string) {
   });
 }
 
-type PinWithFunctions = {
-  name: {
-    value: string;
-    style: CSSProperties;
-  };
-  tags: Array<null | {
-    values: string[];
-    style: { background: string; color: string };
-  }>;
-};
+type PinWithFunctions<
+  // T === true <=> can be a skipped pin
+  T extends boolean
+> =
+  | {
+      type: "pin";
+      name: {
+        value: string;
+        style: CSSProperties;
+      };
+      tags: Array<null | {
+        values: string[];
+        style: { background: string; color: string };
+      }>;
+    }
+  | (T extends true
+      ? {
+          type: "skipped";
+          numFunctions: number;
+        }
+      : never);
 
-type PinWithFunctionsAndNumber = PinWithFunctions & { number: number };
+type PinWithFunctionsAndNumber<T extends boolean = true> = PinWithFunctions<T> & {
+  number: number | null;
+};
 
 function handlePin(
   chip: ChipDefinition,
   variant: ChipVariant,
   idx: number,
-  showIdx: number,
+  // can be `null` for skipped pins
+  number: number | null,
   reverse: boolean,
   visibleData: string[]
 ): PinWithFunctionsAndNumber {
-  const pinName = variant.pins[idx] as string;
+  const pinName = variant.pins[idx]!;
+
   return {
-    number: showIdx + 1,
+    number,
     ...handleAdditionalPin(chip, pinName, reverse, visibleData),
   };
 }
 
-function handleAdditionalPin(
+function handleAdditionalPin<T extends boolean>(
   chip: ChipDefinition,
-  pinName: string,
+  pinName: T extends true
+    ? string | SKIPPED_PIN | SKIPPED_PIN_WITH_NUMBER
+    : string,
   reverse: boolean,
   visibleData: string[]
-): PinWithFunctions {
+): PinWithFunctions<T> {
+  if (typeof pinName !== "string") {
+    return {
+      // @ts-expect-error
+      type: "skipped",
+      numFunctions: chip.data.filter((each) => visibleData.includes(each.name))
+        .length,
+    };
+  }
+
   let functions = [];
   const data = !reverse ? chip.data : reversed(chip.data);
   for (const entry of data) {
@@ -137,6 +163,7 @@ function handleAdditionalPin(
   }
 
   return {
+    type: "pin",
     name: {
       value: pinName,
       style: nameStyle,
@@ -292,16 +319,21 @@ function Variant({
   );
 }
 
-// generate pin numbers from pin names and preserve missing entries
-function pinNumbering(
-  pins: (string | SKIPPED_PIN | SKIPPED_PIN_WITH_NUMBER)[]
+// Maps an array of pin names and `SKIPPED_PIN(_WITH_NUMBERS)` to an array of
+// human-readable pin numbers.
+function generatePinNumbersForDisplay(
+  pins: ChipVariant["pins"]
 ): (number | null)[] {
-  let run = 0;
+  let number = 1;
   return pins.map((pin) => {
-    if (pin === SKIPPED_PIN) return null;
-    const before = run;
-    run += 1;
-    return pin === SKIPPED_PIN_WITH_NUMBER ? null : before;
+    if (pin === SKIPPED_PIN) {
+      return null;
+    }
+    if (pin === SKIPPED_PIN_WITH_NUMBER) {
+      ++number;
+      return null;
+    }
+    return number++;
   });
 }
 
@@ -321,7 +353,7 @@ function QuadPackage({
   const alignData = false;
 
   const pinsPerSide = variant.pins.length / 4;
-  const pinNumbers = pinNumbering(variant.pins);
+  const pinNumbers = generatePinNumbersForDisplay(variant.pins);
 
   return (
     <>
@@ -334,27 +366,35 @@ function QuadPackage({
         alignData={alignData}
         pinNumbers={pinNumbers}
       />
-      {nTimes(pinsPerSide).map((i) => {
-        const rightIndex = pinsPerSide - 1 - i + pinsPerSide * 2;
+      {nTimes(pinsPerSide).map((leftIndex) => {
+        const rightIndex = pinsPerSide - 1 - leftIndex + pinsPerSide * 2;
 
-        const leftNumber = pinNumbers[i];
-        const rightNumber = pinNumbers[rightIndex];
-        const pinLeft =
-          leftNumber != null &&
-          handlePin(chip, variant, i, leftNumber, true, visibleData);
-        const pinRight =
-          rightNumber != null &&
-          handlePin(chip, variant, rightIndex, rightNumber, false, visibleData);
+        const pinLeft = handlePin(
+          chip,
+          variant,
+          leftIndex,
+          pinNumbers[leftIndex]!,
+          true,
+          visibleData
+        );
+        const pinRight = handlePin(
+          chip,
+          variant,
+          rightIndex,
+          pinNumbers[rightIndex]!,
+          false,
+          visibleData
+        );
 
         return (
-          <tr key={i}>
+          <tr key={leftIndex}>
             <PinRow side="left" alignData={alignData} pin={pinLeft} />
             <ICBodyAndPinNames
               chip={chip}
               variant={variant}
               pinLeft={pinLeft}
               pinRight={pinRight}
-              isTopRow={i === 0}
+              isTopRow={leftIndex === 0}
             />
             <PinRow side="right" alignData={alignData} pin={pinRight} />
           </tr>
@@ -396,10 +436,14 @@ function QuadVerticalPins({
 
   const pinDatas = nTimes(pinsPerSide).map((i) => {
     const pinIdx = getPinIdx(i);
-    const pinNum = pinNumbers[pinIdx - 1];
-    const pin =
-      pinNum != null &&
-      handlePin(chip, variant, pinIdx - 1, pinNum, side === "top", visibleData);
+    const pin = handlePin(
+      chip,
+      variant,
+      pinIdx - 1,
+      pinNumbers[pinIdx - 1]!,
+      side === "top",
+      visibleData
+    );
     return [pinIdx, pin] as const;
   });
 
@@ -407,14 +451,12 @@ function QuadVerticalPins({
     <tr key="pin-number">
       <td colSpan={3} />
       {pinDatas.map(([pinIdx, pin]) =>
-        pin ? (
+        pin.type === "pin" ? (
           <td key={pinIdx} className="pin-number">
             {pin.number}
           </td>
         ) : (
-          <td key={pinIdx} className="pin-placeholder">
-            00
-          </td>
+          <td key={pinIdx} />
         )
       )}
       <td colSpan={3} />
@@ -422,7 +464,7 @@ function QuadVerticalPins({
     <tr key="pin-name">
       <td colSpan={3} />
       {pinDatas.map(([pinIdx, pin]) =>
-        pin ? (
+        pin.type === "pin" ? (
           <td
             key={pinIdx}
             className="badge pin-name"
@@ -479,31 +521,39 @@ function DualPackage({
     settings: { alignData },
   } = React.useContext(SettingsContext);
 
-  const pinNumbers = pinNumbering(variant.pins);
+  const pinNumbers = generatePinNumbersForDisplay(variant.pins);
 
   return (
     <>
-      {nTimes(variant.pins.length / 2).map((i) => {
-        const rightIndex = variant.pins.length - i - 1;
+      {nTimes(variant.pins.length / 2).map((leftIndex) => {
+        const rightIndex = variant.pins.length - leftIndex - 1;
 
-        const leftNumber = pinNumbers[i];
-        const rightNumber = pinNumbers[rightIndex];
-        const pinLeft =
-          leftNumber != null &&
-          handlePin(chip, variant, i, leftNumber, true, visibleData);
-        const pinRight =
-          rightNumber != null &&
-          handlePin(chip, variant, rightIndex, rightNumber, false, visibleData);
+        const pinLeft = handlePin(
+          chip,
+          variant,
+          leftIndex,
+          pinNumbers[leftIndex]!,
+          true,
+          visibleData
+        );
+        const pinRight = handlePin(
+          chip,
+          variant,
+          rightIndex,
+          pinNumbers[rightIndex]!,
+          false,
+          visibleData
+        );
 
         return (
-          <tr key={i}>
+          <tr key={leftIndex}>
             <PinRow side="left" alignData={alignData} pin={pinLeft} />
             <ICBodyAndPinNames
               chip={chip}
               variant={variant}
               pinLeft={pinLeft}
               pinRight={pinRight}
-              isTopRow={i === 0}
+              isTopRow={leftIndex === 0}
             />
             <PinRow side="right" alignData={alignData} pin={pinRight} />
           </tr>
@@ -533,7 +583,12 @@ const AdditionalPins = React.memo(function AdditionalPins({
   return (
     <>
       {variant.additionalPins?.map(({ description, pin: pinName }, i) => {
-        const pin = handleAdditionalPin(chip, pinName, false, visibleData);
+        const pin = handleAdditionalPin<false>(
+          chip,
+          pinName,
+          false,
+          visibleData
+        );
         return (
           <tr key={i}>
             <td
@@ -562,8 +617,8 @@ function ICBodyAndPinNames({
 }: {
   chip: ChipDefinition;
   variant: ChipVariant;
-  pinLeft: PinWithFunctionsAndNumber | false;
-  pinRight: PinWithFunctionsAndNumber | false;
+  pinLeft: PinWithFunctionsAndNumber;
+  pinRight: PinWithFunctionsAndNumber;
   isTopRow: boolean;
 }) {
   const rowSpan =
@@ -575,7 +630,7 @@ function ICBodyAndPinNames({
 
   return (
     <>
-      {pinLeft ? (
+      {pinLeft.type === "pin" ? (
         <>
           <td className="badge pin-name" style={pinLeft.name.style}>
             {pinLeft.name.value}
@@ -583,9 +638,7 @@ function ICBodyAndPinNames({
           <td className="pin-number">{pinLeft.number}</td>
         </>
       ) : (
-        <td colSpan={2} className="pin-placeholder">
-          00
-        </td>
+        <td colSpan={2} />
       )}
       {isTopRow && (
         <td className="ic" rowSpan={rowSpan} colSpan={colSpan}>
@@ -603,7 +656,7 @@ function ICBodyAndPinNames({
           ))}
         </td>
       )}
-      {pinRight ? (
+      {pinRight.type === "pin" ? (
         <>
           <td className="pin-number">{pinRight.number}</td>
           <td className="badge pin-name" style={pinRight.name.style}>
@@ -611,9 +664,7 @@ function ICBodyAndPinNames({
           </td>
         </>
       ) : (
-        <td colSpan={2} className="pin-placeholder">
-          00
-        </td>
+        <td colSpan={2} />
       )}
     </>
   );
@@ -626,9 +677,11 @@ function PinRow({
 }: {
   side: "top" | "bottom" | "left" | "right";
   alignData: boolean;
-  pin: PinWithFunctions | false;
+  pin: PinWithFunctions<true>;
 }) {
-  if (pin === false) return <td />;
+  if (pin.type === "skipped") {
+    return alignData ? <td colSpan={pin.numFunctions} /> : <td />;
+  }
 
   let leftFirstTagIndex = pin.tags.findIndex((each) => each !== null);
   if (leftFirstTagIndex === -1) {
